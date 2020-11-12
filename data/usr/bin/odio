@@ -206,6 +206,7 @@ class Odio(Application):
         self.nState = State.ENCODING
         self.toggleSensitivity(False)
         self.toggleToolbuttons(False)
+        self.pProgressbar.set_text(None)
 
         for nRow in self.m_lstSelectedRows:
 
@@ -553,10 +554,7 @@ class Odio(Application):
 
         while pSubprocess.poll() is None:
 
-            while Gtk.events_pending():
-
-                Gtk.main_iteration()
-
+            idle()
             time.sleep(0.04)
 
         oSelectedIters = Queue()
