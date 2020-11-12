@@ -210,15 +210,14 @@ class Odio(Application):
         for nRow in self.m_lstSelectedRows:
 
             pIter = self.pListstoreAudioFiles.get_iter(nRow)
+            pGstEncoder = GstEncoder()
 
             if strMethod == 'flac' or (strMethod == 'auto' and (self.pListstoreAudioFiles[nRow][Column.SAMPLERATE] > 44100 or self.pListstoreAudioFiles[nRow][Column.BPS] > 16 or self.pListstoreAudioFiles[nRow][Column.CHANNELS] > 2)):
 
-                pGstEncoder = GstEncoder()
                 Tasks.add(pGstEncoder, pIter, 'flac')
 
             else:
 
-                pGstEncoder = GstEncoder()
                 Tasks.add(pGstEncoder, pIter, 'aac')
 
         idle()
@@ -280,16 +279,6 @@ class Odio(Application):
         else:
             self.toggleToolbuttons(False)
 
-    def updateProgress(self, strText, fProgress):
-
-        if strText:
-
-            self.pStatusBarLabel.set_text(strText)
-
-        self.pProgressbar.set_fraction(fProgress)
-
-        return False
-
     def finishedEncodingBatch(self):
 
         self.pProgressbar.set_text('')
@@ -310,11 +299,13 @@ class Odio(Application):
                         os.remove(strImage)
 
             if os.path.isdir('/tmp/' + APPNAME):
+
                 shutil.rmtree('/tmp/' + APPNAME)
 
             for strTempDir in self.m_lstTempDirs:
 
                 if os.path.isdir(strTempDir):
+
                     shutil.rmtree(strTempDir)
 
             self.m_lstTempDirs.clear()
@@ -425,7 +416,12 @@ class Odio(Application):
         if fProgress != Tasks.dProgressLast['progress'] or strText:
 
             Tasks.dProgressLast['progress'] = fProgress
-            GLib.idle_add(self.updateProgress, strText, fProgress)
+
+            if strText:
+
+                self.pStatusBarLabel.set_text(strText)
+
+            self.pProgressbar.set_fraction(fProgress)
 
         if Tasks.count(GstState.DONE)[0] == len(Tasks.lQueue):
 
