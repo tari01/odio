@@ -1,0 +1,16 @@
+Source: odio
+Section: sound
+Priority: optional
+Maintainer: Robert Tari <robert@tari.in>
+Build-Depends: debhelper (>= 10), dh-python, python3 (>= 3.6), python3-setuptools, python3-polib
+Standards-Version: 4.0.1
+Homepage: https://tari.in/www/software/odio/
+X-Python3-Version: >= 3.6
+
+Package: odio
+Architecture: all
+Depends: ${misc:Depends}, ${python3:Depends}, gstreamer1.0-plugins-good, gstreamer1.0-plugins-bad, gstreamer1.0-plugins-ugly, gstreamer1.0-libav, python3-gst-1.0, python3-html5lib, python3-bs4, python3-lxml, python3-psutil, python3-mutagen, odio-edit, neroaac, libodiosacd, lsdvd
+Description: Audio compression tool for FLAC and Nero AAC
+ This application reads lossless audio, cue sheets, SACDs and DVDs and writes FLAC
+ or Nero AAC. It features a joblist and a powerful tag editor capable of
+ fetching all metadata from allmusic.com pages.

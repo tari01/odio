@@ -1,0 +1,14 @@
+#!/usr/bin/make -f
+# -*- mode: makefile; coding: utf-8 -*-
+
+%:
+		dh $@ --with python3 --buildsystem=pybuild
+
+override_dh_auto_clean:
+	dh_auto_clean
+	rm -Rfv data/usr/share/locale
+	rm -fv odio.egg-info/PKG-INFO
+	rm -fv odio.egg-info/SOURCES.txt
+	rm -fv odio.egg-info/dependency_links.txt
+	rm -fv odio.egg-info/requires.txt
+	rm -fv odio.egg-info/top_level.txt

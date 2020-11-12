@@ -1,0 +1,1448 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated with glade 3.38.1 -->
+<interface>
+  <requires lib="gtk+" version="3.24"/>
+  <object class="GtkFileFilter" id="filefilterImages">
+    <patterns>
+      <pattern>*.[jJ][pP][gG]</pattern>
+      <pattern>*.[jJ][pP][eE][gG]</pattern>
+    </patterns>
+  </object>
+  <object class="GtkImage" id="image1">
+    <property name="visible">True</property>
+    <property name="can-focus">False</property>
+    <property name="margin-end">5</property>
+    <property name="icon-name">go-down</property>
+  </object>
+  <object class="GtkImage" id="image2">
+    <property name="visible">True</property>
+    <property name="can-focus">False</property>
+    <property name="margin-end">5</property>
+    <property name="icon-name">go-up</property>
+  </object>
+  <object class="GtkImage" id="image3">
+    <property name="visible">True</property>
+    <property name="can-focus">False</property>
+    <property name="margin-end">5</property>
+    <property name="icon-name">insert-image</property>
+  </object>
+  <object class="GtkImage" id="image4">
+    <property name="visible">True</property>
+    <property name="can-focus">False</property>
+    <property name="margin-end">5</property>
+    <property name="icon-name">edit-paste</property>
+  </object>
+  <object class="GtkImage" id="image5">
+    <property name="visible">True</property>
+    <property name="can-focus">False</property>
+    <property name="margin-end">5</property>
+    <property name="icon-name">view-sort-ascending</property>
+  </object>
+  <object class="GtkDialog" id="dialog">
+    <property name="can-focus">False</property>
+    <property name="border-width">5</property>
+    <property name="title" translatable="yes">Tag editor</property>
+    <property name="modal">True</property>
+    <property name="window-position">center-on-parent</property>
+    <property name="default-width">500</property>
+    <property name="destroy-with-parent">True</property>
+    <property name="type-hint">dialog</property>
+    <property name="skip-taskbar-hint">True</property>
+    <property name="skip-pager-hint">True</property>
+    <property name="urgency-hint">True</property>
+    <child internal-child="vbox">
+      <object class="GtkBox" id="dialog-vbox2">
+        <property name="visible">True</property>
+        <property name="can-focus">False</property>
+        <property name="orientation">vertical</property>
+        <child internal-child="action_area">
+          <object class="GtkButtonBox" id="dialog-action_area1">
+            <property name="can-focus">True</property>
+            <property name="layout-style">end</property>
+            <child>
+              <object class="GtkButton" id="buttonGetTagFromWeb">
+                <property name="label" translatable="yes">Get tag</property>
+                <property name="visible">True</property>
+                <property name="can-focus">True</property>
+                <property name="receives-default">True</property>
+                <property name="tooltip-text" translatable="yes">Copy the allmusic.com album page address in your browser and click here</property>
+                <property name="image">image4</property>
+                <property name="always-show-image">True</property>
+                <signal name="clicked" handler="onButtonGetTagFromWebClicked" swapped="no"/>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">False</property>
+                <property name="position">0</property>
+                <property name="non-homogeneous">True</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkButton" id="buttonImage">
+                <property name="label" translatable="yes">Change image</property>
+                <property name="visible">True</property>
+                <property name="can-focus">True</property>
+                <property name="receives-default">True</property>
+                <property name="tooltip-text" translatable="yes">Browse for an album cover</property>
+                <property name="image">image3</property>
+                <property name="always-show-image">True</property>
+                <signal name="clicked" handler="onButtonImageClicked" swapped="no"/>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">False</property>
+                <property name="position">1</property>
+                <property name="non-homogeneous">True</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkButton" id="buttonRenumber">
+                <property name="label" translatable="yes">Renumber</property>
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+                <property name="receives-default">True</property>
+                <property name="tooltip-text" translatable="yes">Change track numbers in selection</property>
+                <property name="image">image5</property>
+                <property name="always-show-image">True</property>
+                <signal name="clicked" handler="onButtonRenumberClicked" swapped="no"/>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">2</property>
+                <property name="non-homogeneous">True</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkButton" id="buttonFileUp">
+                <property name="label" translatable="yes">Previous file</property>
+                <property name="visible">True</property>
+                <property name="can-focus">True</property>
+                <property name="receives-default">True</property>
+                <property name="tooltip-text" translatable="yes">Move to previous file in selection</property>
+                <property name="image">image2</property>
+                <property name="always-show-image">True</property>
+                <signal name="clicked" handler="onButtonFileUpClicked" swapped="no"/>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">3</property>
+                <property name="non-homogeneous">True</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkButton" id="buttonFileDown">
+                <property name="label" translatable="yes">Next file</property>
+                <property name="visible">True</property>
+                <property name="can-focus">True</property>
+                <property name="receives-default">True</property>
+                <property name="tooltip-text" translatable="yes">Move to next file in selection</property>
+                <property name="image">image1</property>
+                <property name="always-show-image">True</property>
+                <signal name="clicked" handler="onButtonFileDownClicked" swapped="no"/>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">4</property>
+                <property name="non-homogeneous">True</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">False</property>
+            <property name="pack-type">end</property>
+            <property name="position">-1</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkBox" id="vbox2">
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <property name="orientation">vertical</property>
+            <child>
+              <object class="GtkCheckButton" id="checkbuttonFolder">
+                <property name="label" translatable="yes">Output folder</property>
+                <property name="visible">True</property>
+                <property name="can-focus">True</property>
+                <property name="focus-on-click">False</property>
+                <property name="receives-default">False</property>
+                <property name="tooltip-text" translatable="yes">Copy this field to all files in selection</property>
+                <property name="halign">start</property>
+                <property name="valign">center</property>
+                <property name="draw-indicator">True</property>
+                <signal name="button-press-event" handler="onCheckbuttonFolderClicked" swapped="no"/>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">False</property>
+                <property name="position">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkEntry" id="entryFolder">
+                <property name="visible">True</property>
+                <property name="can-focus">True</property>
+                <property name="tooltip-text" translatable="yes">The output folder relative to the base folder</property>
+                <property name="margin-bottom">5</property>
+                <property name="invisible-char">●</property>
+                <signal name="changed" handler="onEntryFolderChanged" swapped="no"/>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">False</property>
+                <property name="position">1</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkSeparator" id="hseparator1">
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+                <property name="margin-bottom">5</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">False</property>
+                <property name="padding">5</property>
+                <property name="position">2</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkCheckButton" id="checkbuttonAlbumArtist">
+                <property name="label" translatable="yes">Album artist</property>
+                <property name="visible">True</property>
+                <property name="can-focus">True</property>
+                <property name="focus-on-click">False</property>
+                <property name="receives-default">False</property>
+                <property name="tooltip-text" translatable="yes">Copy this field to all files in selection</property>
+                <property name="halign">start</property>
+                <property name="valign">center</property>
+                <property name="relief">none</property>
+                <property name="draw-indicator">True</property>
+                <signal name="button-press-event" handler="onCheckbuttonAlbumArtistClicked" swapped="no"/>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">False</property>
+                <property name="position">3</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkEntry" id="entryAlbumArtist">
+                <property name="visible">True</property>
+                <property name="can-focus">True</property>
+                <property name="tooltip-text" translatable="yes">Name of the album artist</property>
+                <property name="margin-bottom">5</property>
+                <property name="invisible-char">●</property>
+                <signal name="changed" handler="onEntryAlbumArtistChanged" swapped="no"/>
+                <signal name="populate-popup" handler="onEntryPopulatePopup" swapped="no"/>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">False</property>
+                <property name="position">4</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkCheckButton" id="checkbuttonArtist">
+                <property name="label" translatable="yes">Artist</property>
+                <property name="visible">True</property>
+                <property name="can-focus">True</property>
+                <property name="receives-default">False</property>
+                <property name="tooltip-text" translatable="yes">Copy this field to all files in selection</property>
+                <property name="halign">start</property>
+                <property name="valign">center</property>
+                <property name="relief">none</property>
+                <property name="draw-indicator">True</property>
+                <signal name="button-press-event" handler="onCheckbuttonArtistClicked" swapped="no"/>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">False</property>
+                <property name="position">5</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkEntry" id="entryArtist">
+                <property name="visible">True</property>
+                <property name="can-focus">True</property>
+                <property name="tooltip-text" translatable="yes">Name of the artist for this track</property>
+                <property name="margin-bottom">5</property>
+                <property name="invisible-char">●</property>
+                <signal name="changed" handler="onEntryArtistChanged" swapped="no"/>
+                <signal name="populate-popup" handler="onEntryPopulatePopup" swapped="no"/>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">False</property>
+                <property name="position">6</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkCheckButton" id="checkbuttonAlbum">
+                <property name="label" translatable="yes">Album</property>
+                <property name="visible">True</property>
+                <property name="can-focus">True</property>
+                <property name="focus-on-click">False</property>
+                <property name="receives-default">False</property>
+                <property name="tooltip-text" translatable="yes">Copy this field to all files in selection</property>
+                <property name="halign">start</property>
+                <property name="valign">center</property>
+                <property name="draw-indicator">True</property>
+                <signal name="button-press-event" handler="onCheckbuttonAlbumClicked" swapped="no"/>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">False</property>
+                <property name="position">7</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkEntry" id="entryAlbum">
+                <property name="visible">True</property>
+                <property name="can-focus">True</property>
+                <property name="tooltip-text" translatable="yes">Album title</property>
+                <property name="valign">center</property>
+                <property name="margin-bottom">5</property>
+                <property name="invisible-char">●</property>
+                <signal name="changed" handler="onEntryAlbumChanged" swapped="no"/>
+                <signal name="populate-popup" handler="onEntryPopulatePopup" swapped="no"/>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">False</property>
+                <property name="position">8</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkCheckButton" id="checkbuttonYear">
+                <property name="label" translatable="yes">Year</property>
+                <property name="visible">True</property>
+                <property name="can-focus">True</property>
+                <property name="focus-on-click">False</property>
+                <property name="receives-default">False</property>
+                <property name="tooltip-text" translatable="yes">Copy this field to all files in selection</property>
+                <property name="halign">start</property>
+                <property name="valign">center</property>
+                <property name="draw-indicator">True</property>
+                <signal name="button-press-event" handler="onCheckbuttonYearClicked" swapped="no"/>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">False</property>
+                <property name="position">9</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkEntry" id="entryYear">
+                <property name="visible">True</property>
+                <property name="can-focus">True</property>
+                <property name="tooltip-text" translatable="yes">Recording year</property>
+                <property name="halign">start</property>
+                <property name="valign">center</property>
+                <property name="margin-bottom">5</property>
+                <property name="max-length">4</property>
+                <property name="invisible-char">●</property>
+                <property name="width-chars">5</property>
+                <signal name="changed" handler="onEntryYearChanged" swapped="no"/>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">False</property>
+                <property name="position">10</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkCheckButton" id="checkbuttonGenre">
+                <property name="label" translatable="yes">Genre</property>
+                <property name="visible">True</property>
+                <property name="can-focus">True</property>
+                <property name="focus-on-click">False</property>
+                <property name="receives-default">False</property>
+                <property name="tooltip-text" translatable="yes">Copy this field to all files in selection</property>
+                <property name="halign">start</property>
+                <property name="valign">end</property>
+                <property name="draw-indicator">True</property>
+                <signal name="button-press-event" handler="onCheckbuttonGenreClicked" swapped="no"/>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">False</property>
+                <property name="position">11</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkComboBox" id="comboboxGenre">
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+                <property name="valign">center</property>
+                <property name="margin-bottom">5</property>
+                <property name="wrap-width">10</property>
+                <property name="has-entry">True</property>
+                <property name="entry-text-column">0</property>
+                <signal name="changed" handler="onComboboxGenreChanged" swapped="no"/>
+                <child internal-child="entry">
+                  <object class="GtkEntry" id="comboboxtext-entry">
+                    <property name="can-focus">True</property>
+                    <property name="tooltip-text" translatable="yes">Genres and styles</property>
+                  </object>
+                </child>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">False</property>
+                <property name="position">12</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkBox" id="vbox4">
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+                <property name="margin-bottom">5</property>
+                <property name="spacing">2</property>
+                <property name="homogeneous">True</property>
+                <child>
+                  <object class="GtkBox" id="vbox10">
+                    <property name="visible">True</property>
+                    <property name="can-focus">False</property>
+                    <property name="orientation">vertical</property>
+                    <child>
+                      <object class="GtkCheckButton" id="checkbuttonDisc">
+                        <property name="label" translatable="yes">Disc</property>
+                        <property name="visible">True</property>
+                        <property name="can-focus">True</property>
+                        <property name="focus-on-click">False</property>
+                        <property name="receives-default">False</property>
+                        <property name="tooltip-text" translatable="yes">Copy this field to all files in selection</property>
+                        <property name="halign">start</property>
+                        <property name="valign">center</property>
+                        <property name="draw-indicator">True</property>
+                        <signal name="button-press-event" handler="onCheckbuttonDiscClicked" swapped="no"/>
+                      </object>
+                      <packing>
+                        <property name="expand">True</property>
+                        <property name="fill">True</property>
+                        <property name="position">0</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkComboBox" id="comboboxDiscNum">
+                        <property name="visible">True</property>
+                        <property name="can-focus">False</property>
+                        <property name="wrap-width">10</property>
+                        <property name="has-entry">True</property>
+                        <property name="entry-text-column">0</property>
+                        <signal name="changed" handler="onComboboxDiscNumChanged" swapped="no"/>
+                        <child internal-child="entry">
+                          <object class="GtkEntry" id="comboboxtext-entry4">
+                            <property name="can-focus">False</property>
+                            <property name="tooltip-text" translatable="yes">Number of disc in this set</property>
+                            <property name="editable">False</property>
+                            <property name="width-chars">2</property>
+                          </object>
+                        </child>
+                      </object>
+                      <packing>
+                        <property name="expand">True</property>
+                        <property name="fill">True</property>
+                        <property name="position">1</property>
+                      </packing>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">0</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkBox" id="vbox7">
+                    <property name="visible">True</property>
+                    <property name="can-focus">False</property>
+                    <property name="orientation">vertical</property>
+                    <child>
+                      <object class="GtkCheckButton" id="checkbuttonDiscsTotal">
+                        <property name="label" translatable="yes">Total discs</property>
+                        <property name="visible">True</property>
+                        <property name="can-focus">True</property>
+                        <property name="focus-on-click">False</property>
+                        <property name="receives-default">False</property>
+                        <property name="tooltip-text" translatable="yes">Copy this field to all files in selection</property>
+                        <property name="halign">start</property>
+                        <property name="valign">center</property>
+                        <property name="draw-indicator">True</property>
+                        <signal name="button-press-event" handler="onCheckbuttonDiscsTotalClicked" swapped="no"/>
+                      </object>
+                      <packing>
+                        <property name="expand">True</property>
+                        <property name="fill">True</property>
+                        <property name="position">0</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkComboBox" id="comboboxDiscTotal">
+                        <property name="visible">True</property>
+                        <property name="can-focus">False</property>
+                        <property name="wrap-width">10</property>
+                        <property name="has-entry">True</property>
+                        <property name="entry-text-column">0</property>
+                        <signal name="changed" handler="onComboboxDiscTotalChanged" swapped="no"/>
+                        <child internal-child="entry">
+                          <object class="GtkEntry" id="comboboxtext-entry3">
+                            <property name="can-focus">False</property>
+                            <property name="tooltip-text" translatable="yes">Total number of discs in this set</property>
+                            <property name="editable">False</property>
+                            <property name="width-chars">2</property>
+                          </object>
+                        </child>
+                      </object>
+                      <packing>
+                        <property name="expand">True</property>
+                        <property name="fill">True</property>
+                        <property name="position">1</property>
+                      </packing>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">1</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkBox" id="vbox16">
+                    <property name="visible">True</property>
+                    <property name="can-focus">False</property>
+                    <property name="orientation">vertical</property>
+                    <child>
+                      <object class="GtkLabel" id="label8">
+                        <property name="visible">True</property>
+                        <property name="can-focus">False</property>
+                        <property name="halign">start</property>
+                        <property name="valign">center</property>
+                        <property name="ypad">3</property>
+                        <property name="label" translatable="yes">Track</property>
+                        <property name="xalign">0</property>
+                      </object>
+                      <packing>
+                        <property name="expand">True</property>
+                        <property name="fill">True</property>
+                        <property name="position">0</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkComboBox" id="comboboxTrackNum">
+                        <property name="visible">True</property>
+                        <property name="can-focus">False</property>
+                        <property name="wrap-width">10</property>
+                        <property name="has-entry">True</property>
+                        <property name="entry-text-column">0</property>
+                        <signal name="changed" handler="onComboboxTrackNumChanged" swapped="no"/>
+                        <child internal-child="entry">
+                          <object class="GtkEntry" id="comboboxtext-entry2">
+                            <property name="can-focus">False</property>
+                            <property name="tooltip-text" translatable="yes">Track number</property>
+                            <property name="editable">False</property>
+                            <property name="width-chars">2</property>
+                          </object>
+                        </child>
+                      </object>
+                      <packing>
+                        <property name="expand">True</property>
+                        <property name="fill">True</property>
+                        <property name="position">1</property>
+                      </packing>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">2</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkBox" id="vbox13">
+                    <property name="visible">True</property>
+                    <property name="can-focus">False</property>
+                    <property name="orientation">vertical</property>
+                    <child>
+                      <object class="GtkCheckButton" id="checkbuttonTracksTotal">
+                        <property name="label" translatable="yes">Total tracks</property>
+                        <property name="visible">True</property>
+                        <property name="can-focus">True</property>
+                        <property name="focus-on-click">False</property>
+                        <property name="receives-default">False</property>
+                        <property name="tooltip-text" translatable="yes">Copy this field to all files in selection</property>
+                        <property name="halign">start</property>
+                        <property name="valign">center</property>
+                        <property name="draw-indicator">True</property>
+                        <signal name="button-press-event" handler="onCheckbuttonTracksTotalClicked" swapped="no"/>
+                      </object>
+                      <packing>
+                        <property name="expand">True</property>
+                        <property name="fill">True</property>
+                        <property name="position">0</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkComboBox" id="comboboxTrackTotal">
+                        <property name="visible">True</property>
+                        <property name="can-focus">False</property>
+                        <property name="wrap-width">10</property>
+                        <property name="has-entry">True</property>
+                        <property name="entry-text-column">0</property>
+                        <signal name="changed" handler="onComboboxTrackTotalChanged" swapped="no"/>
+                        <child internal-child="entry">
+                          <object class="GtkEntry" id="comboboxtext-entry1">
+                            <property name="can-focus">False</property>
+                            <property name="tooltip-text" translatable="yes">Total number of tracks</property>
+                            <property name="editable">False</property>
+                            <property name="width-chars">2</property>
+                          </object>
+                        </child>
+                      </object>
+                      <packing>
+                        <property name="expand">True</property>
+                        <property name="fill">True</property>
+                        <property name="position">1</property>
+                      </packing>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">3</property>
+                  </packing>
+                </child>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">False</property>
+                <property name="position">13</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkCheckButton" id="checkbuttonComment">
+                <property name="label" translatable="yes">Comment</property>
+                <property name="visible">True</property>
+                <property name="can-focus">True</property>
+                <property name="focus-on-click">False</property>
+                <property name="receives-default">False</property>
+                <property name="tooltip-text" translatable="yes">Copy this field to all files in selection</property>
+                <property name="halign">start</property>
+                <property name="valign">center</property>
+                <property name="draw-indicator">True</property>
+                <signal name="button-press-event" handler="onCheckbuttonCommentClicked" swapped="no"/>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">False</property>
+                <property name="position">14</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkEntry" id="entryComment">
+                <property name="visible">True</property>
+                <property name="can-focus">True</property>
+                <property name="tooltip-text" translatable="yes">User comments</property>
+                <property name="margin-bottom">5</property>
+                <property name="invisible-char">●</property>
+                <signal name="changed" handler="onEntryCommentChanged" swapped="no"/>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">False</property>
+                <property name="position">15</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="label5">
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+                <property name="halign">start</property>
+                <property name="valign">center</property>
+                <property name="label" translatable="yes">Title</property>
+                <property name="xalign">0</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">False</property>
+                <property name="padding">3</property>
+                <property name="position">16</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkEntry" id="entryTitle">
+                <property name="visible">True</property>
+                <property name="can-focus">True</property>
+                <property name="tooltip-text" translatable="yes">Title of the audio</property>
+                <property name="valign">center</property>
+                <property name="margin-bottom">5</property>
+                <property name="invisible-char">●</property>
+                <signal name="changed" handler="onEntryTitleChanged" swapped="no"/>
+                <signal name="paste-clipboard" handler="onEntryPasteClipboard" swapped="no"/>
+                <signal name="populate-popup" handler="onEntryPopulatePopup" swapped="no"/>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">False</property>
+                <property name="position">17</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkCheckButton" id="checkbuttonCover">
+                <property name="label" translatable="yes">Cover art</property>
+                <property name="visible">True</property>
+                <property name="can-focus">True</property>
+                <property name="receives-default">False</property>
+                <property name="tooltip-text" translatable="yes">Copy this image to all files in selection</property>
+                <property name="halign">start</property>
+                <property name="valign">center</property>
+                <property name="draw-indicator">True</property>
+                <signal name="button-press-event" handler="onCheckbuttonCoverClicked" swapped="no"/>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">False</property>
+                <property name="position">18</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkImage" id="imageCover">
+                <property name="height-request">100</property>
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+                <property name="valign">start</property>
+                <property name="margin-bottom">5</property>
+                <property name="xalign">0</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">False</property>
+                <property name="position">19</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkSeparator" id="separator1">
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+                <property name="valign">end</property>
+                <property name="margin-bottom">5</property>
+              </object>
+              <packing>
+                <property name="expand">True</property>
+                <property name="fill">True</property>
+                <property name="position">20</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">True</property>
+            <property name="fill">True</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+    <action-widgets>
+      <action-widget response="-1">buttonGetTagFromWeb</action-widget>
+      <action-widget response="-1">buttonImage</action-widget>
+      <action-widget response="-1">buttonRenumber</action-widget>
+      <action-widget response="-1">buttonFileUp</action-widget>
+      <action-widget response="-1">buttonFileDown</action-widget>
+    </action-widgets>
+  </object>
+  <object class="GtkListStore" id="liststoreGenres">
+    <columns>
+      <!-- column-name genre -->
+      <column type="gchararray"/>
+    </columns>
+    <data>
+      <row>
+        <col id="0">A Capella</col>
+      </row>
+      <row>
+        <col id="0">Acid</col>
+      </row>
+      <row>
+        <col id="0">Acid Jazz</col>
+      </row>
+      <row>
+        <col id="0">Acid Punk</col>
+      </row>
+      <row>
+        <col id="0">Acoustic</col>
+      </row>
+      <row>
+        <col id="0">AlternRock</col>
+      </row>
+      <row>
+        <col id="0">Alternative</col>
+      </row>
+      <row>
+        <col id="0">Ambient</col>
+      </row>
+      <row>
+        <col id="0">Avantgarde</col>
+      </row>
+      <row>
+        <col id="0">Ballad</col>
+      </row>
+      <row>
+        <col id="0">Bass</col>
+      </row>
+      <row>
+        <col id="0">Bebop</col>
+      </row>
+      <row>
+        <col id="0">Big Band</col>
+      </row>
+      <row>
+        <col id="0">Bluegrass</col>
+      </row>
+      <row>
+        <col id="0">Blues</col>
+      </row>
+      <row>
+        <col id="0">Booty Bass</col>
+      </row>
+      <row>
+        <col id="0">Cabaret</col>
+      </row>
+      <row>
+        <col id="0">Celtic</col>
+      </row>
+      <row>
+        <col id="0">Chamber Music</col>
+      </row>
+      <row>
+        <col id="0">Chanson</col>
+      </row>
+      <row>
+        <col id="0">Chorus</col>
+      </row>
+      <row>
+        <col id="0">Christian Rap</col>
+      </row>
+      <row>
+        <col id="0">Classic Rock</col>
+      </row>
+      <row>
+        <col id="0">Classical</col>
+      </row>
+      <row>
+        <col id="0">Club</col>
+      </row>
+      <row>
+        <col id="0">Comedy</col>
+      </row>
+      <row>
+        <col id="0">Country</col>
+      </row>
+      <row>
+        <col id="0">Cult</col>
+      </row>
+      <row>
+        <col id="0">Dance</col>
+      </row>
+      <row>
+        <col id="0">Dance Hall</col>
+      </row>
+      <row>
+        <col id="0">Darkwave</col>
+      </row>
+      <row>
+        <col id="0">Death Metal</col>
+      </row>
+      <row>
+        <col id="0">Disco</col>
+      </row>
+      <row>
+        <col id="0">Dream</col>
+      </row>
+      <row>
+        <col id="0">Drum Solo</col>
+      </row>
+      <row>
+        <col id="0">Duet</col>
+      </row>
+      <row>
+        <col id="0">Easy Listening</col>
+      </row>
+      <row>
+        <col id="0">Electronic</col>
+      </row>
+      <row>
+        <col id="0">Ethnic</col>
+      </row>
+      <row>
+        <col id="0">Euro-House</col>
+      </row>
+      <row>
+        <col id="0">Euro-Techno</col>
+      </row>
+      <row>
+        <col id="0">Eurodance</col>
+      </row>
+      <row>
+        <col id="0">Fast Fusion</col>
+      </row>
+      <row>
+        <col id="0">Folk</col>
+      </row>
+      <row>
+        <col id="0">Folk-Rock</col>
+      </row>
+      <row>
+        <col id="0">Folklore</col>
+      </row>
+      <row>
+        <col id="0">Freestyle</col>
+      </row>
+      <row>
+        <col id="0">Funk</col>
+      </row>
+      <row>
+        <col id="0">Fusion</col>
+      </row>
+      <row>
+        <col id="0">Game</col>
+      </row>
+      <row>
+        <col id="0">Gansta</col>
+      </row>
+      <row>
+        <col id="0">Gospel</col>
+      </row>
+      <row>
+        <col id="0">Gothic</col>
+      </row>
+      <row>
+        <col id="0">Gothic Rock</col>
+      </row>
+      <row>
+        <col id="0">Grunge</col>
+      </row>
+      <row>
+        <col id="0">Hard Rock</col>
+      </row>
+      <row>
+        <col id="0">Hip-Hop</col>
+      </row>
+      <row>
+        <col id="0">House</col>
+      </row>
+      <row>
+        <col id="0">Humour</col>
+      </row>
+      <row>
+        <col id="0">Industrial</col>
+      </row>
+      <row>
+        <col id="0">Instrumental</col>
+      </row>
+      <row>
+        <col id="0">Instrumental Pop</col>
+      </row>
+      <row>
+        <col id="0">Instrumental Rock</col>
+      </row>
+      <row>
+        <col id="0">Jazz</col>
+      </row>
+      <row>
+        <col id="0">Jazz+Funk</col>
+      </row>
+      <row>
+        <col id="0">Jungle</col>
+      </row>
+      <row>
+        <col id="0">Latin</col>
+      </row>
+      <row>
+        <col id="0">Lo-Fi</col>
+      </row>
+      <row>
+        <col id="0">Meditative</col>
+      </row>
+      <row>
+        <col id="0">Metal</col>
+      </row>
+      <row>
+        <col id="0">Musical</col>
+      </row>
+      <row>
+        <col id="0">National Folk</col>
+      </row>
+      <row>
+        <col id="0">Native American</col>
+      </row>
+      <row>
+        <col id="0">New Age</col>
+      </row>
+      <row>
+        <col id="0">New Wave</col>
+      </row>
+      <row>
+        <col id="0">Noise</col>
+      </row>
+      <row>
+        <col id="0">Oldies</col>
+      </row>
+      <row>
+        <col id="0">Opera</col>
+      </row>
+      <row>
+        <col id="0">Other</col>
+      </row>
+      <row>
+        <col id="0">Polka</col>
+      </row>
+      <row>
+        <col id="0">Pop</col>
+      </row>
+      <row>
+        <col id="0">Pop-Folk</col>
+      </row>
+      <row>
+        <col id="0">Pop/Funk</col>
+      </row>
+      <row>
+        <col id="0">Porn Groove</col>
+      </row>
+      <row>
+        <col id="0">Power Ballad</col>
+      </row>
+      <row>
+        <col id="0">Pranks</col>
+      </row>
+      <row>
+        <col id="0">Primus</col>
+      </row>
+      <row>
+        <col id="0">Progressive Rock</col>
+      </row>
+      <row>
+        <col id="0">Psychadelic Rock</col>
+      </row>
+      <row>
+        <col id="0">Psychaledic</col>
+      </row>
+      <row>
+        <col id="0">Punk</col>
+      </row>
+      <row>
+        <col id="0">Punk Rock</col>
+      </row>
+      <row>
+        <col id="0">R&amp;B</col>
+      </row>
+      <row>
+        <col id="0">Rap</col>
+      </row>
+      <row>
+        <col id="0">Rave</col>
+      </row>
+      <row>
+        <col id="0">Reggae</col>
+      </row>
+      <row>
+        <col id="0">Retro</col>
+      </row>
+      <row>
+        <col id="0">Revival</col>
+      </row>
+      <row>
+        <col id="0">Rhythmic Soul</col>
+      </row>
+      <row>
+        <col id="0">Rock</col>
+      </row>
+      <row>
+        <col id="0">Rock &amp; Roll</col>
+      </row>
+      <row>
+        <col id="0">Samba</col>
+      </row>
+      <row>
+        <col id="0">Satire</col>
+      </row>
+      <row>
+        <col id="0">Showtunes</col>
+      </row>
+      <row>
+        <col id="0">Ska</col>
+      </row>
+      <row>
+        <col id="0">Slow Jam</col>
+      </row>
+      <row>
+        <col id="0">Slow Rock</col>
+      </row>
+      <row>
+        <col id="0">Sonata</col>
+      </row>
+      <row>
+        <col id="0">Soul</col>
+      </row>
+      <row>
+        <col id="0">Sound Clip</col>
+      </row>
+      <row>
+        <col id="0">Soundtrack</col>
+      </row>
+      <row>
+        <col id="0">Southern Rock</col>
+      </row>
+      <row>
+        <col id="0">Space</col>
+      </row>
+      <row>
+        <col id="0">Speech</col>
+      </row>
+      <row>
+        <col id="0">Swing</col>
+      </row>
+      <row>
+        <col id="0">Symphonic Rock</col>
+      </row>
+      <row>
+        <col id="0">Symphony</col>
+      </row>
+      <row>
+        <col id="0">Tango</col>
+      </row>
+      <row>
+        <col id="0">Techno</col>
+      </row>
+      <row>
+        <col id="0">Techno-Indistrial</col>
+      </row>
+      <row>
+        <col id="0">Top 40</col>
+      </row>
+      <row>
+        <col id="0">Trailer</col>
+      </row>
+      <row>
+        <col id="0">Trance</col>
+      </row>
+      <row>
+        <col id="0">Tribal</col>
+      </row>
+      <row>
+        <col id="0">Trip-Hop</col>
+      </row>
+      <row>
+        <col id="0">Vocal</col>
+      </row>
+    </data>
+  </object>
+  <object class="GtkListStore" id="liststoreNumbers">
+    <columns>
+      <!-- column-name numbers -->
+      <column type="gchararray"/>
+    </columns>
+    <data>
+      <row>
+        <col id="0">01</col>
+      </row>
+      <row>
+        <col id="0">02</col>
+      </row>
+      <row>
+        <col id="0">03</col>
+      </row>
+      <row>
+        <col id="0">04</col>
+      </row>
+      <row>
+        <col id="0">05</col>
+      </row>
+      <row>
+        <col id="0">06</col>
+      </row>
+      <row>
+        <col id="0">07</col>
+      </row>
+      <row>
+        <col id="0">08</col>
+      </row>
+      <row>
+        <col id="0">09</col>
+      </row>
+      <row>
+        <col id="0">10</col>
+      </row>
+      <row>
+        <col id="0">11</col>
+      </row>
+      <row>
+        <col id="0">12</col>
+      </row>
+      <row>
+        <col id="0">13</col>
+      </row>
+      <row>
+        <col id="0">14</col>
+      </row>
+      <row>
+        <col id="0">15</col>
+      </row>
+      <row>
+        <col id="0">16</col>
+      </row>
+      <row>
+        <col id="0">17</col>
+      </row>
+      <row>
+        <col id="0">18</col>
+      </row>
+      <row>
+        <col id="0">19</col>
+      </row>
+      <row>
+        <col id="0">20</col>
+      </row>
+      <row>
+        <col id="0">21</col>
+      </row>
+      <row>
+        <col id="0">22</col>
+      </row>
+      <row>
+        <col id="0">23</col>
+      </row>
+      <row>
+        <col id="0">24</col>
+      </row>
+      <row>
+        <col id="0">25</col>
+      </row>
+      <row>
+        <col id="0">26</col>
+      </row>
+      <row>
+        <col id="0">27</col>
+      </row>
+      <row>
+        <col id="0">28</col>
+      </row>
+      <row>
+        <col id="0">29</col>
+      </row>
+      <row>
+        <col id="0">30</col>
+      </row>
+      <row>
+        <col id="0">31</col>
+      </row>
+      <row>
+        <col id="0">32</col>
+      </row>
+      <row>
+        <col id="0">33</col>
+      </row>
+      <row>
+        <col id="0">34</col>
+      </row>
+      <row>
+        <col id="0">35</col>
+      </row>
+      <row>
+        <col id="0">36</col>
+      </row>
+      <row>
+        <col id="0">37</col>
+      </row>
+      <row>
+        <col id="0">38</col>
+      </row>
+      <row>
+        <col id="0">39</col>
+      </row>
+      <row>
+        <col id="0">40</col>
+      </row>
+      <row>
+        <col id="0">41</col>
+      </row>
+      <row>
+        <col id="0">42</col>
+      </row>
+      <row>
+        <col id="0">43</col>
+      </row>
+      <row>
+        <col id="0">44</col>
+      </row>
+      <row>
+        <col id="0">45</col>
+      </row>
+      <row>
+        <col id="0">46</col>
+      </row>
+      <row>
+        <col id="0">47</col>
+      </row>
+      <row>
+        <col id="0">48</col>
+      </row>
+      <row>
+        <col id="0">49</col>
+      </row>
+      <row>
+        <col id="0">50</col>
+      </row>
+      <row>
+        <col id="0">51</col>
+      </row>
+      <row>
+        <col id="0">52</col>
+      </row>
+      <row>
+        <col id="0">53</col>
+      </row>
+      <row>
+        <col id="0">54</col>
+      </row>
+      <row>
+        <col id="0">55</col>
+      </row>
+      <row>
+        <col id="0">56</col>
+      </row>
+      <row>
+        <col id="0">57</col>
+      </row>
+      <row>
+        <col id="0">58</col>
+      </row>
+      <row>
+        <col id="0">59</col>
+      </row>
+      <row>
+        <col id="0">60</col>
+      </row>
+      <row>
+        <col id="0">61</col>
+      </row>
+      <row>
+        <col id="0">62</col>
+      </row>
+      <row>
+        <col id="0">63</col>
+      </row>
+      <row>
+        <col id="0">64</col>
+      </row>
+      <row>
+        <col id="0">65</col>
+      </row>
+      <row>
+        <col id="0">66</col>
+      </row>
+      <row>
+        <col id="0">67</col>
+      </row>
+      <row>
+        <col id="0">68</col>
+      </row>
+      <row>
+        <col id="0">69</col>
+      </row>
+      <row>
+        <col id="0">70</col>
+      </row>
+      <row>
+        <col id="0">71</col>
+      </row>
+      <row>
+        <col id="0">72</col>
+      </row>
+      <row>
+        <col id="0">73</col>
+      </row>
+      <row>
+        <col id="0">74</col>
+      </row>
+      <row>
+        <col id="0">75</col>
+      </row>
+      <row>
+        <col id="0">76</col>
+      </row>
+      <row>
+        <col id="0">77</col>
+      </row>
+      <row>
+        <col id="0">78</col>
+      </row>
+      <row>
+        <col id="0">79</col>
+      </row>
+      <row>
+        <col id="0">80</col>
+      </row>
+      <row>
+        <col id="0">81</col>
+      </row>
+      <row>
+        <col id="0">82</col>
+      </row>
+      <row>
+        <col id="0">83</col>
+      </row>
+      <row>
+        <col id="0">84</col>
+      </row>
+      <row>
+        <col id="0">85</col>
+      </row>
+      <row>
+        <col id="0">86</col>
+      </row>
+      <row>
+        <col id="0">87</col>
+      </row>
+      <row>
+        <col id="0">88</col>
+      </row>
+      <row>
+        <col id="0">89</col>
+      </row>
+      <row>
+        <col id="0">90</col>
+      </row>
+      <row>
+        <col id="0">91</col>
+      </row>
+      <row>
+        <col id="0">92</col>
+      </row>
+      <row>
+        <col id="0">93</col>
+      </row>
+      <row>
+        <col id="0">94</col>
+      </row>
+      <row>
+        <col id="0">95</col>
+      </row>
+      <row>
+        <col id="0">96</col>
+      </row>
+      <row>
+        <col id="0">97</col>
+      </row>
+      <row>
+        <col id="0">98</col>
+      </row>
+      <row>
+        <col id="0">99</col>
+      </row>
+    </data>
+  </object>
+</interface>

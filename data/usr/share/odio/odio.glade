@@ -1,0 +1,671 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated with glade 3.38.1 -->
+<interface>
+  <requires lib="gtk+" version="3.24"/>
+  <object class="GtkAdjustment" id="adjustmentPosition">
+    <property name="upper">100</property>
+    <property name="step-increment">1</property>
+    <property name="page-increment">10</property>
+    <property name="page-size">100</property>
+  </object>
+  <object class="GtkFileFilter" id="filefilterInput">
+    <patterns>
+      <pattern>*.[wW][aA][vV]</pattern>
+      <pattern>*.[fF][lL][aA][cC]</pattern>
+      <pattern>*.[cC][uU][eE]</pattern>
+      <pattern>*.[wW][vV]</pattern>
+      <pattern>*.[aA][pP][eE]</pattern>
+      <pattern>*.[iI][sS][oO]</pattern>
+      <pattern>*.[dD][sS][fF]</pattern>
+      <pattern>*.[dD][fF][fF]</pattern>
+      <pattern>*.[mM]4[aA]</pattern>
+      <pattern>VIDEO_TS.IFO</pattern>
+    </patterns>
+  </object>
+  <object class="GtkFileFilter" id="filefilterSplit">
+    <patterns>
+      <pattern>*.[wW][aA][vV]</pattern>
+      <pattern>*.[fF][lL][aA][cC]</pattern>
+      <pattern>*.[wW][vV]</pattern>
+      <pattern>*.[aA][pP][eE]</pattern>
+    </patterns>
+  </object>
+  <object class="GtkListStore" id="liststoreAudioFiles">
+    <columns>
+      <!-- column-name path -->
+      <column type="gchararray"/>
+      <!-- column-name artist -->
+      <column type="gchararray"/>
+      <!-- column-name albumartist -->
+      <column type="gchararray"/>
+      <!-- column-name genre -->
+      <column type="gchararray"/>
+      <!-- column-name album -->
+      <column type="gchararray"/>
+      <!-- column-name track -->
+      <column type="gchararray"/>
+      <!-- column-name trackstotal -->
+      <column type="gchararray"/>
+      <!-- column-name title -->
+      <column type="gchararray"/>
+      <!-- column-name disc -->
+      <column type="gchararray"/>
+      <!-- column-name discstotal -->
+      <column type="gchararray"/>
+      <!-- column-name year -->
+      <column type="gchararray"/>
+      <!-- column-name imagepath -->
+      <column type="gchararray"/>
+      <!-- column-name comment -->
+      <column type="gchararray"/>
+      <!-- column-name folder -->
+      <column type="gchararray"/>
+      <!-- column-name length -->
+      <column type="guint64"/>
+      <!-- column-name image -->
+      <column type="GdkPixbuf"/>
+      <!-- column-name bps -->
+      <column type="guint"/>
+      <!-- column-name channels -->
+      <column type="guint"/>
+      <!-- column-name samplerate -->
+      <column type="guint"/>
+      <!-- column-name quality -->
+      <column type="gchararray"/>
+      <!-- column-name silence -->
+      <column type="gchararray"/>
+    </columns>
+  </object>
+  <object class="GtkWindow" id="window">
+    <property name="width-request">800</property>
+    <property name="height-request">600</property>
+    <property name="can-focus">False</property>
+    <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
+    <property name="window-position">center-always</property>
+    <signal name="delete-event" handler="onWindowDeleteEvent" swapped="no"/>
+    <signal name="destroy" handler="onWindowDestroy" swapped="no"/>
+    <signal name="key-press-event" handler="onWindowKeyPressEvent" swapped="no"/>
+    <child>
+      <object class="GtkBox" id="vbox">
+        <property name="visible">True</property>
+        <property name="can-focus">False</property>
+        <property name="orientation">vertical</property>
+        <child>
+          <object class="GtkToolbar" id="toolbar">
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <property name="toolbar-style">both</property>
+            <child>
+              <object class="GtkToolButton" id="toolbuttonOpen">
+                <property name="visible">True</property>
+                <property name="can-focus">True</property>
+                <property name="has-focus">True</property>
+                <property name="is-focus">True</property>
+                <property name="can-default">True</property>
+                <property name="has-default">True</property>
+                <property name="tooltip-text" translatable="yes">Add files to the job list</property>
+                <property name="label" translatable="yes">Open</property>
+                <property name="icon-name">document-open</property>
+                <signal name="clicked" handler="onToolbuttonOpenClicked" swapped="no"/>
+                <accelerator key="o" signal="clicked" modifiers="GDK_CONTROL_MASK"/>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="homogeneous">True</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkSeparatorToolItem" id="toolbuttonSeparator">
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="homogeneous">True</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkMenuToolButton" id="toolbuttonPlay">
+                <property name="visible">True</property>
+                <property name="sensitive">False</property>
+                <property name="can-focus">True</property>
+                <property name="tooltip-text" translatable="yes">Play selected files</property>
+                <property name="label" translatable="yes">Play...</property>
+                <property name="icon-name">media-playback-start</property>
+                <signal name="clicked" handler="onToolbuttonPlayClicked" swapped="no"/>
+                <accelerator key="p" signal="clicked" modifiers="GDK_CONTROL_MASK"/>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="homogeneous">True</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkToolButton" id="toolbuttonStop">
+                <property name="can-focus">True</property>
+                <property name="no-show-all">True</property>
+                <property name="tooltip-text" translatable="yes">Stop playback</property>
+                <property name="label" translatable="yes">Stop</property>
+                <property name="icon-name">media-playback-stop</property>
+                <signal name="clicked" handler="onToolbuttonStopClicked" swapped="no"/>
+                <accelerator key="s" signal="clicked" modifiers="GDK_CONTROL_MASK"/>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="homogeneous">True</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkToolButton" id="toolbuttonTag">
+                <property name="visible">True</property>
+                <property name="sensitive">False</property>
+                <property name="can-focus">True</property>
+                <property name="tooltip-text" translatable="yes">Edit metadata for selected files</property>
+                <property name="label" translatable="yes">Edit Tag</property>
+                <property name="icon-name">accessories-text-editor</property>
+                <signal name="clicked" handler="onToolbuttonTagClicked" swapped="no"/>
+                <accelerator key="e" signal="clicked" modifiers="GDK_CONTROL_MASK"/>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="homogeneous">True</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkToolButton" id="toolbuttonEdit">
+                <property name="visible">True</property>
+                <property name="sensitive">False</property>
+                <property name="can-focus">True</property>
+                <property name="tooltip-text" translatable="yes">Open selected files in a wave editor</property>
+                <property name="label" translatable="yes">Edit audio</property>
+                <property name="use-underline">True</property>
+                <property name="icon-name">odio-edit</property>
+                <signal name="clicked" handler="onToolbuttonEditClicked" swapped="no"/>
+                <accelerator key="e" signal="clicked" modifiers="GDK_SHIFT_MASK | GDK_CONTROL_MASK"/>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="homogeneous">True</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkMenuToolButton" id="toolbuttonConvert">
+                <property name="visible">True</property>
+                <property name="sensitive">False</property>
+                <property name="can-focus">True</property>
+                <property name="tooltip-text" translatable="yes">Compress selected files using the method specified in Settings</property>
+                <property name="label" translatable="yes">Compress...</property>
+                <property name="icon-name">media-record</property>
+                <signal name="clicked" handler="onToolbuttonConvertClicked" swapped="no"/>
+                <accelerator key="c" signal="clicked" modifiers="GDK_CONTROL_MASK"/>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="homogeneous">True</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkSeparatorToolItem" id="toolbutton1">
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="homogeneous">True</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkToolButton" id="toolbuttonLog">
+                <property name="visible">True</property>
+                <property name="can-focus">True</property>
+                <property name="tooltip-text" translatable="yes">View the list of compressed titles</property>
+                <property name="label" translatable="yes">Log</property>
+                <property name="use-underline">True</property>
+                <property name="icon-name">text-x-generic</property>
+                <signal name="clicked" handler="onToolbuttonLogClicked" swapped="no"/>
+                <accelerator key="l" signal="clicked" modifiers="GDK_CONTROL_MASK"/>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="homogeneous">True</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkSeparatorToolItem" id="toolbutton4">
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="homogeneous">True</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkToolButton" id="toolbuttonSettings">
+                <property name="visible">True</property>
+                <property name="can-focus">True</property>
+                <property name="tooltip-text" translatable="yes">Configure program options</property>
+                <property name="label" translatable="yes">Settings</property>
+                <property name="use-underline">True</property>
+                <property name="icon-name">document-properties</property>
+                <signal name="clicked" handler="onToolbuttonSettingsClicked" swapped="no"/>
+                <accelerator key="s" signal="clicked" modifiers="GDK_SHIFT_MASK | GDK_CONTROL_MASK"/>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="homogeneous">True</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkSeparatorToolItem" id="toolbutton2">
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="homogeneous">True</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkToolButton" id="toolbuttonAbout">
+                <property name="visible">True</property>
+                <property name="can-focus">True</property>
+                <property name="tooltip-text" translatable="yes">About this program...</property>
+                <property name="label" translatable="yes">Info</property>
+                <property name="icon-name">dialog-information</property>
+                <signal name="clicked" handler="onAboutClicked" swapped="no"/>
+                <accelerator key="i" signal="clicked" modifiers="GDK_CONTROL_MASK"/>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="homogeneous">True</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkSeparatorToolItem" id="toolbutton3">
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+                <property name="halign">start</property>
+              </object>
+              <packing>
+                <property name="expand">True</property>
+                <property name="homogeneous">False</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkToggleToolButton" id="toolbuttonDeleteImages">
+                <property name="visible">True</property>
+                <property name="can-focus">True</property>
+                <property name="tooltip-text" translatable="yes">Delete image files used as album art after all jobs are complete</property>
+                <property name="label" translatable="yes">Delete Images</property>
+                <property name="use-underline">True</property>
+                <property name="icon-name">image-missing</property>
+                <property name="active">True</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="homogeneous">True</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkScrolledWindow" id="scrolledwindow">
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+            <property name="border-width">5</property>
+            <property name="shadow-type">in</property>
+            <child>
+              <object class="GtkTreeView" id="treeviewAudioFiles">
+                <property name="visible">True</property>
+                <property name="can-focus">True</property>
+                <property name="border-width">5</property>
+                <property name="model">liststoreAudioFiles</property>
+                <property name="enable-search">False</property>
+                <property name="rubber-banding">True</property>
+                <property name="enable-grid-lines">vertical</property>
+                <signal name="key-press-event" handler="onTreeviewAudioFilesKeyPressEvent" swapped="no"/>
+                <signal name="row-activated" handler="onTreeviewAudioFilesRowActivated" swapped="no"/>
+                <child internal-child="selection">
+                  <object class="GtkTreeSelection" id="treeSelection">
+                    <property name="mode">multiple</property>
+                    <signal name="changed" handler="onTreeselectionChanged" swapped="no"/>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkTreeViewColumn" id="treeviewcolumnImage">
+                    <property name="sizing">autosize</property>
+                    <child>
+                      <object class="GtkCellRendererPixbuf" id="cellrendererCover"/>
+                      <attributes>
+                        <attribute name="pixbuf">15</attribute>
+                      </attributes>
+                    </child>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkTreeViewColumn" id="treeviewcolumnSilence">
+                    <property name="sizing">autosize</property>
+                    <child>
+                      <object class="GtkCellRendererText" id="cellrenderertextSilence"/>
+                      <attributes>
+                        <attribute name="text">20</attribute>
+                      </attributes>
+                    </child>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkTreeViewColumn" id="treeviewcolumnQuality">
+                    <property name="resizable">True</property>
+                    <property name="sizing">autosize</property>
+                    <property name="title" translatable="yes">Quality</property>
+                    <property name="reorderable">True</property>
+                    <child>
+                      <object class="GtkCellRendererText" id="cellrenderertextQuality"/>
+                      <attributes>
+                        <attribute name="text">19</attribute>
+                      </attributes>
+                    </child>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkTreeViewColumn" id="treeviewcolumnFile">
+                    <property name="resizable">True</property>
+                    <property name="sizing">autosize</property>
+                    <property name="title" translatable="yes">File</property>
+                    <property name="reorderable">True</property>
+                    <child>
+                      <object class="GtkCellRendererText" id="cellrenderertextFile"/>
+                      <attributes>
+                        <attribute name="text">0</attribute>
+                      </attributes>
+                    </child>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkTreeViewColumn" id="treeviewcolumnDisc">
+                    <property name="resizable">True</property>
+                    <property name="sizing">autosize</property>
+                    <property name="title" translatable="yes">Disc</property>
+                    <property name="alignment">1</property>
+                    <property name="reorderable">True</property>
+                    <child>
+                      <object class="GtkCellRendererText" id="cellrenderertextDisc"/>
+                      <attributes>
+                        <attribute name="text">8</attribute>
+                      </attributes>
+                    </child>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkTreeViewColumn" id="treeviewcolumnDiscsTotal">
+                    <property name="resizable">True</property>
+                    <property name="sizing">autosize</property>
+                    <property name="title" translatable="yes">Discs</property>
+                    <property name="alignment">1</property>
+                    <property name="reorderable">True</property>
+                    <child>
+                      <object class="GtkCellRendererText" id="cellrenderertextDiscsTotal"/>
+                      <attributes>
+                        <attribute name="text">9</attribute>
+                      </attributes>
+                    </child>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkTreeViewColumn" id="treeviewcolumnTrack">
+                    <property name="resizable">True</property>
+                    <property name="sizing">autosize</property>
+                    <property name="title" translatable="yes">Track</property>
+                    <property name="alignment">1</property>
+                    <property name="reorderable">True</property>
+                    <child>
+                      <object class="GtkCellRendererText" id="cellrenderertextTrack"/>
+                      <attributes>
+                        <attribute name="text">5</attribute>
+                      </attributes>
+                    </child>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkTreeViewColumn" id="treeviewcolumnTracksTotal">
+                    <property name="resizable">True</property>
+                    <property name="sizing">autosize</property>
+                    <property name="title" translatable="yes">Tracks</property>
+                    <property name="alignment">1</property>
+                    <property name="reorderable">True</property>
+                    <child>
+                      <object class="GtkCellRendererText" id="cellrenderertextTracksTotal"/>
+                      <attributes>
+                        <attribute name="text">6</attribute>
+                      </attributes>
+                    </child>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkTreeViewColumn" id="treeviewcolumnAlbumArtist">
+                    <property name="resizable">True</property>
+                    <property name="sizing">autosize</property>
+                    <property name="title" translatable="yes">Album artist</property>
+                    <property name="reorderable">True</property>
+                    <child>
+                      <object class="GtkCellRendererText" id="cellrenderertextAlbumArtist"/>
+                      <attributes>
+                        <attribute name="text">2</attribute>
+                      </attributes>
+                    </child>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkTreeViewColumn" id="treeviewcolumnArtist">
+                    <property name="sizing">autosize</property>
+                    <property name="title" translatable="yes">Artist</property>
+                    <property name="reorderable">True</property>
+                    <child>
+                      <object class="GtkCellRendererText" id="cellrenderertextArtist"/>
+                      <attributes>
+                        <attribute name="text">1</attribute>
+                      </attributes>
+                    </child>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkTreeViewColumn" id="treeviewcolumnTitle">
+                    <property name="resizable">True</property>
+                    <property name="sizing">autosize</property>
+                    <property name="title" translatable="yes">Title</property>
+                    <property name="reorderable">True</property>
+                    <child>
+                      <object class="GtkCellRendererText" id="cellrenderertextTitle"/>
+                      <attributes>
+                        <attribute name="text">7</attribute>
+                      </attributes>
+                    </child>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkTreeViewColumn" id="treeviewcolumnAlbum">
+                    <property name="resizable">True</property>
+                    <property name="sizing">autosize</property>
+                    <property name="title" translatable="yes">Album</property>
+                    <property name="reorderable">True</property>
+                    <child>
+                      <object class="GtkCellRendererText" id="cellrenderertextAlbum"/>
+                      <attributes>
+                        <attribute name="text">4</attribute>
+                      </attributes>
+                    </child>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkTreeViewColumn" id="treeviewcolumnYear">
+                    <property name="resizable">True</property>
+                    <property name="sizing">autosize</property>
+                    <property name="title" translatable="yes">Year</property>
+                    <property name="alignment">1</property>
+                    <property name="reorderable">True</property>
+                    <child>
+                      <object class="GtkCellRendererText" id="cellrenderertextYear"/>
+                      <attributes>
+                        <attribute name="text">10</attribute>
+                      </attributes>
+                    </child>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkTreeViewColumn" id="treeviewcolumnGenre">
+                    <property name="resizable">True</property>
+                    <property name="sizing">autosize</property>
+                    <property name="title" translatable="yes">Genre</property>
+                    <property name="reorderable">True</property>
+                    <child>
+                      <object class="GtkCellRendererText" id="cellrenderertextGenre"/>
+                      <attributes>
+                        <attribute name="text">3</attribute>
+                      </attributes>
+                    </child>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkTreeViewColumn" id="treeviewcolumnComment">
+                    <property name="resizable">True</property>
+                    <property name="sizing">autosize</property>
+                    <property name="title" translatable="yes">Comment</property>
+                    <property name="reorderable">True</property>
+                    <child>
+                      <object class="GtkCellRendererText" id="cellrenderertextComment"/>
+                      <attributes>
+                        <attribute name="text">11</attribute>
+                      </attributes>
+                    </child>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">True</property>
+            <property name="fill">True</property>
+            <property name="position">1</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkBox" id="hbox2">
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <property name="border-width">5</property>
+            <child>
+              <object class="GtkProgressBar" id="progressbar">
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+                <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
+                <property name="margin-start">5</property>
+                <property name="margin-end">5</property>
+                <property name="show-text">True</property>
+                <property name="ellipsize">middle</property>
+              </object>
+              <packing>
+                <property name="expand">True</property>
+                <property name="fill">True</property>
+                <property name="position">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkScale" id="scalePosition">
+                <property name="can-focus">False</property>
+                <property name="no-show-all">True</property>
+                <property name="adjustment">adjustmentPosition</property>
+                <property name="show-fill-level">True</property>
+                <property name="restrict-to-fill-level">False</property>
+                <property name="fill-level">0</property>
+                <property name="digits">0</property>
+                <signal name="button-press-event" handler="onScalePositionButtonPressEvent" swapped="no"/>
+                <signal name="button-release-event" handler="onScalePositionButtonReleaseEvent" swapped="no"/>
+                <signal name="change-value" handler="onScalePositionChangeValue" swapped="no"/>
+                <signal name="format-value" handler="onScalePositionFormatValue" swapped="no"/>
+              </object>
+              <packing>
+                <property name="expand">True</property>
+                <property name="fill">True</property>
+                <property name="position">1</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">2</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkStatusbar" id="statusBar">
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <property name="margin-bottom">5</property>
+            <property name="spacing">2</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">3</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+  </object>
+  <object class="GtkMenu" id="menuCompress">
+    <property name="visible">True</property>
+    <property name="can-focus">False</property>
+    <child>
+      <object class="GtkMenuItem" id="menuitemAAC">
+        <property name="visible">True</property>
+        <property name="can-focus">True</property>
+        <property name="tooltip-text" translatable="yes">Compress selected files using the Nero AAC encoder</property>
+        <property name="label" translatable="yes">AAC</property>
+        <property name="use-underline">True</property>
+        <signal name="activate" handler="onMenuitemAACActivate" swapped="no"/>
+        <accelerator key="c" signal="activate" modifiers="GDK_CONTROL_MASK"/>
+      </object>
+    </child>
+    <child>
+      <object class="GtkMenuItem" id="menuitemFLAC">
+        <property name="visible">True</property>
+        <property name="can-focus">True</property>
+        <property name="tooltip-text" translatable="yes">Compress selected files using the FLAC encoder</property>
+        <property name="label" translatable="yes">FLAC</property>
+        <property name="use-underline">True</property>
+        <signal name="activate" handler="onMenuitemFLACActivate" swapped="no"/>
+        <accelerator key="c" signal="activate" modifiers="GDK_SHIFT_MASK | GDK_CONTROL_MASK"/>
+      </object>
+    </child>
+  </object>
+  <object class="GtkMenu" id="menuPlay">
+    <property name="visible">True</property>
+    <property name="can-focus">False</property>
+    <child>
+      <object class="GtkMenuItem" id="menuitemBeginning">
+        <property name="visible">True</property>
+        <property name="can-focus">True</property>
+        <property name="tooltip-text" translatable="yes">Play the first 10 seconds of selected files</property>
+        <property name="label" translatable="yes">First 10 seconds</property>
+        <signal name="activate" handler="onMenuitemBeginningActivate" swapped="no"/>
+        <accelerator key="Left" signal="activate" modifiers="GDK_CONTROL_MASK"/>
+      </object>
+    </child>
+    <child>
+      <object class="GtkMenuItem" id="menuitemEnd">
+        <property name="visible">True</property>
+        <property name="can-focus">True</property>
+        <property name="tooltip-text" translatable="yes">Play the last 10 seconds of selected files</property>
+        <property name="label" translatable="yes">Last 10 seconds</property>
+        <signal name="activate" handler="onMenuitemEndActivate" swapped="no"/>
+        <accelerator key="Right" signal="activate" modifiers="GDK_CONTROL_MASK"/>
+      </object>
+    </child>
+  </object>
+</interface>

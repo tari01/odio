@@ -1,0 +1,1036 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
+try:
+
+    import devpath
+    from odio.appdata import APPDEBUG
+    APPDEBUG.append(True)
+
+except:
+
+    pass
+
+from odio.gtk import *
+from odio.gst import GstReader, GstEncoder, GstPlayer, GstSplitter, GstDvd, GstState
+from odio.tagdialog import *
+from odio.logdialog import *
+from odio.settingsdialog import *
+from odio.streamsdialog import *
+from odio.treeview import treeviewExtend
+import os
+import os.path
+import re
+import time
+import subprocess
+import urllib.request, urllib.parse, urllib.error
+import shutil
+import errno
+import threading
+import multiprocessing
+import fnmatch
+import json
+import string
+import ctypes
+from queue import Queue
+from enum import IntEnum
+from gi.repository import GLib
+
+class State(IntEnum):
+
+    IDLE = 0
+    ENCODING = 1
+    ANALYSING = 2
+    DECODING = 3
+    PLAYING = 4
+
+class Column(IntEnum):
+
+    FILEPATH = 0
+    ARTIST = 1
+    ALBUMARTIST = 2
+    GENRE = 3
+    ALBUM = 4
+    TRACK = 5
+    TRACKSTOTAL = 6
+    TITLE = 7
+    DISC = 8
+    DISCSTOTAL = 9
+    YEAR = 10
+    COMMENT = 11
+    IMAGEPATH = 12
+    FOLDER = 13
+    LENGTH = 14
+    IMAGE = 15
+    BPS = 16
+    CHANNELS = 17
+    SAMPLERATE = 18
+    QUALITY = 19
+    SILENCE = 20
+
+class Tasks:
+
+    nCpus = multiprocessing.cpu_count()
+    lQueue = []
+    pCallback = None
+    dProgressLast = {}
+
+    @staticmethod
+    def reset():
+
+        Tasks.lQueue = []
+        Tasks.pCallback = None
+        Tasks.dProgressLast = {'time': 0, 'progress': 0.0, 'text': ''}
+
+    @staticmethod
+    def run(pCallback):
+
+        Tasks.pCallback = pCallback
+        Tasks.feed()
+
+    @staticmethod
+    def add(*lParams):
+
+        Tasks.lQueue.append({'progress': '', 'params': lParams})
+
+    @staticmethod
+    def count(nState):
+
+        nTasks = 0
+        lParams = []
+
+        for nTask, dTask in enumerate(Tasks.lQueue):
+
+            if dTask['params'][0].nState == nState:
+
+                nTasks += 1
+
+                if len(lParams) == 0:
+
+                    lParams = list(dTask['params'])
+                    lParams.append(nTask)
+
+        return nTasks, lParams
+
+    @staticmethod
+    def feed():
+
+        nTasks, lParams = Tasks.count(GstState.IDLE)
+
+        while nTasks and Tasks.count(GstState.RUNNING)[0] < Tasks.nCpus:
+
+            Tasks.pCallback(*lParams)
+            nTasks, lParams = Tasks.count(GstState.IDLE)
+
+class Odio(Application):
+
+    def getTempDir(self, sPath):
+
+        strDir = os.path.basename(os.path.dirname(sPath))
+
+        if g_pSettings.get_string('temp-location') == 'tmp':
+
+            for strPattern in ['cd *[0-9]+', 'disc *[0-9]+', '[0-9]+ *disk', 'Disc *[0-9]+ *of *[0-9]+', 'video_ts']:
+
+                if re.fullmatch(strPattern, strDir, re.IGNORECASE):
+                    strDir = os.path.join(os.path.basename(os.path.dirname(os.path.dirname(sPath))), strDir)
+
+            strDir = os.path.join('/tmp', APPNAME, strDir)
+
+        else:
+
+            strDir = os.path.join(os.path.dirname(sPath), 'odio-tmp')
+
+        os.makedirs(strDir, exist_ok=True)
+
+        return strDir
+
+    def preinit(self):
+
+        if os.path.isdir('/tmp/' + APPNAME):
+
+            shutil.rmtree('/tmp/' + APPNAME)
+
+        if g_pSettings.get_string('destination-aac') == '' and g_pSettings.get_string('destination-flac') == '':
+
+            strMusic = GLib.get_user_special_dir(GLib.USER_DIRECTORY_MUSIC) or GLib.get_home_dir()
+            strDownloads = GLib.get_user_special_dir(GLib.USER_DIRECTORY_DOWNLOAD) or GLib.get_home_dir()
+
+            g_pSettings.set_string('destination-aac', strMusic)
+            g_pSettings.set_string('destination-flac', strMusic)
+            g_pSettings.set_string('source-folder', strDownloads)
+            g_pSettings.set_string('image-folder', strDownloads)
+
+        self.pGstPlayer = None
+        self.nState = State.IDLE
+        self.bQuit = False
+        self.m_bUpdateScale = True
+        self.m_lstEncoded = []
+        self.m_lstSelectedRows = []
+        self.m_lstImages = []
+        self.m_lstPlayQueue = {'mode': 0, 'files': []}
+        self.m_lstWarnings = []
+        self.m_bSettingsShown = False
+        self.m_lstTempDirs = []
+
+    def postinit(self):
+
+        self.pToolbuttonDeleteImages.set_active(g_pSettings.get_boolean('delete-images'))
+        self.pToolbuttonPlay.set_menu(self.pMenuPlay)
+        self.pToolbuttonConvert.set_menu(self.pMenuCompress)
+        self.pToolbuttonConvert.set_arrow_tooltip_text(_('Compress selected files using the encoder from the menu'))
+        self.pTreeviewcolumnTrack.get_cells()[0].set_property('xalign', 1.0)
+        self.pTreeviewcolumnTracksTotal.get_cells()[0].set_property('xalign', 1.0)
+        self.pTreeviewcolumnDisc.get_cells()[0].set_property('xalign', 1.0)
+        self.pTreeviewcolumnDiscsTotal.get_cells()[0].set_property('xalign', 1.0)
+        self.pTreeviewcolumnYear.get_cells()[0].set_property('xalign', 1.0)
+        self.pTreeviewcolumnQuality.get_cells()[0].set_property('xalign', 1.0)
+        self.pTreeviewcolumnSilence.get_cells()[0].set_property('xalign', 0.5)
+
+        if not self.pWindow.is_maximized():
+
+            self.pWindow.maximize()
+
+        self.pStatusBarLabel.set_text(_('Ready'))
+        treeviewExtend(self.pTreeviewAudioFiles, self, 'text/uri-list')
+        self.pProgressbar.set_text('')
+
+        if g_pSettings.get_int('settings-last-shown') < APPSHOWSETTINGS:
+
+            GLib.timeout_add_seconds(1, self.onToolbuttonSettingsClicked, None)
+            self.m_bSettingsShown = True
+
+    def convert(self, strMethod):
+
+        Tasks.reset()
+        self.nState = State.ENCODING
+        self.toggleSensitivity(False)
+        self.toggleToolbuttons(False)
+
+        for nRow in self.m_lstSelectedRows:
+
+            pIter = self.pListstoreAudioFiles.get_iter(nRow)
+
+            if strMethod == 'flac' or (strMethod == 'auto' and (self.pListstoreAudioFiles[nRow][Column.SAMPLERATE] > 44100 or self.pListstoreAudioFiles[nRow][Column.BPS] > 16 or self.pListstoreAudioFiles[nRow][Column.CHANNELS] > 2)):
+
+                pGstEncoder = GstEncoder()
+                Tasks.add(pGstEncoder, pIter, 'flac')
+
+            else:
+
+                pGstEncoder = GstEncoder()
+                Tasks.add(pGstEncoder, pIter, 'aac')
+
+        idle()
+        Tasks.run(self.fnEncode)
+        GLib.timeout_add(40, self.fnProgress);
+
+    def onToolbuttonConvertClicked(self, oWidget, pData = None):
+
+        self.convert(g_pSettings.get_string('default-compress'))
+
+    def onWindowDeleteEvent(self, pWidget, event):
+
+        if self.nState:
+
+            dlg = Gtk.MessageDialog(parent=self.pWindow, modal=True, message_type=Gtk.MessageType.QUESTION, buttons=Gtk.ButtonsType.YES_NO, text=_('The program is working. Are you sure you want to quit?'))
+            nResponse = dlg.run()
+            dlg.destroy()
+
+            if nResponse == Gtk.ResponseType.NO:
+
+                return True
+
+        if self.pGstPlayer:
+
+            self.pGstPlayer.close()
+
+        self.bQuit = True
+
+        for dTask in Tasks.lQueue:
+
+            dTask['params'][0].close()
+
+        return False
+
+    def onTreeviewAudioFilesRowActivated(self, treeview, path, view_column, user_param1 = None):
+
+        self.onToolbuttonPlayClicked(None, 0)
+
+    def onToolbuttonLogClicked(self, pWidget, pData = None):
+
+        self.m_lstEncoded = LogDialog(None, self.m_lstEncoded).m_lstEncoded
+
+    def onToolbuttonSettingsClicked(self, pWidget, pData = None):
+
+        SettingsDialog(None, None)
+
+        return False
+
+    def onTreeselectionChanged(self, pTreeSelection):
+
+        self.m_lstSelectedRows = pTreeSelection.get_selected_rows()[1]
+
+        if self.nState:
+
+            return
+
+        if len(self.m_lstSelectedRows):
+            self.toggleToolbuttons(True)
+        else:
+            self.toggleToolbuttons(False)
+
+    def updateProgress(self, strText, fProgress):
+
+        if strText:
+
+            self.pStatusBarLabel.set_text(strText)
+
+        self.pProgressbar.set_fraction(fProgress)
+
+        return False
+
+    def finishedEncodingBatch(self):
+
+        self.pProgressbar.set_text('')
+        self.pProgressbar.set_fraction(0.0)
+        self.pStatusBarLabel.set_text(_('Ready'))
+
+        if len(self.m_lstSelectedRows):
+
+            self.toggleToolbuttons(True)
+
+        elif len(self.pListstoreAudioFiles) == 0:
+
+            if self.pToolbuttonDeleteImages.get_active():
+
+                for strImage in self.m_lstImages:
+
+                    if os.path.exists(strImage):
+                        os.remove(strImage)
+
+            if os.path.isdir('/tmp/' + APPNAME):
+                shutil.rmtree('/tmp/' + APPNAME)
+
+            for strTempDir in self.m_lstTempDirs:
+
+                if os.path.isdir(strTempDir):
+                    shutil.rmtree(strTempDir)
+
+            self.m_lstTempDirs.clear()
+
+        self.toggleSensitivity(True)
+        self.nState = State.IDLE
+
+        return False
+
+    def finishedAnalysisBatch(self):
+
+        self.pProgressbar.set_text('')
+        self.pProgressbar.set_fraction(0.0)
+        self.pStatusBarLabel.set_text(_('Ready'))
+
+        if len(self.m_lstSelectedRows):
+
+            self.toggleToolbuttons(True)
+
+        self.toggleSensitivity(True)
+        self.nState = State.IDLE
+
+        if len(self.m_lstWarnings and not self.bQuit):
+
+            oDlg = Gtk.MessageDialog(parent=self.pWindow, modal=True, message_type=Gtk.MessageType.WARNING, buttons=Gtk.ButtonsType.CLOSE, text='\n'.join(self.m_lstWarnings))
+            oDlg.set_title(_('Odio encountered one or more warnings'))
+            oDlg.run()
+            oDlg.destroy()
+
+        return False
+
+    def finishedEncodingJob(self, pIter):
+
+        pRow = self.pListstoreAudioFiles[pIter]
+        self.m_lstEncoded.append({'artist': pRow[Column.ARTIST], 'albumartist': pRow[Column.ALBUMARTIST], 'title': pRow[Column.TITLE], 'album': pRow[Column.ALBUM]})
+
+        if pRow[Column.IMAGEPATH] not in self.m_lstImages:
+
+            self.m_lstImages.append(pRow[Column.IMAGEPATH])
+
+        self.pListstoreAudioFiles.remove(pIter)
+        Tasks.feed()
+
+        return False
+
+    def finishedAnalysisJob(self, pIter, dAudioInfo):
+
+        self.pListstoreAudioFiles[pIter][Column.FILEPATH] = dAudioInfo['file']
+        self.pListstoreAudioFiles[pIter][Column.LENGTH] = dAudioInfo['duration']
+        self.pListstoreAudioFiles[pIter][Column.BPS] = dAudioInfo['bps']
+        self.pListstoreAudioFiles[pIter][Column.CHANNELS] = dAudioInfo['channels']
+        self.pListstoreAudioFiles[pIter][Column.SAMPLERATE] = dAudioInfo['rate']
+        self.pListstoreAudioFiles[pIter][Column.QUALITY] = '/'.join([str(dAudioInfo['rate']), str(dAudioInfo['bps']), str(dAudioInfo['channels'])])
+
+        lstSilence = ['■',' ', '■']
+
+        if dAudioInfo['start']:
+            lstSilence[0] = '◀'
+
+        if dAudioInfo['end']:
+            lstSilence[2] = '▶'
+
+        self.pListstoreAudioFiles[pIter][Column.SILENCE] = ''.join(lstSilence)
+        Tasks.feed()
+
+        return False
+
+    def finishedSplittingJob(self, nTrack, nTracks, sFilePath):
+
+        nInsertIndex = len(self.pListstoreAudioFiles);
+
+        for nIndex in range(nInsertIndex - 1, -1, -1):
+
+            if os.path.dirname(sFilePath) in os.path.dirname(self.pListstoreAudioFiles[nIndex][Column.FILEPATH]):
+
+                if nTrack < int(self.pListstoreAudioFiles[nIndex][Column.TRACK]):
+
+                    nInsertIndex = nIndex
+
+        pPixBuf = Gtk.IconTheme().get_default().load_icon('gtk-missing-image', 24, 0)
+        self.pListstoreAudioFiles.insert(nInsertIndex, [sFilePath, 'Unknown Artist', 'Unknown Artist', '', 'Unknown Album', '%.2i' %(nTrack + 1), '%.2i' %nTracks, 'Track ' + str(nTrack + 1), '01', '01', '', '', '', 'Unknown Artist/Unknown Album', 0, pPixBuf, 16, 2, 44100, '', '□ □'])
+        Tasks.feed()
+
+        return False
+
+    def fnProgress(self):
+
+        if self.bQuit:
+
+            return False
+
+        fTime = time.monotonic()
+        fProgress = 0.0;
+        strText = ''
+
+        for dTask in Tasks.lQueue:
+
+            fProgress += dTask['params'][0].getPosition()
+
+            if dTask['progress'] != Tasks.dProgressLast['text'] and fTime > Tasks.dProgressLast['time'] + 2.0:
+
+                strText = dTask['progress']
+                Tasks.dProgressLast['text'] = strText
+                Tasks.dProgressLast['time'] = fTime
+
+        fProgress = fProgress / len(Tasks.lQueue)
+
+        if fProgress != Tasks.dProgressLast['progress'] or strText:
+
+            Tasks.dProgressLast['progress'] = fProgress
+            GLib.idle_add(self.updateProgress, strText, fProgress)
+
+        if Tasks.count(GstState.DONE)[0] == len(Tasks.lQueue):
+
+            if self.nState == State.ANALYSING:
+
+                self.finishedAnalysisBatch()
+
+            elif self.nState == State.ENCODING:
+
+                self.finishedEncodingBatch()
+
+            self.nState = State.IDLE
+
+            return False
+
+        return True
+
+    def fnAnalyse(self, pGstReader, pIter, strTempDir, nTask):
+
+        sPath = self.pListstoreAudioFiles[pIter][Column.FILEPATH]
+        Tasks.lQueue[nTask]['progress'] = _('Analysing {fileName}').format(fileName = sPath)
+        pGstReader.run(sPath, g_pSettings.get_boolean('remove-silent-channels'), g_pSettings.get_boolean('remove-lfe-channel'), g_pSettings.get_boolean('saturate-multichannel'), g_pSettings.get_boolean('check-fake-stereo'), strTempDir, self.finishedAnalysisJob, pIter)
+
+    def fnSplit(self, pGstSplitter, strFilePath, strTempDir, nStart, nEnd, sPerformer, sTitle, nTracks, nTask):
+
+        sOutPath = os.path.join(strTempDir, '{:02.0f}. {} - {}.wav'.format(nTask + 1, sPerformer, sTitle))
+        Tasks.lQueue[nTask]['progress'] = _('Decoding {fileName}').format(fileName = sOutPath)
+        pGstSplitter.run(strFilePath, sOutPath, nStart, nEnd, self.finishedSplittingJob, nTask, nTracks, sOutPath)
+
+    def fnDvd(self, pGstDvd, strFilePath, strTempDir, sTitle, sChapter, fLength, nChapters, nTask):
+
+        sOutPath = os.path.join(strTempDir, 'Title_{}-Chapter_{}.wav'.format(sTitle.zfill(2), sChapter.zfill(2)))
+        Tasks.lQueue[nTask]['progress'] = _('Decoding {fileName}').format(fileName = sOutPath)
+        pGstDvd.run(strFilePath, sOutPath, int(sTitle), int(sChapter), fLength, self.finishedSplittingJob, int(sChapter) - 1, int(nChapters), sOutPath)
+
+    def fnEncode(self, pGstEncoder, pIter, sEncoder, nTask):
+
+        pRow = self.pListstoreAudioFiles[pIter]
+        strOutFilePath = (pRow[Column.TRACK] + '. ' +  pRow[Column.ARTIST] + ' - ' +  pRow[Column.TITLE]).replace('\\', '-').replace('/', '-').replace('?', '')
+        strTempFilePath = ''
+
+        if len(strOutFilePath) > 80:
+
+            strOutFilePath = strOutFilePath[: 78] + '..'
+
+        if sEncoder == 'aac':
+
+            strOutFilePath = os.path.join(g_pSettings.get_string('destination-aac'), pRow[Column.FOLDER], strOutFilePath + '.m4a')
+            strTempFilePath = os.path.join(os.path.expanduser('~'), APPNAME + '-' + str(nTask) + '.m4a')
+
+        else:
+
+            strOutFilePath = os.path.join(g_pSettings.get_string('destination-flac'), pRow[Column.FOLDER], strOutFilePath + '.flac')
+            strTempFilePath = os.path.join(os.path.expanduser('~'), APPNAME + '-' + str(nTask) + '.flac')
+
+        strDestFolderPath = os.path.dirname(strOutFilePath)
+        Tasks.lQueue[nTask]['progress'] = _('Compressing {fileName}').format(fileName = strOutFilePath)
+
+        if not os.path.isdir(strDestFolderPath):
+
+            try:
+
+                os.makedirs(strDestFolderPath, exist_ok=True)
+
+            except OSError as exception:
+
+                if exception.errno != errno.EEXIST:
+
+                    raise
+
+        dTags = {}
+        dTags['artist'] = pRow[Column.ARTIST]
+        dTags['album-artist'] = pRow[Column.ALBUMARTIST]
+        dTags['title'] = pRow[Column.TITLE]
+        dTags['album'] = pRow[Column.ALBUM]
+        dTags['genre'] = pRow[Column.GENRE]
+        dTags['track-number'] = pRow[Column.TRACK]
+        dTags['track-count'] = pRow[Column.TRACKSTOTAL]
+        dTags['album-disc-number'] = pRow[Column.DISC]
+        dTags['album-disc-count'] = pRow[Column.DISCSTOTAL]
+        dTags['comment'] = pRow[Column.COMMENT]
+        dTags['image'] = pRow[Column.IMAGEPATH]
+        dTags['date'] = pRow[Column.YEAR]
+
+        pGstEncoder.run(sEncoder, pRow[Column.FILEPATH], strTempFilePath, strOutFilePath, pRow[Column.BPS], pRow[Column.SAMPLERATE], pRow[Column.CHANNELS], pRow[Column.LENGTH], dTags, self.finishedEncodingJob, pIter)
+
+    def onMenuitemAACActivate(self, pWidget, pData = None):
+
+        self.convert('aac')
+
+    def toggleSensitivity(self, b, bList = None):
+
+        if not bList:
+            bList = b
+
+        self.pToolbuttonOpen.set_sensitive(b)
+        self.pToolbuttonSettings.set_sensitive(b)
+        self.pTreeviewAudioFiles.set_sensitive(bList)
+
+    def toggleToolbuttons(self, b):
+
+        self.pToolbuttonTag.set_sensitive(b)
+        self.pToolbuttonEdit.set_sensitive(b)
+        self.pToolbuttonConvert.set_sensitive(b)
+        self.pToolbuttonPlay.set_sensitive(b)
+
+    def onMenuitemFLACActivate(self, pWidget, pData = None):
+
+        self.convert('flac')
+
+    def onToolbuttonTagClicked(self, pWidget, pData = None):
+
+        TagDialog(None, [self.pListstoreAudioFiles, self.m_lstSelectedRows])
+
+    def onToolbuttonEditClicked(self, pWidget, pData = None):
+
+        self.nState = State.ANALYSING
+        self.toggleSensitivity(False)
+        self.toggleToolbuttons(False)
+        self.pProgressbar.set_text(None)
+
+        strCommand = 'odio-edit'
+
+        for nIndex in reversed(self.m_lstSelectedRows):
+
+            strCommand += ' ' + quote(self.pListstoreAudioFiles[nIndex][Column.FILEPATH])
+
+        pSubprocess = subprocess.Popen(strCommand, shell=True)
+
+        while pSubprocess.poll() is None:
+
+            while Gtk.events_pending():
+
+                Gtk.main_iteration()
+
+            time.sleep(0.04)
+
+        oSelectedIters = Queue()
+        nTracks = 0
+
+        for nRow in self.m_lstSelectedRows:
+
+            oSelectedIters.put([self.pListstoreAudioFiles.get_iter(nRow), None, nTracks])
+            nTracks += 1
+
+        for i in range(min(nTracks, multiprocessing.cpu_count())):
+
+            threading.Thread(target=self.fnAnalyse, args=(i, oSelectedIters)).start()
+
+        threading.Thread(target=self.fnProgress).start()
+
+    def onToolbuttonOpenClicked(self, pWidget, lstUris = None):
+
+        sTempDir = self.getTempDir('')
+        fFree = shutil.disk_usage(sTempDir).free / 1000000000
+
+        if fFree < 2.0:
+
+            dlg = Gtk.MessageDialog(parent=self.pWindow, modal=True, message_type=Gtk.MessageType.QUESTION, buttons=Gtk.ButtonsType.YES_NO, text=_('Your temporary files directory has only {:.2f} GB of free space left. Running out of space can cause nasty things.\n\nContinue adding files?').format(fFree))
+            nResponse = dlg.run()
+            dlg.destroy()
+
+            if nResponse == Gtk.ResponseType.NO:
+
+                return
+
+        lstFiles = []
+        self.m_lstWarnings = []
+        lstExts = ('.flac', '.wv', '.ape', '.wav', 'm4a', '.cue', '.iso', '.dsf', '.dff', 'video_ts.ifo')
+
+        if lstUris is None:
+
+            dlg = Gtk.FileChooserDialog(title=_('Open audio files'), parent=self.pWindow, action=Gtk.FileChooserAction.OPEN)
+            dlg.add_buttons(Gtk.STOCK_OPEN, Gtk.ResponseType.OK)
+            dlg.set_filter(self.pFilefilterInput)
+            dlg.set_select_multiple(True)
+            dlg.set_local_only(False)
+            dlg.set_current_folder(g_pSettings.get_string('source-folder'))
+
+            if dlg.run() == Gtk.ResponseType.OK:
+
+                lstFiles = dlg.get_filenames()
+
+            dlg.destroy()
+
+        else:
+
+            for strUri in lstUris:
+
+                sPath = urllib.request.url2pathname(urllib.parse.urlparse(strUri).path)
+
+                if os.path.isfile(sPath) and sPath not in lstFiles and sPath.lower().endswith(lstExts):
+
+                    lstFiles.append(sPath)
+
+                elif os.path.isdir(sPath):
+
+                    for strDirPath, lstDirNames, lstFileNames in os.walk(sPath):
+
+                        for strFileName in lstFileNames:
+
+                            sFilePath = os.path.join(strDirPath, strFileName)
+
+                            if os.path.isfile(sFilePath) and sFilePath not in lstFiles and sFilePath.lower().endswith(lstExts):
+
+                                lstFiles.append(sFilePath)
+
+        for strFilePath in list(lstFiles):
+
+            if strFilePath.lower().endswith('.cue'):
+
+                dCue = GstSplitter.parseCueSheet(strFilePath)
+
+                if dCue['file'] in lstFiles:
+
+                    lstFiles.remove(dCue['file'])
+
+        lstFiles.sort()
+
+        if len(lstFiles):
+
+            self.toggleSensitivity(False)
+            self.toggleToolbuttons(False)
+            self.nState = State.DECODING
+            self.pProgressbar.set_text(None)
+            g_pSettings.set_string('source-folder', os.path.dirname(lstFiles[0]))
+            nTrack = 0
+            pPixBuf = Gtk.IconTheme().get_default().load_icon('gtk-missing-image', 24, 0)
+            strPrevSrcDir = None
+            nRows = len(self.pListstoreAudioFiles)
+
+            for strFilePath in lstFiles:
+
+                strOutDir = self.getTempDir(strFilePath)
+                bExists = False
+
+                for pRow in self.pListstoreAudioFiles:
+
+                     if strFilePath in pRow[Column.FILEPATH]:
+
+                         bExists = True
+
+                         break
+
+                strFileDir, strFileName = os.path.split(strFilePath)
+                strFileExt = os.path.splitext(strFileName)[1]
+
+                if strPrevSrcDir != strFileDir:
+
+                    strPrevSrcDir = strFileDir
+                    nTrack = 0
+
+                if strFileExt.lower() == '.cue':
+
+                    Tasks.reset()
+                    dCue = GstSplitter.parseCueSheet(strFilePath)
+                    strTempDir = self.getTempDir(dCue['file'])
+
+                    if strTempDir not in self.m_lstTempDirs:
+
+                        self.m_lstTempDirs.append(strTempDir)
+
+                    for dTrack in dCue['tracks']:
+
+                        pGstSplitter = GstSplitter()
+                        Tasks.add(pGstSplitter, dCue['file'], strTempDir, dTrack['start'], dTrack['end'], dTrack['performer'], dTrack['title'], len(dCue['tracks']))
+
+                    idle()
+                    Tasks.run(self.fnSplit)
+                    GLib.timeout_add(40, self.fnProgress);
+
+                    while self.nState:
+
+                        if self.bQuit:
+
+                            return
+
+                        idle()
+
+                    self.pStatusBarLabel.set_text(_('Ready'))
+                    self.pProgressbar.set_fraction(0.0)
+
+                elif strFileName.upper() == 'VIDEO_TS.IFO':
+
+                    dChapters = StreamsDialog(None, strFileDir).dChapters
+
+                    if dChapters:
+
+                        Tasks.reset()
+                        strTempDir = self.getTempDir(strFilePath)
+
+                        if strTempDir not in self.m_lstTempDirs:
+
+                            self.m_lstTempDirs.append(strTempDir)
+
+                        for dChapter in dChapters['chapters']:
+
+                            pGstDvd = GstDvd()
+                            Tasks.add(pGstDvd, strFilePath, strTempDir, dChapters['title'], dChapter['chapter'], dChapter['length'], dChapters['count'])
+
+                        idle()
+                        Tasks.run(self.fnDvd)
+                        GLib.timeout_add(40, self.fnProgress);
+
+                        while self.nState:
+
+                            if self.bQuit:
+
+                                return
+
+                            idle()
+
+                        self.pStatusBarLabel.set_text(_('Ready'))
+                        self.pProgressbar.set_fraction(0.0)
+
+                elif strFileExt.lower() in lstExts[6:9]:
+
+                    AREA_TWOCH = 1
+                    AREA_MULCH = 2
+                    AREA_AUTO = 3
+                    lSacdProgress = [0.0]
+                    nSacdTracks = 0
+
+                    def sacdConvert(lError):
+
+                        lError[0] = oLibOdioSacd.odiolibsacd_Convert(str.encode(strOutDir), 88200, pOnProgress, None)
+
+                    def onProgress(fProgress, sFilePathB, nTrack, pUserData = None):
+
+                        if sFilePathB:
+
+                            sFilePath = sFilePathB.decode()
+                            nInsertIndex = len(self.pListstoreAudioFiles);
+
+                            for nIndex in range(nInsertIndex - 1, -1, -1):
+
+                                if os.path.dirname(sFilePath) in os.path.dirname(self.pListstoreAudioFiles[nIndex][Column.FILEPATH]):
+
+                                    if nTrack < int(self.pListstoreAudioFiles[nIndex][Column.TRACK]):
+
+                                        nInsertIndex = nIndex
+
+                            self.pListstoreAudioFiles.insert(nInsertIndex, [sFilePath, 'Unknown Artist', 'Unknown Artist', '', 'Unknown Album', '%.2i' %(nTrack + 1), '%.2i' %nSacdTracks, 'Track ' + str(nTrack + 1), '01', '01', '', '', '', 'Unknown Artist/Unknown Album', 0, pPixBuf, 16, 2, 44100, '', '□ □'])
+
+                        lSacdProgress[0] = fProgress / 100
+                        self.pProgressbar.set_fraction(lSacdProgress[0])
+
+                        return not self.bQuit
+
+                    OnProgress = ctypes.CFUNCTYPE(ctypes.c_bool, ctypes.c_float, ctypes.c_char_p, ctypes.c_int, ctypes.c_void_p)
+                    pOnProgress = OnProgress(onProgress)
+                    oLibOdioSacd = ctypes.cdll.LoadLibrary('/usr/lib/libodiosacd.so')
+                    bError = oLibOdioSacd.odiolibsacd_Open(str.encode(strFilePath), AREA_AUTO)
+                    strResult = _('Decoding successfully finished')
+
+                    if (bError):
+
+                        strResult = _('Failed to open {filepath}').format(filepath=strFilePath)
+
+                    else:
+
+                        nSacdTracks = oLibOdioSacd.odiolibsacd_GetTrackCount(AREA_AUTO)
+
+                        self.pStatusBarLabel.set_text(_('Decoding {fileName}').format(fileName = strFilePath))
+                        nTwoCh = oLibOdioSacd.odiolibsacd_GetTrackCount(AREA_TWOCH)
+                        nMulCh = oLibOdioSacd.odiolibsacd_GetTrackCount(AREA_MULCH)
+
+                        if nTwoCh > 0 and nMulCh > 0 and nTwoCh != nMulCh:
+
+                            self.m_lstWarnings.append('The SACD multichannel and stereo areas had a different track count: extracted both.')
+
+                        lError = [False]
+                        pThread = threading.Thread(target=sacdConvert, args=(lError,))
+                        pThread.start()
+
+                        while lSacdProgress[0] < 0.99 and not self.bQuit:
+
+                            time.sleep(0.04);
+                            idle()
+
+                        pThread.join()
+
+                        if (lError[0]):
+
+                            strResult = _('Failed to decode {filepath}').format(filepath=strFilePath)
+
+                        else:
+
+                            oLibOdioSacd.odiolibsacd_Close()
+
+                        if self.bQuit:
+
+                            return
+
+                    self.pStatusBarLabel.set_text(strResult)
+                    self.pProgressbar.set_fraction(0.0)
+
+                elif not bExists:
+
+                    nTrack += 1
+                    strTrack = '%.2i' %nTrack
+                    nTracks = len([sPath for sPath in lstFiles if os.path.split(sPath)[0] == strFileDir and sPath.lower().endswith(lstExts[:5])])
+                    self.pListstoreAudioFiles.append([strFilePath, 'Unknown Artist', 'Unknown Artist', '', 'Unknown Album', strTrack, '%.2i' %nTracks, 'Track ' + strTrack, '01', '01', '', '', '', 'Unknown Artist/Unknown Album', 0, pPixBuf, 16, 2, 44100, '', '□ □'])
+
+                if self.bQuit:
+
+                    return
+
+            # Start analysing files
+            if len(self.pListstoreAudioFiles) > nRows:
+
+                Tasks.reset()
+                self.nState = State.ANALYSING
+                oLastIter = self.pListstoreAudioFiles.get_iter(0)
+
+                while oLastIter:
+
+                    if not self.pListstoreAudioFiles[oLastIter][Column.QUALITY]:
+
+                        strTempDir = self.getTempDir(self.pListstoreAudioFiles[oLastIter][Column.FILEPATH])
+
+                        if strTempDir not in self.m_lstTempDirs:
+
+                            self.m_lstTempDirs.append(strTempDir)
+
+                        pGstReader = GstReader()
+                        Tasks.add(pGstReader, oLastIter, strTempDir)
+
+                    oLastIter = self.pListstoreAudioFiles.iter_next(oLastIter)
+
+                Tasks.run(self.fnAnalyse)
+                GLib.timeout_add(40, self.fnProgress);
+
+                while self.nState:
+
+                    if self.bQuit:
+
+                        return
+
+                    idle()
+
+            else:
+
+                self.finishedAnalysisBatch()
+
+    def onTreeviewAudioFilesDragDataReceived(self, lstUris):
+
+        self.onToolbuttonOpenClicked(None, lstUris)
+
+    def onTreeviewAudioFilesKeyPressEvent(self, pTreeView, pEvent):
+
+        if pEvent.keyval == 65535 and len(self.m_lstSelectedRows):
+
+            lstIters = []
+
+            for nRow in self.m_lstSelectedRows:
+
+                lstIters.append(self.pListstoreAudioFiles.get_iter(nRow))
+
+            for pIter in lstIters:
+
+                if pIter is not None:
+
+                    self.pListstoreAudioFiles.remove(pIter)
+
+            if self.nState == State.PLAYING:
+
+                self.onToolbuttonPlayClicked(None, 0)
+
+        return False
+
+    def onWindowKeyPressEvent(self, pTreeView, pEvent):
+
+        if pEvent.state & Gdk.ModifierType.CONTROL_MASK and len(self.m_lstSelectedRows):
+
+            if pEvent.keyval == 65361 and self.pToolbuttonPlay.get_visible():
+
+                self.onToolbuttonPlayClicked(None, 1)
+
+            elif pEvent.keyval == 65363 and self.pToolbuttonPlay.get_visible():
+
+                self.onToolbuttonPlayClicked(None, -1)
+
+            elif pEvent.keyval == 67 and self.pToolbuttonConvert.get_sensitive():
+
+                if pEvent.state & Gdk.ModifierType.SHIFT_MASK:
+                    self.onMenuitemFLACActivate(None)
+                else:
+                    self.onMenuitemAACActivate(None)
+
+        return False
+
+    def onGstPlayerProgress(self):
+
+        if not self.pGstPlayer.pPipeline:
+
+            self.pStatusBarLabel.set_text(_('Playback finished'))
+
+            return False
+
+        elif self.m_bUpdateScale:
+
+            self.pScalePosition.set_value(self.pGstPlayer.getPosition())
+
+        return True
+
+    def onGstPlayerEos(self, bFinished):
+
+        if bFinished:
+
+            del self.m_lstPlayQueue['files'][0]
+
+        if len(self.m_lstPlayQueue['files']):
+
+            nLength = self.m_lstPlayQueue['files'][0]['length']
+            self.pStatusBarLabel.set_text(_('Playing {fileName}').format(fileName = urllib.request.url2pathname(self.m_lstPlayQueue['files'][0]['file'])[7:]))
+            self.pScalePosition.set_range(0, nLength)
+            self.pScalePosition.set_increments(nLength // 100, nLength // 10)
+            self.pGstPlayer = GstPlayer(self.m_lstPlayQueue['files'][0]['file'], self.onGstPlayerEos, nLength)
+
+            if self.m_lstPlayQueue['mode'] == -1:
+
+                self.pGstPlayer.seek(nLength - 10000000000, nLength, False)
+
+            elif self.m_lstPlayQueue['mode'] == 1:
+
+                self.pGstPlayer.seek(0, 10000000000, False)
+
+            else:
+
+                self.pGstPlayer.seek(0, nLength, False)
+
+            GLib.timeout_add(40, self.onGstPlayerProgress)
+
+        else:
+
+            self.onToolbuttonStopClicked(None)
+
+    def onScalePositionButtonPressEvent(self, pWidget, event):
+
+        self.m_bUpdateScale = False
+
+    def onScalePositionButtonReleaseEvent(self, pWidget, event):
+
+        self.pGstPlayer.seek(self.pScalePosition.get_value(), None, False)
+        self.m_bUpdateScale = True
+
+    def onScalePositionChangeValue(self, pWidget, scale, value):
+
+        if self.m_bUpdateScale:
+
+            self.pGstPlayer.seek(value, None, False)
+
+        return False
+
+    def onScalePositionFormatValue(self, pWidget, nValue):
+
+        fMinutes, fSeconds = divmod(nValue // 1000000000, 60)
+
+        return "{:.0f}:{:02.0f}".format(fMinutes, fSeconds)
+
+    def onToolbuttonPlayClicked(self, pWidget, nMode = 0):
+
+        self.nState = State.PLAYING
+        self.pScalePosition.set_visible(True)
+        self.pProgressbar.set_visible(False)
+        self.pToolbuttonPlay.set_visible(False)
+        self.pToolbuttonStop.set_visible(True)
+        self.toggleSensitivity(False, True)
+        self.toggleToolbuttons(False)
+
+        self.m_lstPlayQueue['mode'] = nMode
+        del self.m_lstPlayQueue['files'][0:]
+
+        for nRow in self.m_lstSelectedRows:
+
+            self.m_lstPlayQueue['files'].append({'file': 'file://' + urllib.request.pathname2url(self.pListstoreAudioFiles[nRow][Column.FILEPATH]), 'length': self.pListstoreAudioFiles[nRow][Column.LENGTH]})
+
+        if self.pGstPlayer and self.pGstPlayer.pPipeline:
+
+            self.pGstPlayer.close()
+
+        self.onGstPlayerEos(None)
+
+    def onToolbuttonStopClicked(self, pWidget):
+
+        self.pProgressbar.set_fraction(0)
+        self.pGstPlayer.close()
+        self.pScalePosition.set_visible(False)
+        self.pProgressbar.set_visible(True)
+        self.pToolbuttonPlay.set_visible(True)
+        self.pToolbuttonStop.set_visible(False)
+        self.toggleSensitivity(True)
+        self.toggleToolbuttons(True)
+        self.pStatusBarLabel.set_text(_('Playback stopped'))
+        self.nState = State.IDLE
+
+    def onMenuitemBeginningActivate(self, p):
+
+        self.onToolbuttonPlayClicked(None, 1)
+
+    def onMenuitemEndActivate(self, p):
+
+        self.onToolbuttonPlayClicked(None, -1)
+
+if __name__ == "__main__":
+
+    Odio(False)

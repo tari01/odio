@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemalist>
+  <schema id="in.tari.odio" path="/in/tari/odio/" gettext-domain="odio">
+    <key type="s" name="destination-flac">
+      <default>''</default>
+      <summary>FLAC base folder</summary>
+      <description>This sets the path to the base folder for your FLAC albums.</description>
+    </key>
+    <key type="s" name="destination-aac">
+      <default>''</default>
+      <summary>AAC base folder</summary>
+      <description>This sets the path to the base folder for your AAC albums.</description>
+    </key>
+    <key type="s" name="source-folder">
+      <default>''</default>
+      <summary>Source Folder</summary>
+      <description>This sets the path to the default source folder.</description>
+    </key>
+    <key type="s" name="image-folder">
+      <default>''</default>
+      <summary>Image Folder</summary>
+      <description>This sets the path to the default image folder.</description>
+    </key>
+    <key type="b" name="check-fake-stereo">
+      <default>false</default>
+        <summary>Check fake stereo</summary>
+        <description>
+          Save 2.0 files as 1.0 if the channels contain identical data
+       </description>
+    </key>
+    <key type="b" name="remove-silent-channels">
+      <default>false</default>
+        <summary>Remove silent channels</summary>
+        <description>
+          Remove channels that contain no audio data
+       </description>
+    </key>
+    <key type="b" name="remove-lfe-channel">
+      <default>false</default>
+        <summary>Remove LFE audio</summary>
+        <description>
+          Remove the LFE channel if possible, otherwise replace it with silence
+       </description>
+    </key>
+    <key type="b" name="saturate-multichannel">
+      <default>false</default>
+        <summary>Saturate multichannel files</summary>
+        <description>
+          Save multichannel files as 4.0, 5.1 or 7.1, copying audio to any newly added channels
+       </description>
+    </key>
+    <key type="s" name="default-compress">
+      <choices>
+        <choice value='flac'/>
+        <choice value='aac'/>
+        <choice value='auto'/>
+      </choices>
+      <default>'auto'</default>
+      <summary>Default compression method</summary>
+      <description>This sets the default action for the Compress button.</description>
+    </key>
+    <key type="s" name="temp-location">
+      <choices>
+        <choice value='tmp'/>
+        <choice value='src'/>
+      </choices>
+      <default>'tmp'</default>
+      <summary>Temporary files location</summary>
+      <description>This sets the location of temporary files: either the /tmp folder, or the source file's directory.</description>
+    </key>
+    <key type="i" name="settings-last-shown">
+      <default>0</default>
+        <summary>Settings last shown version</summary>
+        <description>
+          This is the last version that showed the user the settings dialog at program startup.
+       </description>
+    </key>
+    <key type="b" name="delete-images">
+      <default>true</default>
+        <summary>Delete Images</summary>
+        <description>
+          Delete image files used as album art after all jobs are complete.
+       </description>
+    </key>
+  </schema>
+</schemalist>
