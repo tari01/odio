@@ -773,7 +773,7 @@ class Odio(Application):
                     pOnProgress = OnProgress(onProgress)
                     oLibOdioSacd = ctypes.cdll.LoadLibrary('/usr/lib/libodiosacd.so')
                     bError = oLibOdioSacd.odiolibsacd_Open(str.encode(strFilePath), AREA_AUTO)
-                    strResult = _('Decoding successfully finished')
+                    strResult = _('Ready')
 
                     if (bError):
 
@@ -916,7 +916,7 @@ class Odio(Application):
 
         if not self.pGstPlayer.pPipeline:
 
-            self.pStatusBarLabel.set_text(_('Playback finished'))
+            self.pStatusBarLabel.set_text(_('Ready'))
 
             return False
 
@@ -1014,7 +1014,7 @@ class Odio(Application):
         self.pToolbuttonStop.set_visible(False)
         self.toggleSensitivity(True)
         self.toggleToolbuttons(True)
-        self.pStatusBarLabel.set_text(_('Playback stopped'))
+        self.pStatusBarLabel.set_text(_('Ready'))
         self.nState = State.IDLE
 
     def onMenuitemBeginningActivate(self, p):
