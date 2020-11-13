@@ -153,8 +153,8 @@ class Odio(Application):
 
         if g_pSettings.get_string('destination-aac') == '' and g_pSettings.get_string('destination-flac') == '':
 
-            strMusic = GLib.get_user_special_dir(GLib.USER_DIRECTORY_MUSIC) or GLib.get_home_dir()
-            strDownloads = GLib.get_user_special_dir(GLib.USER_DIRECTORY_DOWNLOAD) or GLib.get_home_dir()
+            strMusic = GLib.get_user_special_dir(GLib.UserDirectory.DIRECTORY_MUSIC) or GLib.get_home_dir()
+            strDownloads = GLib.get_user_special_dir(GLib.UserDirectory.DIRECTORY_DOWNLOAD) or GLib.get_home_dir()
 
             g_pSettings.set_string('destination-aac', strMusic)
             g_pSettings.set_string('destination-flac', strMusic)
