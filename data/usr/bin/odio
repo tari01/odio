@@ -67,6 +67,7 @@ class Column(IntEnum):
     SAMPLERATE = 18
     QUALITY = 19
     SILENCE = 20
+    MODIFIED = 21
 
 class Tasks:
 
@@ -360,6 +361,7 @@ class Odio(Application):
         self.pListstoreAudioFiles[pIter][Column.CHANNELS] = dAudioInfo['channels']
         self.pListstoreAudioFiles[pIter][Column.SAMPLERATE] = dAudioInfo['rate']
         self.pListstoreAudioFiles[pIter][Column.QUALITY] = '/'.join([str(dAudioInfo['rate']), str(dAudioInfo['bps']), str(dAudioInfo['channels'])])
+        self.pListstoreAudioFiles[pIter][Column.MODIFIED] = int(os.path.getmtime(dAudioInfo['file']))
 
         lstSilence = ['■',' ', '■']
 
@@ -387,7 +389,7 @@ class Odio(Application):
                     nInsertIndex = nIndex
 
         pPixBuf = Gtk.IconTheme().get_default().load_icon('gtk-missing-image', 24, 0)
-        self.pListstoreAudioFiles.insert(nInsertIndex, [sFilePath, 'Unknown Artist', 'Unknown Artist', '', 'Unknown Album', '%.2i' %(nTrack + 1), '%.2i' %nTracks, 'Track ' + str(nTrack + 1), '01', '01', '', '', '', 'Unknown Artist/Unknown Album', 0, pPixBuf, 16, 2, 44100, '', '□ □'])
+        self.pListstoreAudioFiles.insert(nInsertIndex, [sFilePath, 'Unknown Artist', 'Unknown Artist', '', 'Unknown Album', '%.2i' %(nTrack + 1), '%.2i' %nTracks, 'Track ' + str(nTrack + 1), '01', '01', '', '', '', 'Unknown Artist/Unknown Album', 0, pPixBuf, 16, 2, 44100, '', '□ □', 0])
         Tasks.feed()
 
         return False
@@ -542,7 +544,6 @@ class Odio(Application):
         self.nState = State.ANALYSING
         self.toggleSensitivity(False)
         self.toggleToolbuttons(False)
-        self.pProgressbar.set_text(None)
 
         strCommand = 'odio-edit'
 
@@ -557,19 +558,41 @@ class Odio(Application):
             idle()
             time.sleep(0.04)
 
-        oSelectedIters = Queue()
-        nTracks = 0
+        # Start analysing files
+        Tasks.reset()
+        self.pProgressbar.set_text(None)
 
         for nRow in self.m_lstSelectedRows:
 
-            oSelectedIters.put([self.pListstoreAudioFiles.get_iter(nRow), None, nTracks])
-            nTracks += 1
+            pIter = self.pListstoreAudioFiles.get_iter(nRow)
 
-        for i in range(min(nTracks, multiprocessing.cpu_count())):
+            if int(os.path.getmtime(self.pListstoreAudioFiles[pIter][Column.FILEPATH])) > self.pListstoreAudioFiles[pIter][Column.MODIFIED]:
 
-            threading.Thread(target=self.fnAnalyse, args=(i, oSelectedIters)).start()
+                strTempDir = self.getTempDir(self.pListstoreAudioFiles[pIter][Column.FILEPATH])
 
-        threading.Thread(target=self.fnProgress).start()
+                if strTempDir not in self.m_lstTempDirs:
+
+                    self.m_lstTempDirs.append(strTempDir)
+
+                pGstReader = GstReader()
+                Tasks.add(pGstReader, pIter, strTempDir)
+
+        if len(Tasks.lQueue):
+
+            Tasks.run(self.fnAnalyse)
+            GLib.timeout_add(40, self.fnProgress);
+
+            while self.nState:
+
+                if self.bQuit:
+
+                    return
+
+                idle()
+
+        else:
+
+            self.finishedAnalysisBatch()
 
     def onToolbuttonOpenClicked(self, pWidget, lstUris = None):
 
@@ -762,7 +785,7 @@ class Odio(Application):
 
                                         nInsertIndex = nIndex
 
-                            self.pListstoreAudioFiles.insert(nInsertIndex, [sFilePath, 'Unknown Artist', 'Unknown Artist', '', 'Unknown Album', '%.2i' %(nTrack + 1), '%.2i' %nSacdTracks, 'Track ' + str(nTrack + 1), '01', '01', '', '', '', 'Unknown Artist/Unknown Album', 0, pPixBuf, 16, 2, 44100, '', '□ □'])
+                            self.pListstoreAudioFiles.insert(nInsertIndex, [sFilePath, 'Unknown Artist', 'Unknown Artist', '', 'Unknown Album', '%.2i' %(nTrack + 1), '%.2i' %nSacdTracks, 'Track ' + str(nTrack + 1), '01', '01', '', '', '', 'Unknown Artist/Unknown Album', 0, pPixBuf, 16, 2, 44100, '', '□ □', 0])
 
                         lSacdProgress[0] = fProgress / 100
                         self.pProgressbar.set_fraction(lSacdProgress[0])
@@ -822,7 +845,7 @@ class Odio(Application):
                     nTrack += 1
                     strTrack = '%.2i' %nTrack
                     nTracks = len([sPath for sPath in lstFiles if os.path.split(sPath)[0] == strFileDir and sPath.lower().endswith(lstExts[:5])])
-                    self.pListstoreAudioFiles.append([strFilePath, 'Unknown Artist', 'Unknown Artist', '', 'Unknown Album', strTrack, '%.2i' %nTracks, 'Track ' + strTrack, '01', '01', '', '', '', 'Unknown Artist/Unknown Album', 0, pPixBuf, 16, 2, 44100, '', '□ □'])
+                    self.pListstoreAudioFiles.append([strFilePath, 'Unknown Artist', 'Unknown Artist', '', 'Unknown Album', strTrack, '%.2i' %nTracks, 'Track ' + strTrack, '01', '01', '', '', '', 'Unknown Artist/Unknown Album', 0, pPixBuf, 16, 2, 44100, '', '□ □', 0])
 
                 if self.bQuit:
 
