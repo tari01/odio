@@ -990,9 +990,7 @@ class GstDvd(GstBase):
 
     def onEos(self, pElement, pMessage):
 
-        print('eos1')
         super().onEos(pElement, pMessage)
-        print('eos2')
         shutil.move(self.sOutPath + '00', self.sOutPath)
 
         if os.path.exists(self.sOutPath + '01'):

@@ -408,7 +408,7 @@ class Odio(Application):
 
             fProgress += dTask['params'][0].getPosition()
 
-            if dTask['progress'] != Tasks.dProgressLast['text'] and fTime > Tasks.dProgressLast['time'] + 2.0:
+            if dTask['params'][0].nState != GstState.DONE and dTask['progress'] != Tasks.dProgressLast['text'] and fTime > Tasks.dProgressLast['time'] + 2.0:
 
                 strText = dTask['progress']
                 Tasks.dProgressLast['text'] = strText
