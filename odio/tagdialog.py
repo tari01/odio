@@ -53,9 +53,10 @@ class TagDialog(Dialog):
 
         return True
 
-    def ReplaceChars(self, strText):
+    @staticmethod
+    def ReplaceChars(strText):
 
-        return strText.replace('\\', '-').replace('/', '-').replace('?', '').replace(':', '-').replace(';', '-').replace('*', '-').replace('<', '-').replace('>', '-').replace('|', '-').replace('"', '')
+        return strText.replace('"', '').replace('*', '-').replace('/', '-').replace(':', '-').replace('<', '-').replace('>', '-').replace('?', '').replace('\\', '-').replace('|', '-')
 
     def onButtonGetTagFromWebClicked(self, pButton):
 
@@ -166,9 +167,9 @@ class TagDialog(Dialog):
                     self.pListstore[nIndex][7] = self.ConvertToTitleCase(None, None, lstTitles[1][nTitleOffset].a.string)
 
                 if int(self.pListstore[nIndex][8]) > 0 and int(self.pListstore[nIndex][9]) > 1:
-                    self.pListstore[nIndex][13] = os.path.join(self.ReplaceChars(self.pListstore[nIndex][2]), self.ReplaceChars(self.pListstore[nIndex][4]), 'Disc ' + self.pListstore[nIndex][8])
+                    self.pListstore[nIndex][13] = os.path.join(TagDialog.ReplaceChars(self.pListstore[nIndex][2]), TagDialog.ReplaceChars(self.pListstore[nIndex][4]), 'Disc ' + self.pListstore[nIndex][8])
                 else:
-                    self.pListstore[nIndex][13] = os.path.join(self.ReplaceChars(self.pListstore[nIndex][2]), self.ReplaceChars(self.pListstore[nIndex][4]))
+                    self.pListstore[nIndex][13] = os.path.join(TagDialog.ReplaceChars(self.pListstore[nIndex][2]), TagDialog.ReplaceChars(self.pListstore[nIndex][4]))
 
                 nTitleOffset += 1
 
@@ -221,9 +222,9 @@ class TagDialog(Dialog):
         strText = self.pEntryAlbum.get_text()
 
         if self.pComboboxDiscNum.get_active() > -1 and self.pComboboxDiscTotal.get_active() > 0:
-            self.pEntryFolder.set_text(os.path.join(self.ReplaceChars(self.pEntryAlbumArtist.get_text()), self.ReplaceChars(strText), 'Disc ' + self.pComboboxDiscNum.get_child().get_text()))
+            self.pEntryFolder.set_text(os.path.join(TagDialog.ReplaceChars(self.pEntryAlbumArtist.get_text()), TagDialog.ReplaceChars(strText), 'Disc ' + self.pComboboxDiscNum.get_child().get_text()))
         else:
-            self.pEntryFolder.set_text(os.path.join(self.ReplaceChars(self.pEntryAlbumArtist.get_text()), self.ReplaceChars(strText)))
+            self.pEntryFolder.set_text(os.path.join(TagDialog.ReplaceChars(self.pEntryAlbumArtist.get_text()), TagDialog.ReplaceChars(strText)))
 
         self.pCheckbuttonAlbum.set_active(self.checkSharedField(4, strText))
         self.pCheckbuttonFolder.set_active(self.checkSharedField(13, self.pEntryFolder.get_text()))
@@ -245,9 +246,9 @@ class TagDialog(Dialog):
     def onEntryAlbumArtistChanged(self, pEditable):
 
         if self.pComboboxDiscNum.get_active() > -1 and self.pComboboxDiscTotal.get_active() > 0:
-            self.pEntryFolder.set_text(os.path.join(self.ReplaceChars(self.pEntryAlbumArtist.get_text()), self.ReplaceChars(self.pEntryAlbum.get_text()), 'Disc ' + self.pComboboxDiscNum.get_child().get_text()))
+            self.pEntryFolder.set_text(os.path.join(TagDialog.ReplaceChars(self.pEntryAlbumArtist.get_text()), TagDialog.ReplaceChars(self.pEntryAlbum.get_text()), 'Disc ' + self.pComboboxDiscNum.get_child().get_text()))
         else:
-            self.pEntryFolder.set_text(os.path.join(self.ReplaceChars(self.pEntryAlbumArtist.get_text()), self.ReplaceChars(self.pEntryAlbum.get_text())))
+            self.pEntryFolder.set_text(os.path.join(TagDialog.ReplaceChars(self.pEntryAlbumArtist.get_text()), TagDialog.ReplaceChars(self.pEntryAlbum.get_text())))
 
         self.pCheckbuttonAlbumArtist.set_active(self.checkSharedField(2, self.pEntryAlbumArtist.get_text()))
         self.pCheckbuttonFolder.set_active(self.checkSharedField(13, self.pEntryFolder.get_text()))
@@ -267,9 +268,9 @@ class TagDialog(Dialog):
     def onComboboxDiscNumChanged(self, pCombobox):
 
         if self.pComboboxDiscNum.get_active() > -1 and self.pComboboxDiscTotal.get_active() > 0:
-            self.pEntryFolder.set_text(os.path.join(self.ReplaceChars(self.pEntryAlbumArtist.get_text()), self.ReplaceChars(self.pEntryAlbum.get_text()), 'Disc ' + self.pComboboxDiscNum.get_child().get_text()))
+            self.pEntryFolder.set_text(os.path.join(TagDialog.ReplaceChars(self.pEntryAlbumArtist.get_text()), TagDialog.ReplaceChars(self.pEntryAlbum.get_text()), 'Disc ' + self.pComboboxDiscNum.get_child().get_text()))
         else:
-            self.pEntryFolder.set_text(os.path.join(self.ReplaceChars(self.pEntryAlbumArtist.get_text()), self.ReplaceChars(self.pEntryAlbum.get_text())))
+            self.pEntryFolder.set_text(os.path.join(TagDialog.ReplaceChars(self.pEntryAlbumArtist.get_text()), TagDialog.ReplaceChars(self.pEntryAlbum.get_text())))
 
         self.pCheckbuttonDisc.set_active(self.checkSharedField(8, self.pComboboxDiscNum.get_child().get_text()))
         self.pCheckbuttonFolder.set_active(self.checkSharedField(13, self.pEntryFolder.get_text()))
@@ -277,9 +278,9 @@ class TagDialog(Dialog):
     def onComboboxDiscTotalChanged(self, pCombobox):
 
         if self.pComboboxDiscNum.get_active() > -1 and self.pComboboxDiscTotal.get_active() > 0:
-            self.pEntryFolder.set_text(os.path.join(self.ReplaceChars(self.pEntryAlbumArtist.get_text()), self.ReplaceChars(self.pEntryAlbum.get_text()), 'Disc ' + self.pComboboxDiscNum.get_child().get_text()))
+            self.pEntryFolder.set_text(os.path.join(TagDialog.ReplaceChars(self.pEntryAlbumArtist.get_text()), TagDialog.ReplaceChars(self.pEntryAlbum.get_text()), 'Disc ' + self.pComboboxDiscNum.get_child().get_text()))
         else:
-            self.pEntryFolder.set_text(os.path.join(self.ReplaceChars(self.pEntryAlbumArtist.get_text()), self.ReplaceChars(self.pEntryAlbum.get_text())))
+            self.pEntryFolder.set_text(os.path.join(TagDialog.ReplaceChars(self.pEntryAlbumArtist.get_text()), TagDialog.ReplaceChars(self.pEntryAlbum.get_text())))
 
         self.pCheckbuttonDiscsTotal.set_active(self.checkSharedField(9, self.pComboboxDiscTotal.get_child().get_text()))
         self.pCheckbuttonFolder.set_active(self.checkSharedField(13, self.pEntryFolder.get_text()))

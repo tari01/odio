@@ -13,7 +13,7 @@ except:
 
 from odio.gtk import *
 from odio.gst import GstReader, GstEncoder, GstPlayer, GstSplitter, GstDvd, GstState
-from odio.tagdialog import *
+from odio.tagdialog import TagDialog
 from odio.logdialog import *
 from odio.settingsdialog import *
 from odio.streamsdialog import *
@@ -463,22 +463,22 @@ class Odio(Application):
     def fnEncode(self, pGstEncoder, pIter, sEncoder, nTask):
 
         pRow = self.pListstoreAudioFiles[pIter]
-        strOutFilePath = (pRow[Column.TRACK] + '. ' +  pRow[Column.ARTIST] + ' - ' +  pRow[Column.TITLE]).replace('\\', '-').replace('/', '-').replace('?', '')
-        strTempFilePath = ''
-
-        if len(strOutFilePath) > 80:
-
-            strOutFilePath = strOutFilePath[: 78] + '..'
+        strOutFilePath = pRow[Column.TRACK] + '. ' +  TagDialog.ReplaceChars(pRow[Column.ARTIST]) + ' - ' +  TagDialog.ReplaceChars(pRow[Column.TITLE]) + '.'
+        sExtension = ''
 
         if sEncoder == 'aac':
 
-            strOutFilePath = os.path.join(g_pSettings.get_string('destination-aac'), pRow[Column.FOLDER], strOutFilePath + '.m4a')
-            strTempFilePath = os.path.join(os.path.expanduser('~'), APPNAME + '-' + str(nTask) + '.m4a')
+            sExtension = 'm4a'
+            strOutFilePath = os.path.join(g_pSettings.get_string('destination-aac'), pRow[Column.FOLDER], strOutFilePath + sExtension)
 
         else:
 
-            strOutFilePath = os.path.join(g_pSettings.get_string('destination-flac'), pRow[Column.FOLDER], strOutFilePath + '.flac')
-            strTempFilePath = os.path.join(os.path.expanduser('~'), APPNAME + '-' + str(nTask) + '.flac')
+            sExtension = 'flac'
+            strOutFilePath = os.path.join(g_pSettings.get_string('destination-flac'), pRow[Column.FOLDER], strOutFilePath + sExtension)
+
+        if len(strOutFilePath.encode('utf-8')) > 255:
+
+            strOutFilePath = strOutFilePath[: 255 - len(sExtension) - 3] + '...' + sExtension
 
         strDestFolderPath = os.path.dirname(strOutFilePath)
         Tasks.lQueue[nTask]['progress'] = _('Compressing {fileName}').format(fileName = strOutFilePath)
@@ -508,6 +508,7 @@ class Odio(Application):
         dTags['comment'] = pRow[Column.COMMENT]
         dTags['image'] = pRow[Column.IMAGEPATH]
         dTags['date'] = pRow[Column.YEAR]
+        strTempFilePath = os.path.join(os.path.expanduser('~'), APPNAME + '-' + str(nTask) + '.' + sExtension)
 
         pGstEncoder.run(sEncoder, pRow[Column.FILEPATH], strTempFilePath, strOutFilePath, pRow[Column.BPS], pRow[Column.SAMPLERATE], pRow[Column.CHANNELS], pRow[Column.LENGTH], dTags, self.finishedEncodingJob, pIter)
 
