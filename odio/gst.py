@@ -23,6 +23,10 @@ import re
 
 Gst.init(None)
 
+def escape(sFileName):
+
+    return sFileName.replace('"', '\\"')
+
 class GstState(IntEnum):
 
     IDLE = 0
@@ -212,7 +216,7 @@ class GstReader(GstBase):
 
         self.nOperation = 0
         self.sOperation = 'check-silence'
-        self.init('filesrc location="' + self.sPath.replace('"', '\\"') + '" ! decodebin ! audioconvert name=aconv ! cutter threshold-dB=-60 pre-length=100000000 run-length=100000000' + sRemoveSilent + ' ! audio/x-raw ! fakesink', None)
+        self.init('filesrc location="' + escape(self.sPath) + '" ! decodebin ! audioconvert name=aconv ! cutter threshold-dB=-60 pre-length=100000000 run-length=100000000' + sRemoveSilent + ' ! audio/x-raw ! fakesink', None)
         pAudioConvert = self.pPipeline.get_by_name('aconv')
         pPad = pAudioConvert.get_static_pad('sink')
         self.pOrigCaps = pPad.get_current_caps()
@@ -458,7 +462,7 @@ class GstReader(GstBase):
                 self.sRight = os.path.join(self.sTempDir, str(uuid.uuid4().hex))
                 self.nOperation = 1
                 self.sOperation = 'check-stereo'
-                self.init('filesrc location="' + self.sPath.replace('"', '\\"') + '" ! decodebin ! audioconvert ! audio/x-raw ! deinterleave name=d d.src_0 ! queue ! filesink location="' + self.sLeft.replace('"', '\\"') + '" d.src_1 ! queue ! filesink location="' + self.sRight.replace('"', '\\"') + '"', None)
+                self.init('filesrc location="' + escape(self.sPath) + '" ! decodebin ! audioconvert ! audio/x-raw ! deinterleave name=d d.src_0 ! queue ! filesink location="' + escape(self.sLeft) + '" d.src_1 ! queue ! filesink location="' + escape(self.sRight) + '"', None)
                 self.play()
 
             else:
@@ -589,7 +593,7 @@ class GstReader(GstBase):
 
             self.nOperation = self.nOperations - 1
             self.sOperation = 'decode'
-            self.init('filesrc location="' + sPathIn.replace('"', '\\"') + '" ! decodebin ! audioconvert mix-matrix="<' + sMatrix + '>" ! ' + self.dAudioInfo['caps'] + ' ! wavenc ! filesink location="' + sPathOut.replace('"', '\\"') + '"', None)
+            self.init('filesrc location="' + escape(sPathIn) + '" ! decodebin ! audioconvert mix-matrix="<' + sMatrix + '>" ! ' + self.dAudioInfo['caps'] + ' ! wavenc ! filesink location="' + escape(sPathOut) + '"', None)
             self.seek(self.dAudioInfo['start'] or 0, self.dAudioInfo['end'] or self.dAudioInfo['duration'], True)
             self.play()
 
@@ -638,7 +642,7 @@ class GstPlayer(GstBase):
 
         self.nDuration = nDuration
         self.pOnEos = pOnEos
-        self.init('playbin uri="' + sUri.replace('"', '\\"') + '" volume=1.0', None)
+        self.init('playbin uri="' + escape(sUri) + '" volume=1.0', None)
         self.play()
 
     def onEos(self, pElement, pMessage):
@@ -699,7 +703,7 @@ class GstEncoder(GstBase):
 
             sResample += ', rate=48000'
 
-        self.init('filesrc location="' + sPathIn.replace('"', '\\"') + '" ! decodebin ! audioconvert ! audioresample ! audio/x-raw' + sResample + ', channels=' + str(nChannels) + ' ! deinterleave name=d' + sDeinterleave, None)
+        self.init('filesrc location="' + escape(sPathIn) + '" ! decodebin ! audioconvert ! audioresample ! audio/x-raw' + sResample + ', channels=' + str(nChannels) + ' ! deinterleave name=d' + sDeinterleave, None)
         self.play()
 
     def onTag(self, pElement, pMessage):
@@ -768,12 +772,12 @@ class GstEncoder(GstBase):
 
             if self.sEncoder == 'flac':
 
-                self.init('filesrc location="' + self.sPathIn.replace('"', '\\"') + '" ! decodebin ! audioconvert ! flacenc name=enc quality=8 ! filesink location="' + self.sPathTmp.replace('"', '\\"') + '"', self.dTags)
+                self.init('filesrc location="' + escape(self.sPathIn) + '" ! decodebin ! audioconvert ! flacenc name=enc quality=8 ! filesink location="' + escape(self.sPathTmp) + '"', self.dTags)
                 self.play()
 
             else:
 
-                self.pProc = subprocess.Popen('neroAacEnc -if "' + self.sPathIn.replace('"', '\\"') + '" -of "' + self.sPathTmp.replace('"', '\\"') + '" -q 1.0 ', stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True, universal_newlines = True)
+                self.pProc = subprocess.Popen('neroAacEnc -if "' + escape(self.sPathIn) + '" -of "' + escape(self.sPathTmp) + '" -q 1.0 ', stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True, universal_newlines = True)
                 self.sOperation = 'nero-encode'
 
         elif self.sOperation == 'encode' or self.sOperation == 'nero-tag':
@@ -807,7 +811,7 @@ class GstEncoder(GstBase):
 
                     self.sOperation = 'nero-tag'
                     self.pProc = None
-                    self.init('filesrc location="' + self.sPathTmp.replace('"', '\\"') + '" ! qtdemux ! mp4mux name=enc ! filesink location="' + self.sPathTmp.replace('m4a', 'tmp.m4a').replace('"', '\\"') + '"', self.dTags)
+                    self.init('filesrc location="' + escape(self.sPathTmp) + '" ! qtdemux ! mp4mux name=enc ! filesink location="' + escape(self.sPathTmp.replace('m4a', 'tmp.m4a')) + '"', self.dTags)
                     self.play()
 
                     return 1.0
@@ -848,7 +852,7 @@ class GstSplitter(GstBase):
         self.pCallback = pCallback
         self.lParams = lParams
         self.nStart = nStart
-        self.init('filesrc location="' + strFilePath.replace('"', '\\"') + '" ! decodebin ! audioconvert ! audio/x-raw ! fakesink', None)
+        self.init('filesrc location="' + escape(strFilePath) + '" ! decodebin ! audioconvert ! audio/x-raw ! fakesink', None)
         self.nDuration = self.pPipeline.query_duration(Gst.Format.TIME)[1]
         self.close()
 
@@ -857,7 +861,7 @@ class GstSplitter(GstBase):
             nEnd = self.nDuration
 
         self.nDuration = nEnd - nStart
-        self.init('filesrc location="' + strFilePath.replace('"', '\\"') + '" ! decodebin ! audioconvert ! wavenc ! filesink location="' + sOutPath.replace('"', '\\"') + '"', None)
+        self.init('filesrc location="' + escape(strFilePath) + '" ! decodebin ! audioconvert ! wavenc ! filesink location="' + escape(sOutPath) + '"', None)
         self.seek(nStart, nEnd, True)
         self.play()
 
@@ -1012,8 +1016,8 @@ class GstDvd(GstBase):
         sPath = os.path.dirname(sPath)
         #pFormatChapter = Gst.format_register('chapter', 'DVD chapter')
         self.nDuration = int(fLength * Gst.SECOND)
-        self.init('dvdreadsrc name=dvdsrc device="{}" title={} chapter={} ! decodebin ! audio/x-raw,format=S16BE ! audioconvert ! audio/x-raw,format=S16LE ! splitmuxsink max-size-time={} muxer=wavenc location="{}%02d"'.format(sPath.replace('"', '\\"'), nTitle, nChapter, self.nDuration, sOutPath), None)
-        #self.init('dvdreadsrc name=dvdsrc device="{}" title={} chapter={} ! decodebin ! audio/x-raw,format=S16BE ! audioconvert ! audio/x-raw,format=S16LE ! wavenc ! filesink location="{}"'.format(sPath.replace('"', '\\"'), nTitle, nChapter, sOutPath), None)
+        self.init('dvdreadsrc name=dvdsrc device="{}" title={} chapter={} ! decodebin ! audio/x-raw,format=S16BE ! audioconvert ! audio/x-raw,format=S16LE ! splitmuxsink max-size-time={} muxer=wavenc location="{}%02d"'.format(escape(sPath), nTitle, nChapter, self.nDuration, sOutPath), None)
+        #self.init('dvdreadsrc name=dvdsrc device="{}" title={} chapter={} ! decodebin ! audio/x-raw,format=S16BE ! audioconvert ! audio/x-raw,format=S16LE ! wavenc ! filesink location="{}"'.format(escape(sPath), nTitle, nChapter, sOutPath), None)
         #self.pPipeline.get_by_name('dvdsrc').seek(1.0, pFormatChapter, Gst.SeekFlags.FLUSH, Gst.SeekType.SET, nChapter, Gst.SeekType.SET, nChapter + 1)
         #self.pPipeline.get_state(Gst.CLOCK_TIME_NONE)
         self.play()
