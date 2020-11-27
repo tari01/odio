@@ -633,13 +633,12 @@ class Odio(Application):
 
         lstFiles = []
         self.m_lstWarnings = []
-        lstExts = ('.flac', '.wv', '.ape', '.wav', 'm4a', '.cue', '.iso', '.dsf', '.dff', 'video_ts.ifo')
 
         if lstUris is None:
 
             dlg = Gtk.FileChooserDialog(title=_('Open audio files'), parent=self.pWindow, action=Gtk.FileChooserAction.OPEN)
             dlg.add_buttons(Gtk.STOCK_OPEN, Gtk.ResponseType.OK)
-            dlg.set_filter(self.pFilefilterInput)
+            dlg.set_filter(self.pFileFilterInput)
             dlg.set_select_multiple(True)
             dlg.set_local_only(False)
             dlg.set_current_folder(g_pSettings.get_string('source-folder'))
@@ -647,6 +646,9 @@ class Odio(Application):
             if dlg.run() == Gtk.ResponseType.OK:
 
                 lstFiles = dlg.get_filenames()
+                pFileFilterInfo = Gtk.FileFilterInfo()
+                pFileFilterInfo.display_name = lstFiles[0]
+                pFileFilterInfo.contains = Gtk.FileFilterFlags.DISPLAY_NAME
 
             dlg.destroy()
 
@@ -655,8 +657,11 @@ class Odio(Application):
             for strUri in lstUris:
 
                 sPath = urllib.request.url2pathname(urllib.parse.urlparse(strUri).path)
+                pFileFilterInfo = Gtk.FileFilterInfo()
+                pFileFilterInfo.display_name = sPath
+                pFileFilterInfo.contains = Gtk.FileFilterFlags.DISPLAY_NAME
 
-                if os.path.isfile(sPath) and sPath not in lstFiles and sPath.lower().endswith(lstExts):
+                if os.path.isfile(sPath) and sPath not in lstFiles and self.pFileFilterInput.filter(pFileFilterInfo):
 
                     lstFiles.append(sPath)
 
@@ -667,8 +672,11 @@ class Odio(Application):
                         for strFileName in lstFileNames:
 
                             sFilePath = os.path.join(strDirPath, strFileName)
+                            pFileFilterInfo = Gtk.FileFilterInfo()
+                            pFileFilterInfo.display_name = sFilePath
+                            pFileFilterInfo.contains = Gtk.FileFilterFlags.DISPLAY_NAME
 
-                            if os.path.isfile(sFilePath) and sFilePath not in lstFiles and sFilePath.lower().endswith(lstExts):
+                            if os.path.isfile(sFilePath) and sFilePath not in lstFiles and self.pFileFilterInput.filter(pFileFilterInfo):
 
                                 lstFiles.append(sFilePath)
 
@@ -780,7 +788,7 @@ class Odio(Application):
                         self.pStatusBarLabel.set_text(_('Ready'))
                         self.pProgressbar.set_fraction(0.0)
 
-                elif strFileExt.lower() in lstExts[6:9]:
+                elif strFileExt.lower() in ['.iso', '.dsf', '.dff']:
 
                     AREA_TWOCH = 1
                     AREA_MULCH = 2
@@ -866,7 +874,7 @@ class Odio(Application):
 
                     nTrack += 1
                     strTrack = '%.2i' %nTrack
-                    nTracks = len([sPath for sPath in lstFiles if os.path.split(sPath)[0] == strFileDir and sPath.lower().endswith(lstExts[:5])])
+                    nTracks = len([sPath for sPath in lstFiles if os.path.split(sPath)[0] == strFileDir and sPath.lower().endswith(('.flac', '.wv', '.ape', '.wav', '.m4a'))])
                     self.pListstoreAudioFiles.append([strFilePath, 'Unknown Artist', 'Unknown Artist', '', 'Unknown Album', strTrack, '%.2i' %nTracks, 'Track ' + strTrack, '01', '01', '', '', '', 'Unknown Artist/Unknown Album', 0, pPixBuf, 16, 2, 44100, '', '□ □', 0])
 
                 if self.bQuit:
