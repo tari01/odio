@@ -410,7 +410,7 @@ class Odio(Application):
                     nInsertIndex = nIndex
 
         pPixBuf = Gtk.IconTheme().get_default().load_icon('gtk-missing-image', 24, 0)
-        self.pListstoreAudioFiles.insert(nInsertIndex, [sFilePath, 'Unknown Artist', 'Unknown Artist', '', 'Unknown Album', '%.2i' %(nTrack + 1), '%.2i' %nTracks, 'Track ' + str(nTrack + 1), '01', '01', '', '', '', 'Unknown Artist/Unknown Album', 0, pPixBuf, 16, 2, 44100, '', '□ □', 0])
+        self.pListstoreAudioFiles.insert(nInsertIndex, [sFilePath, 'Unknown Artist', 'Unknown Artist', '', 'Unknown Album', '{:02.0f}'.format(nTrack + 1), '{:02.0f}'.format(nTracks), 'Track ' + str(nTrack + 1), '01', '01', '', '', '', 'Unknown Artist/Unknown Album', 0, pPixBuf, 16, 2, 44100, '', '□ □', 0])
         Tasks.feed()
 
         return False
@@ -815,7 +815,7 @@ class Odio(Application):
 
                                         nInsertIndex = nIndex
 
-                            self.pListstoreAudioFiles.insert(nInsertIndex, [sFilePath, 'Unknown Artist', 'Unknown Artist', '', 'Unknown Album', '%.2i' %(nTrack + 1), '%.2i' %nSacdTracks, 'Track ' + str(nTrack + 1), '01', '01', '', '', '', 'Unknown Artist/Unknown Album', 0, pPixBuf, 16, 2, 44100, '', '□ □', 0])
+                            self.pListstoreAudioFiles.insert(nInsertIndex, [sFilePath, 'Unknown Artist', 'Unknown Artist', '', 'Unknown Album', '{:02.0f}'.format(nTrack + 1), '{:02.0f}'.format(nSacdTracks), 'Track ' + str(nTrack + 1), '01', '01', '', '', '', 'Unknown Artist/Unknown Album', 0, pPixBuf, 16, 2, 44100, '', '□ □', 0])
 
                         lSacdProgress[0] = fProgress / 100
                         self.pProgressbar.set_fraction(lSacdProgress[0])
@@ -873,9 +873,9 @@ class Odio(Application):
                 elif not bExists:
 
                     nTrack += 1
-                    strTrack = '%.2i' %nTrack
+                    strTrack = '{:02.0f}'.format(nTrack)
                     nTracks = len([sPath for sPath in lstFiles if os.path.split(sPath)[0] == strFileDir and sPath.lower().endswith(('.flac', '.wv', '.ape', '.wav', '.m4a'))])
-                    self.pListstoreAudioFiles.append([strFilePath, 'Unknown Artist', 'Unknown Artist', '', 'Unknown Album', strTrack, '%.2i' %nTracks, 'Track ' + strTrack, '01', '01', '', '', '', 'Unknown Artist/Unknown Album', 0, pPixBuf, 16, 2, 44100, '', '□ □', 0])
+                    self.pListstoreAudioFiles.append([strFilePath, 'Unknown Artist', 'Unknown Artist', '', 'Unknown Album', strTrack, '{:02.0f}'.format(nTracks), 'Track ' + strTrack, '01', '01', '', '', '', 'Unknown Artist/Unknown Album', 0, pPixBuf, 16, 2, 44100, '', '□ □', 0])
 
                 if self.bQuit:
 
