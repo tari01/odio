@@ -259,6 +259,10 @@ class Odio(Application):
 
             dTask['params'][0].close()
 
+        if not APPDEBUG and os.path.isdir('/tmp/' + APPNAME):
+
+            shutil.rmtree('/tmp/' + APPNAME)
+
         return False
 
     def onTreeviewAudioFilesRowActivated(self, treeview, path, view_column, user_param1 = None):
@@ -354,6 +358,16 @@ class Odio(Application):
         if pRow[Column.IMAGEPATH] not in self.m_lstImages:
 
             self.m_lstImages.append(pRow[Column.IMAGEPATH])
+
+        if not APPDEBUG and ('odio-tmp' in pRow[Column.FILEPATH] or pRow[Column.FILEPATH].startswith('/tmp/odio/')):
+
+            os.remove(pRow[Column.FILEPATH])
+
+            sDirPath = os.path.dirname(pRow[Column.FILEPATH])
+
+            if 'odio-tmp' in sDirPath and not os.listdir(sDirPath):
+
+                os.removedirs(sDirPath)
 
         self.pListstoreAudioFiles.remove(pIter)
         Tasks.feed()
