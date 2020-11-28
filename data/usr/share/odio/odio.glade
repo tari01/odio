@@ -317,13 +317,13 @@
           </packing>
         </child>
         <child>
-          <object class="GtkScrolledWindow" id="scrolledwindow">
+          <object class="GtkScrolledWindow" id="ScrolledWindow">
             <property name="visible">True</property>
             <property name="can-focus">True</property>
             <property name="border-width">5</property>
             <property name="shadow-type">in</property>
             <child>
-              <object class="GtkTreeView" id="treeviewAudioFiles">
+              <object class="GtkTreeView" id="TreeViewAudioFiles">
                 <property name="visible">True</property>
                 <property name="can-focus">True</property>
                 <property name="border-width">5</property>
@@ -333,6 +333,7 @@
                 <property name="enable-grid-lines">vertical</property>
                 <signal name="key-press-event" handler="onTreeviewAudioFilesKeyPressEvent" swapped="no"/>
                 <signal name="row-activated" handler="onTreeviewAudioFilesRowActivated" swapped="no"/>
+                <signal name="size-allocate" handler="onTreeViewAudioFilesSizeAllocate" swapped="no"/>
                 <child internal-child="selection">
                   <object class="GtkTreeSelection" id="treeSelection">
                     <property name="mode">multiple</property>

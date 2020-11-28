@@ -200,7 +200,7 @@ class Odio(Application):
             self.pWindow.maximize()
 
         self.pStatusBarLabel.set_text(_('Ready'))
-        treeviewExtend(self.pTreeviewAudioFiles, self, 'text/uri-list')
+        treeviewExtend(self.pTreeViewAudioFiles, self, 'text/uri-list')
         self.pProgressbar.set_text('')
 
         if g_pSettings.get_int('settings-last-shown') < APPSHOWSETTINGS:
@@ -397,6 +397,11 @@ class Odio(Application):
 
         return False
 
+    def onTreeViewAudioFilesSizeAllocate(self, pWidget, pEvent):
+
+        pAdjustment = self.pScrolledWindow.get_vadjustment()
+        pAdjustment.set_value(pAdjustment.get_upper() - pAdjustment.get_page_size())
+
     def finishedSplittingJob(self, nTrack, nTracks, sFilePath):
 
         nInsertIndex = len(self.pListstoreAudioFiles);
@@ -544,7 +549,7 @@ class Odio(Application):
 
         self.pToolbuttonOpen.set_sensitive(b)
         self.pToolbuttonSettings.set_sensitive(b)
-        self.pTreeviewAudioFiles.set_sensitive(bList)
+        self.pTreeViewAudioFiles.set_sensitive(bList)
 
     def toggleToolbuttons(self, b):
 
