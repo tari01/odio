@@ -799,7 +799,11 @@ class GstEncoder(GstBase):
 
     def getPosition(self):
 
-        if self.sOperation == 'nero-encode':
+        if self.sOperation == 'replay-gain' and self.sEncoder == 'aac':
+
+            return super().getPosition() / 5
+
+        elif self.sOperation == 'nero-encode':
 
             if self.pProc:
 
@@ -820,9 +824,9 @@ class GstEncoder(GstBase):
 
                 if pMatch:
 
-                    return 0.5 + min(float(pMatch.group(2)) / (self.nDuration / 1000000000) / 2, 0.5)
+                    return 0.1 + min(float(pMatch.group(2)) / (self.nDuration / 1000000000) * 0.9, 0.9)
 
-            return 0.5
+            return 0.1
 
         elif self.sOperation == 'nero-tag':
 
