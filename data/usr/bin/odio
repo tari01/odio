@@ -292,64 +292,6 @@ class Odio(Application):
         else:
             self.toggleToolbuttons(False)
 
-    def finishedEncodingBatch(self):
-
-        self.pProgressbar.set_text('')
-        self.pProgressbar.set_fraction(0.0)
-        self.pStatusBarLabel.set_text(_('Ready'))
-
-        if len(self.m_lstSelectedRows):
-
-            self.toggleToolbuttons(True)
-
-        elif len(self.pListstoreAudioFiles) == 0:
-
-            if self.pToolbuttonDeleteImages.get_active():
-
-                for strImage in self.m_lstImages:
-
-                    if os.path.exists(strImage):
-                        os.remove(strImage)
-
-            if os.path.isdir('/tmp/' + APPNAME):
-
-                shutil.rmtree('/tmp/' + APPNAME)
-
-            for strTempDir in self.m_lstTempDirs:
-
-                if os.path.isdir(strTempDir):
-
-                    shutil.rmtree(strTempDir)
-
-            self.m_lstTempDirs.clear()
-
-        self.toggleSensitivity(True)
-        self.nState = State.IDLE
-
-        return False
-
-    def finishedAnalysisBatch(self):
-
-        self.pProgressbar.set_text('')
-        self.pProgressbar.set_fraction(0.0)
-        self.pStatusBarLabel.set_text(_('Ready'))
-
-        if len(self.m_lstSelectedRows):
-
-            self.toggleToolbuttons(True)
-
-        self.toggleSensitivity(True)
-        self.nState = State.IDLE
-
-        if len(self.m_lstWarnings and not self.bQuit):
-
-            oDlg = Gtk.MessageDialog(parent=self.pWindow, modal=True, message_type=Gtk.MessageType.WARNING, buttons=Gtk.ButtonsType.CLOSE, text='\n'.join(self.m_lstWarnings))
-            oDlg.set_title(_('Odio encountered one or more warnings'))
-            oDlg.run()
-            oDlg.destroy()
-
-        return False
-
     def finishedEncodingJob(self, pIter):
 
         pRow = self.pListstoreAudioFiles[pIter]
@@ -420,6 +362,18 @@ class Odio(Application):
 
         return False
 
+    def resetControls(self):
+
+        self.pProgressbar.set_text('')
+        self.pProgressbar.set_fraction(0.0)
+        self.pStatusBarLabel.set_text(_('Ready'))
+
+        if len(self.m_lstSelectedRows):
+
+            self.toggleToolbuttons(True)
+
+        self.toggleSensitivity(True)
+
     def fnProgress(self):
 
         if self.bQuit:
@@ -442,25 +396,52 @@ class Odio(Application):
 
         fProgress = fProgress / len(Tasks.lQueue)
 
-        if fProgress != Tasks.dProgressLast['progress'] or strText:
+        if fProgress > Tasks.dProgressLast['progress']:
 
             Tasks.dProgressLast['progress'] = fProgress
-
-            if strText:
-
-                self.pStatusBarLabel.set_text(strText)
-
             self.pProgressbar.set_fraction(fProgress)
+
+        if strText:
+
+            self.pStatusBarLabel.set_text(strText)
 
         if Tasks.count(GstState.DONE)[0] == len(Tasks.lQueue):
 
+            if self.nState in [State.ANALYSING, State.ENCODING]:
+
+                self.resetControls()
+
             if self.nState == State.ANALYSING:
 
-                self.finishedAnalysisBatch()
+                if len(self.m_lstWarnings and not self.bQuit):
+
+                    oDlg = Gtk.MessageDialog(parent=self.pWindow, modal=True, message_type=Gtk.MessageType.WARNING, buttons=Gtk.ButtonsType.CLOSE, text='\n'.join(self.m_lstWarnings))
+                    oDlg.set_title(_('Odio encountered one or more warnings'))
+                    oDlg.run()
+                    oDlg.destroy()
 
             elif self.nState == State.ENCODING:
 
-                self.finishedEncodingBatch()
+                if len(self.pListstoreAudioFiles) == 0:
+
+                    if self.pToolbuttonDeleteImages.get_active():
+
+                        for strImage in self.m_lstImages:
+
+                            if os.path.exists(strImage):
+                                os.remove(strImage)
+
+                    if os.path.isdir('/tmp/' + APPNAME):
+
+                        shutil.rmtree('/tmp/' + APPNAME)
+
+                    for strTempDir in self.m_lstTempDirs:
+
+                        if os.path.isdir(strTempDir):
+
+                            shutil.rmtree(strTempDir)
+
+                    self.m_lstTempDirs.clear()
 
             self.nState = State.IDLE
 
@@ -619,7 +600,7 @@ class Odio(Application):
 
         else:
 
-            self.finishedAnalysisBatch()
+            self.resetControls()
 
     def onToolbuttonOpenClicked(self, pWidget, lstUris = None):
 
@@ -921,7 +902,7 @@ class Odio(Application):
 
             else:
 
-                self.finishedAnalysisBatch()
+                self.resetControls()
 
     def onTreeviewAudioFilesDragDataReceived(self, lstUris):
 
@@ -1064,7 +1045,7 @@ class Odio(Application):
 
     def onToolbuttonStopClicked(self, pWidget):
 
-        self.pProgressbar.set_fraction(0)
+        self.pProgressbar.set_fraction(0.0)
         self.pGstPlayer.close()
         self.pScalePosition.set_visible(False)
         self.pProgressbar.set_visible(True)
