@@ -587,16 +587,7 @@ class Odio(Application):
 
         if len(Tasks.lQueue):
 
-            Tasks.run(self.fnAnalyse)
-            GLib.timeout_add(40, self.fnProgress);
-
-            while self.nState:
-
-                if self.bQuit:
-
-                    return
-
-                idle()
+            self.runTasks(self.fnAnalyse)
 
         else:
 
@@ -727,19 +718,7 @@ class Odio(Application):
                         Tasks.add(pGstSplitter, dCue['file'], strTempDir, dTrack['start'], dTrack['end'], dTrack['performer'], dTrack['title'], len(dCue['tracks']))
 
                     idle()
-                    Tasks.run(self.fnSplit)
-                    GLib.timeout_add(40, self.fnProgress);
-
-                    while self.nState:
-
-                        if self.bQuit:
-
-                            return
-
-                        idle()
-
-                    self.pStatusBarLabel.set_text(_('Ready'))
-                    self.pProgressbar.set_fraction(0.0)
+                    self.runTasks(self.fnSplit)
 
                 elif strFileName.upper() == 'VIDEO_TS.IFO':
 
@@ -760,19 +739,7 @@ class Odio(Application):
                             Tasks.add(pGstDvd, strFilePath, strTempDir, dChapters['title'], dChapter['chapter'], dChapter['length'], dChapters['count'])
 
                         idle()
-                        Tasks.run(self.fnDvd)
-                        GLib.timeout_add(40, self.fnProgress);
-
-                        while self.nState:
-
-                            if self.bQuit:
-
-                                return
-
-                            idle()
-
-                        self.pStatusBarLabel.set_text(_('Ready'))
-                        self.pProgressbar.set_fraction(0.0)
+                        self.runTasks(self.fnDvd)
 
                 elif strFileExt.lower() in ['.iso', '.dsf', '.dff']:
 
@@ -889,20 +856,24 @@ class Odio(Application):
 
                     oLastIter = self.pListstoreAudioFiles.iter_next(oLastIter)
 
-                Tasks.run(self.fnAnalyse)
-                GLib.timeout_add(40, self.fnProgress);
-
-                while self.nState:
-
-                    if self.bQuit:
-
-                        return
-
-                    idle()
+                self.runTasks(self.fnAnalyse)
 
             else:
 
                 self.resetControls()
+
+    def runTasks(self, pFunc):
+
+        Tasks.run(pFunc)
+        GLib.timeout_add(40, self.fnProgress);
+
+        while self.nState:
+
+            if self.bQuit:
+
+                return
+
+            idle()
 
     def onTreeviewAudioFilesDragDataReceived(self, lstUris):
 
