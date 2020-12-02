@@ -20,7 +20,7 @@ from odio.streamsdialog import StreamsDialog
 from odio.treeview import treeviewExtend
 from odio.appdata import APPNAME, APPSHOWSETTINGS
 from enum import IntEnum
-from gi.repository import Gtk, GLib
+from gi.repository import Gtk, GLib, Gdk
 import os
 import os.path
 import re
@@ -589,6 +589,7 @@ class Odio(Application):
         else:
 
             self.resetControls()
+            self.nState = State.IDLE
 
     def onToolbuttonOpenClicked(self, pWidget, lstUris = None):
 
@@ -719,7 +720,7 @@ class Odio(Application):
 
                 elif strFileName.upper() == 'VIDEO_TS.IFO':
 
-                    dChapters = StreamsDialog(None, strFileDir).dChapters
+                    dChapters = StreamsDialog(self.pWindow, strFileDir).dChapters
 
                     if dChapters:
 
@@ -858,6 +859,7 @@ class Odio(Application):
             else:
 
                 self.resetControls()
+                self.nState = State.IDLE
 
     def runTasks(self, pFunc):
 

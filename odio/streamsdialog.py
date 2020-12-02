@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from .gtk import Dialog, quote
+from gi.repository import Gtk
 import subprocess
 import datetime
 
@@ -21,11 +22,28 @@ class StreamsDialog(Dialog):
 
         self.pTreeviewChapters.get_selection().select_path(0)
 
+    def preinit(self, pParent, sPath):
+
+        self.lTitles = eval(subprocess.Popen('lsdvd -c -Oy -a ' + quote(sPath) + ' 2>/dev/null', stdout=subprocess.PIPE, shell=True, universal_newlines = True).communicate()[0].split('lsdvd = ', 1)[1], {})['track']
+
+        for dTitle in self.lTitles:
+
+            for dAudio in dTitle['audio']:
+
+                if 'lpcm' in dAudio['format']:
+
+                    return True
+
+        pDlg = Gtk.MessageDialog(parent=pParent, modal=True, message_type=Gtk.MessageType.INFO, buttons=Gtk.ButtonsType.CLOSE, text=_('Disc {path} contains no LPCM audio').format(path=sPath))
+        pDlg.run()
+        pDlg.destroy()
+
+        return False
+
     def postinit(self, sPath):
 
         self.pTreeviewcolumnLength.get_cells()[0].set_property('xalign', 1.0)
         self.pTreeviewcolumnChapterLength.get_cells()[0].set_property('xalign', 1.0)
-        self.lTitles = eval(subprocess.Popen('lsdvd -c -Oy ' + quote(sPath) + ' 2>/dev/null', stdout=subprocess.PIPE, shell=True, universal_newlines = True).communicate()[0].split('lsdvd = ', 1)[1], {})['track']
 
         for dTitle in self.lTitles:
 

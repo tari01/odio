@@ -226,7 +226,9 @@ class Dialog():
 
         if hasattr(self, 'preinit'):
 
-            self.preinit(pData)
+            if not self.preinit(pParent, pData):
+
+                return
 
         strFile = getDataPath('/usr/share/' + APPNAME + '/' + self.__class__.__module__.split('.')[-1].split('/')[-1] + '.glade')
 
