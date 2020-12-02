@@ -5,7 +5,7 @@ import gi
 
 gi.require_version('Gtk', '3.0')
 
-from gi.repository import Gio, Gtk, Gdk, GdkPixbuf, GLib
+from gi.repository import Gio, Gtk, GdkPixbuf
 import logging
 #import types
 import psutil

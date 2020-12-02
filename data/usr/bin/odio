@@ -11,30 +11,27 @@ except:
 
     pass
 
-from odio.gtk import *
+from odio.gtk import Application, g_pSettings, idle, quote
 from odio.gst import GstReader, GstEncoder, GstPlayer, GstSplitter, GstDvd, GstState
 from odio.tagdialog import TagDialog
-from odio.logdialog import *
-from odio.settingsdialog import *
-from odio.streamsdialog import *
+from odio.logdialog import LogDialog
+from odio.settingsdialog import SettingsDialog
+from odio.streamsdialog import StreamsDialog
 from odio.treeview import treeviewExtend
+from odio.appdata import APPNAME, APPSHOWSETTINGS
+from enum import IntEnum
+from gi.repository import Gtk, GLib
 import os
 import os.path
 import re
 import time
 import subprocess
-import urllib.request, urllib.parse, urllib.error
+import urllib.request, urllib.parse
 import shutil
 import errno
 import threading
 import multiprocessing
-import fnmatch
-import json
-import string
 import ctypes
-from queue import Queue
-from enum import IntEnum
-from gi.repository import GLib
 
 class State(IntEnum):
 

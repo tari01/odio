@@ -8,7 +8,7 @@ from .appdata import *
 from .titlecase import titlecase
 import os
 import re
-import urllib.request, urllib.parse, urllib.error
+import urllib.request
 
 class TagDialog(Dialog):
 
