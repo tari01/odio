@@ -124,24 +124,24 @@ class Odio(Application):
 
     def getTempDir(self, sPath):
 
-        strDir = os.path.basename(os.path.dirname(sPath))
+        sDir = os.path.basename(os.path.dirname(sPath))
 
         if g_pSettings.get_string('temp-location') == 'tmp':
 
             for strPattern in ['cd *[0-9]+', 'disc *[0-9]+', '[0-9]+ *disk', 'Disc *[0-9]+ *of *[0-9]+', 'video_ts']:
 
-                if re.fullmatch(strPattern, strDir, re.IGNORECASE):
-                    strDir = os.path.join(os.path.basename(os.path.dirname(os.path.dirname(sPath))), strDir)
+                if re.fullmatch(strPattern, sDir, re.IGNORECASE):
+                    sDir = os.path.join(os.path.basename(os.path.dirname(os.path.dirname(sPath))), sDir)
 
-            strDir = os.path.join('/tmp', APPNAME, strDir)
+            sDir = os.path.join('/tmp', APPNAME, sDir)
 
         else:
 
-            strDir = os.path.join(os.path.dirname(sPath), 'odio-tmp')
+            sDir = os.path.join(os.path.dirname(sPath), 'odio-tmp')
 
-        os.makedirs(strDir, exist_ok=True)
+        os.makedirs(sDir, exist_ok=True)
 
-        return strDir
+        return sDir
 
     def preinit(self):
 
@@ -446,21 +446,21 @@ class Odio(Application):
 
         return True
 
-    def fnAnalyse(self, pGstReader, pIter, strTempDir, nTask):
+    def fnAnalyse(self, pGstReader, pIter, sOutDir, nTask):
 
         sPath = self.pListstoreAudioFiles[pIter][Column.FILEPATH]
         Tasks.lQueue[nTask]['progress'] = _('Analysing {fileName}').format(fileName = sPath)
-        pGstReader.run(sPath, g_pSettings.get_boolean('remove-silent-channels'), g_pSettings.get_boolean('remove-lfe-channel'), g_pSettings.get_boolean('saturate-multichannel'), g_pSettings.get_boolean('check-fake-stereo'), strTempDir, self.finishedAnalysisJob, pIter)
+        pGstReader.run(sPath, g_pSettings.get_boolean('remove-silent-channels'), g_pSettings.get_boolean('remove-lfe-channel'), g_pSettings.get_boolean('saturate-multichannel'), g_pSettings.get_boolean('check-fake-stereo'), sOutDir, self.finishedAnalysisJob, pIter)
 
-    def fnSplit(self, pGstSplitter, strFilePath, strTempDir, nStart, nEnd, sPerformer, sTitle, nTracks, nTask):
+    def fnSplit(self, pGstSplitter, strFilePath, sOutDir, nStart, nEnd, sPerformer, sTitle, nTracks, nTask):
 
-        sOutPath = os.path.join(strTempDir, '{:02.0f}. {} - {}.wav'.format(nTask + 1, sPerformer, sTitle))
+        sOutPath = os.path.join(sOutDir, '{:02.0f}. {} - {}.wav'.format(nTask + 1, sPerformer, sTitle))
         Tasks.lQueue[nTask]['progress'] = _('Decoding {fileName}').format(fileName = sOutPath)
         pGstSplitter.run(strFilePath, sOutPath, nStart, nEnd, self.finishedSplittingJob, nTask, nTracks, sOutPath)
 
-    def fnDvd(self, pGstDvd, strFilePath, strTempDir, sTitle, sChapter, fLength, nChapters, nTask):
+    def fnDvd(self, pGstDvd, strFilePath, sOutDir, sTitle, sChapter, fLength, nChapters, nTask):
 
-        sOutPath = os.path.join(strTempDir, 'Title_{}-Chapter_{}.wav'.format(sTitle.zfill(2), sChapter.zfill(2)))
+        sOutPath = os.path.join(sOutDir, 'Title_{}-Chapter_{}.wav'.format(sTitle.zfill(2), sChapter.zfill(2)))
         Tasks.lQueue[nTask]['progress'] = _('Decoding {fileName}').format(fileName = sOutPath)
         pGstDvd.run(strFilePath, sOutPath, int(sTitle), int(sChapter), fLength, self.finishedSplittingJob, int(sChapter) - 1, int(nChapters), sOutPath)
 
