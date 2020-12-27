@@ -904,11 +904,11 @@ class GstSplitter(GstBase):
 
         dCue = {'file': '', 'tracks': []}
 
-        with open(sCuePath, "r") as pFile:
+        with open(sCuePath, 'r', errors='backslashreplace') as pFile:
 
             for sLine in pFile:
 
-                sLine = sLine.strip()
+                sLine = sLine.strip().replace('\\x92', '\'').replace('\\x85', '')
 
                 pMatch = re.match('^FILE "(.*)" .*$', sLine)
 
@@ -931,7 +931,7 @@ class GstSplitter(GstBase):
 
                 if dCue['tracks'] and pMatch:
 
-                    dCue['tracks'][-1]['title'] = pMatch.group(1)
+                    dCue['tracks'][-1]['title'] = pMatch.group(1).replace('/', '-')
 
                     continue
 
@@ -939,7 +939,7 @@ class GstSplitter(GstBase):
 
                 if dCue['tracks'] and pMatch:
 
-                    dCue['tracks'][-1]['performer'] = pMatch.group(1)
+                    dCue['tracks'][-1]['performer'] = pMatch.group(1).replace('/', '-')
 
                     continue
 
