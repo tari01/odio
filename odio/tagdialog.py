@@ -219,6 +219,7 @@ class TagDialog(Dialog):
 
     def onEntryAlbumChanged(self, pEditable):
 
+        self.stripPastedSpaces(pEditable)
         strText = self.pEntryAlbum.get_text()
 
         if self.pComboboxDiscNum.get_active() > -1 and self.pComboboxDiscTotal.get_active() > 0:
@@ -229,21 +230,36 @@ class TagDialog(Dialog):
         self.pCheckbuttonAlbum.set_active(self.checkSharedField(4, strText))
         self.pCheckbuttonFolder.set_active(self.checkSharedField(13, self.pEntryFolder.get_text()))
 
+    def stripPastedSpaces(self, pEditable):
+
+        if self.bClipboardPaste:
+
+            sText = pEditable.get_text().strip(' ')
+            sText = re.sub(r' +', ' ', sText)
+            pEditable.set_text(sText)
+            self.bClipboardPaste = False
+
+    def onEntryGenreChanged(self, pEditable):
+
+        self.stripPastedSpaces(pEditable)
+
     def onEntryTitleChanged(self, pEditable):
 
         if self.bClipboardPaste:
 
+            self.stripPastedSpaces(pEditable)
             self.ConvertToTitleCase(None, pEditable)
-            self.bClipboardPaste = False
 
         strText = self.pEntryTitle.get_text()
         self.pListstore[self.m_lstSelection[self.m_nCurrentFile]][7] = strText
 
-    def onEntryPasteClipboard(self, oEditable):
+    def onEntryPasteClipboard(self, pEditable):
 
         self.bClipboardPaste = True
 
     def onEntryAlbumArtistChanged(self, pEditable):
+
+        self.stripPastedSpaces(pEditable)
 
         if self.pComboboxDiscNum.get_active() > -1 and self.pComboboxDiscTotal.get_active() > 0:
             self.pEntryFolder.set_text(os.path.join(TagDialog.ReplaceChars(self.pEntryAlbumArtist.get_text()), TagDialog.ReplaceChars(self.pEntryAlbum.get_text()), 'Disc ' + self.pComboboxDiscNum.get_child().get_text()))
@@ -255,6 +271,7 @@ class TagDialog(Dialog):
 
     def onEntryArtistChanged(self, pEditable):
 
+        self.stripPastedSpaces(pEditable)
         self.pCheckbuttonArtist.set_active(self.checkSharedField(1, self.pEntryArtist.get_text()))
 
     def onComboboxTrackNumChanged(self, pCombobox):
@@ -287,6 +304,7 @@ class TagDialog(Dialog):
 
     def onEntryYearChanged(self, pEditable):
 
+        self.stripPastedSpaces(pEditable)
         self.pCheckbuttonYear.set_active(self.checkSharedField(10, self.pEntryYear.get_text()))
 
     def onComboboxGenreChanged(self, pCombobox):
@@ -296,10 +314,12 @@ class TagDialog(Dialog):
 
     def onEntryCommentChanged(self, pEditable):
 
+        self.stripPastedSpaces(pEditable)
         self.pCheckbuttonComment.set_active(self.checkSharedField(11, pEditable.get_text()))
 
     def onEntryFolderChanged(self, pEditable):
 
+        self.stripPastedSpaces(pEditable)
         self.pCheckbuttonFolder.set_active(self.checkSharedField(13, pEditable.get_text()))
 
     def onCheckbuttonAlbumArtistClicked(self, pButton, pEvent):

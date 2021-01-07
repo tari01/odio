@@ -189,6 +189,7 @@
                 <property name="margin-bottom">5</property>
                 <property name="invisible-char">●</property>
                 <signal name="changed" handler="onEntryFolderChanged" swapped="no"/>
+                <signal name="paste-clipboard" handler="onEntryPasteClipboard" swapped="no"/>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -237,6 +238,7 @@
                 <property name="margin-bottom">5</property>
                 <property name="invisible-char">●</property>
                 <signal name="changed" handler="onEntryAlbumArtistChanged" swapped="no"/>
+                <signal name="paste-clipboard" handler="onEntryPasteClipboard" swapped="no"/>
                 <signal name="populate-popup" handler="onEntryPopulatePopup" swapped="no"/>
               </object>
               <packing>
@@ -272,6 +274,7 @@
                 <property name="margin-bottom">5</property>
                 <property name="invisible-char">●</property>
                 <signal name="changed" handler="onEntryArtistChanged" swapped="no"/>
+                <signal name="paste-clipboard" handler="onEntryPasteClipboard" swapped="no"/>
                 <signal name="populate-popup" handler="onEntryPopulatePopup" swapped="no"/>
               </object>
               <packing>
@@ -308,6 +311,7 @@
                 <property name="margin-bottom">5</property>
                 <property name="invisible-char">●</property>
                 <signal name="changed" handler="onEntryAlbumChanged" swapped="no"/>
+                <signal name="paste-clipboard" handler="onEntryPasteClipboard" swapped="no"/>
                 <signal name="populate-popup" handler="onEntryPopulatePopup" swapped="no"/>
               </object>
               <packing>
@@ -347,6 +351,7 @@
                 <property name="invisible-char">●</property>
                 <property name="width-chars">5</property>
                 <signal name="changed" handler="onEntryYearChanged" swapped="no"/>
+                <signal name="paste-clipboard" handler="onEntryPasteClipboard" swapped="no"/>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -384,9 +389,11 @@
                 <property name="entry-text-column">0</property>
                 <signal name="changed" handler="onComboboxGenreChanged" swapped="no"/>
                 <child internal-child="entry">
-                  <object class="GtkEntry" id="comboboxtext-entry">
+                  <object class="GtkEntry" id="entryGenre">
                     <property name="can-focus">True</property>
                     <property name="tooltip-text" translatable="yes">Genres and styles</property>
+                    <signal name="changed" handler="onEntryGenreChanged" swapped="no"/>
+                    <signal name="paste-clipboard" handler="onEntryPasteClipboard" swapped="no"/>
                   </object>
                 </child>
               </object>
@@ -650,6 +657,7 @@
                 <property name="margin-bottom">5</property>
                 <property name="invisible-char">●</property>
                 <signal name="changed" handler="onEntryCommentChanged" swapped="no"/>
+                <signal name="paste-clipboard" handler="onEntryPasteClipboard" swapped="no"/>
               </object>
               <packing>
                 <property name="expand">False</property>
