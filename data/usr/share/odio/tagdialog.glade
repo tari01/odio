@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.38.1 -->
+<!-- Generated with glade 3.38.2 -->
 <interface>
   <requires lib="gtk+" version="3.24"/>
   <object class="GtkFileFilter" id="filefilterImages">
@@ -65,7 +65,7 @@
                 <property name="visible">True</property>
                 <property name="can-focus">True</property>
                 <property name="receives-default">True</property>
-                <property name="tooltip-text" translatable="yes">Copy the allmusic.com album page address in your browser and click here</property>
+                <property name="tooltip-text" translatable="yes">Copy the allmusic.com album page address from your web browser and click here</property>
                 <property name="image">image4</property>
                 <property name="always-show-image">True</property>
                 <signal name="clicked" handler="onButtonGetTagFromWebClicked" swapped="no"/>
@@ -97,7 +97,7 @@
             </child>
             <child>
               <object class="GtkButton" id="buttonRenumber">
-                <property name="label" translatable="yes">Renumber</property>
+                <property name="label" translatable="yes" comments="Translators: This is a label for a button that tags all selected files with consecutive track numbers starting from 01">Renumber</property>
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
                 <property name="receives-default">True</property>
