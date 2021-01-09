@@ -1,3 +1,31 @@
+odio (21.1.9) unstable; urgency=medium
+
+  * Trim spaces from pasted text in tag dialog
+  * Some translation tweaks
+  * Remove duplicate translations
+  * Remove untranslated languages
+  * Replace weird characters in cue sheet parser
+  * Rename some variables
+  * Do not read DVDs with no LPCM audio
+  * Drop unneded dependencies
+  * Some code refactoring
+  * Improve AAC progress display
+  * Scroll to bottom when a new file is added
+  * Use format function instead of %
+  * Read supported extensions from Gtk.FileFilterInput
+  * Delete temp files
+  * gst.py: Use a function to escape file paths
+  * Show silence column in debug mode only
+  * Make output paths EXT4/FAT32 friendly
+  * Fix progress text ticker in status bar
+  * Fix file analysis after editing
+  * Use 'Ready' for all completed operations
+  * Remove deprecated GLib.USER_DIRECTORY_* enums
+  * Show progress text when encoding starts
+  * Update progress directly, not via GLib.idle
+
+ -- Robert Tari <robert@tari.in>  Sat, 9 Jan 2021 17:17:00 +0200
+
 odio (20.5.21) unstable; urgency=medium
 
   * Parse aac replay gain info with ffmpeg
