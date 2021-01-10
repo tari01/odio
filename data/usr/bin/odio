@@ -874,7 +874,7 @@ class Odio(Application):
 
             idle()
 
-    def onTreeviewAudioFilesDragDataReceived(self, lstUris):
+    def onTreeViewAudioFilesDragDataReceived(self, lstUris):
 
         self.onToolbuttonOpenClicked(None, lstUris)
 
