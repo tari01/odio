@@ -3,7 +3,39 @@
 
 from setuptools import setup
 from odio.appdata import *
-import os, polib
+import os, polib, configparser
+
+oFile = open('data/usr/share/applications/' + APPNAME + '.desktop', 'r+')
+oConfigParser = configparser.ConfigParser()
+oConfigParser.optionxform = str
+oConfigParser.read_file(oFile)
+
+for strRoot, lstDirnames, lstFilenames in os.walk('po'):
+
+    for strFilename in lstFilenames:
+
+        if strFilename.endswith('po'):
+
+            strLocale = os.path.splitext(strFilename)[0]
+
+            for oEntry in polib.pofile('po/' + strFilename).translated_entries():
+
+                if oEntry.msgid == oConfigParser['Desktop Entry']['Name']:
+
+                    oConfigParser['Desktop Entry']['Name[' + strLocale + ']'] = oEntry.msgstr
+
+                elif oEntry.msgid == oConfigParser['Desktop Entry']['Comment']:
+
+                    oConfigParser['Desktop Entry']['Comment[' + strLocale + ']'] = oEntry.msgstr
+
+for sSection in oConfigParser.sections():
+
+    oConfigParser[sSection] = dict(sorted(oConfigParser[sSection].items(), key=lambda lParams: lParams[0]))
+
+oFile.seek(0)
+oConfigParser.write(oFile, False)
+oFile.truncate()
+oFile.close()
 
 m_lstDataFiles = []
 
