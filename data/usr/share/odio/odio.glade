@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.38.1 -->
+<!-- Generated with glade 3.38.2 -->
 <interface>
   <requires lib="gtk+" version="3.24"/>
   <object class="GtkFileFilter" id="FileFilterInput">
@@ -83,7 +83,7 @@
     <property name="height-request">600</property>
     <property name="can-focus">False</property>
     <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
-    <property name="window-position">center-always</property>
+    <property name="window-position">center</property>
     <signal name="delete-event" handler="onWindowDeleteEvent" swapped="no"/>
     <signal name="destroy" handler="onWindowDestroy" swapped="no"/>
     <signal name="key-press-event" handler="onWindowKeyPressEvent" swapped="no"/>
