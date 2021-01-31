@@ -1,3 +1,13 @@
+odio (21.1.31) unstable; urgency=medium
+
+  * Fix APPDEBUG import
+  * Translated using Weblate (Turkish)
+  * Fix window positioning
+  * Insert desktop file translations during setup
+  * Fix function name
+
+ -- Robert Tari <robert@tari.in>  Sun, 31 Jan 2021 08:44:00 +0200
+
 odio (21.1.9) unstable; urgency=medium
 
   * Trim spaces from pasted text in tag dialog
