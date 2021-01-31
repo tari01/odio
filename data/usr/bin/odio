@@ -5,7 +5,7 @@ from odio.appdata import APPNAME, APPSHOWSETTINGS, APPDEBUG
 
 try:
 
-    import devpat
+    import devpath
     APPDEBUG.append(True)
 
 except:
