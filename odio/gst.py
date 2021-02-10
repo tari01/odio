@@ -491,13 +491,13 @@ class GstReader(GstBase):
 
             GLib.idle_add(self.pCallback, self.pParam, self.dAudioInfo)
 
-    def reorderChannels(self, *lOrder, nChannels):
+    def reorderChannels(self, *lOrder):
 
         self.dAudioInfo['matrix'] = [list] * len(lOrder)
 
         for nChannel, nPosition in enumerate(lOrder):
 
-            self.dAudioInfo['matrix'][nChannel] = [0.0] * nChannels
+            self.dAudioInfo['matrix'][nChannel] = [0.0] * len(lOrder)
             self.dAudioInfo['matrix'][nChannel][nPosition] = 1.0
 
     def removeChannel(self, nChannel):
