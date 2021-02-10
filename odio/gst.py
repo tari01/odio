@@ -681,6 +681,7 @@ class GstEncoder(GstBase):
         self.sPathOut = sPathOut
         self.nDuration = nDuration
         self.sEncoder = sEncoder
+        self.sChannels = str(nChannels)
         self.pProc = None
         self.lSignals.append([None, 'message::tag', self.onTag])
         sDeinterleave = ''
@@ -703,7 +704,7 @@ class GstEncoder(GstBase):
 
             sResample += ', rate=48000'
 
-        self.init('filesrc location="' + escape(sPathIn) + '" ! decodebin ! audioconvert ! audioresample ! audio/x-raw' + sResample + ', channels=' + str(nChannels) + ' ! deinterleave name=d' + sDeinterleave, None)
+        self.init('filesrc location="' + escape(sPathIn) + '" ! decodebin ! audioconvert ! audioresample ! audio/x-raw' + sResample + ', channels=' + self.sChannels + ' ! deinterleave name=d' + sDeinterleave, None)
         self.play()
 
     def onTag(self, pElement, pMessage):
@@ -772,7 +773,7 @@ class GstEncoder(GstBase):
 
             if self.sEncoder == 'flac':
 
-                self.init('filesrc location="' + escape(self.sPathIn) + '" ! decodebin ! audioconvert ! flacenc name=enc quality=8 ! filesink location="' + escape(self.sPathTmp) + '"', self.dTags)
+                self.init('filesrc location="' + escape(self.sPathIn) + '" ! decodebin ! audioconvert ! audio/x-raw, channels=(int)' + self.sChannels + ' ! flacenc name=enc quality=8 ! filesink location="' + escape(self.sPathTmp) + '"', self.dTags)
                 self.play()
 
             else:
