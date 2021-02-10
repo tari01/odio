@@ -1,3 +1,11 @@
+odio (21.2.10) unstable; urgency=medium
+
+  * Fix 8-channel Flac encoding
+  * Drop second param from reorderChannels
+  * Fix typo
+
+ -- Robert Tari <robert@tari.in>  Wed, 10 Feb 2021 21:06:00 +0200
+
 odio (21.1.31) unstable; urgency=medium
 
   * Fix APPDEBUG import
