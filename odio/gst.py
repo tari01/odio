@@ -434,7 +434,7 @@ class GstReader(GstBase):
 
                     self.silenceChannel(3)
 
-            if self.bSaturate:
+            if self.bSaturate or self.sLayout == '6.1':
 
                 if self.sLayout == '3.0':
 
