@@ -487,6 +487,15 @@ class GstReader(GstBase):
 
                 shutil.move(self.sMoveDecoded + '.tmp.wav', self.sMoveDecoded + '.wav')
 
+            # Fix the AudioFormat to PCM
+
+            if self.sLayout in ['quad', '5.0', '7.1']:
+
+                with open(self.dAudioInfo['file'], 'r+b') as pFile:
+
+                    pFile.seek(20)
+                    pFile.write(b'\x01\x00')
+
             self.nState = GstState.DONE
 
             GLib.idle_add(self.pCallback, self.pParam, self.dAudioInfo)
