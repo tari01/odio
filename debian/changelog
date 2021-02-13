@@ -1,3 +1,10 @@
+odio (21.2.13) unstable; urgency=medium
+
+  * Always saturate 6.1 input to 7.1
+  * Set WAVE header AudioFormat to \x01\x00 for quad, 5.0 and 7.1 input
+
+ -- Robert Tari <robert@tari.in>  Sat, 13 Feb 2021 17:23:00 +0200
+
 odio (21.2.10) unstable; urgency=medium
 
   * Fix 8-channel Flac encoding
