@@ -2,3 +2,4 @@ project.geany
 TODO.txt
 data/usr/share/locale/*
 __pycache__/
+odio-tool.py

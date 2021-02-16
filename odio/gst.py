@@ -403,13 +403,13 @@ class GstReader(GstBase):
 
                             self.sLayout = '5.0'
 
-                        elif self.sLayout == '6.1' and nIndex == 4:
+                        elif self.sLayout == '6.1' and nIndex == 3:
 
                             self.sLayout = '5.1'
 
-                        elif self.sLayout == '7.1' and nIndex in [4, 5]:
+                        elif self.sLayout == '7.1' and nIndex == 3:
 
-                            self.sLayout = '6.1'
+                            continue
 
                         else:
 
@@ -434,7 +434,7 @@ class GstReader(GstBase):
 
                     self.silenceChannel(3)
 
-            if self.bSaturate or self.sLayout == '6.1':
+            if self.bSaturate:
 
                 if self.sLayout == '3.0':
 
