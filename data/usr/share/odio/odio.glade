@@ -13,6 +13,7 @@
       <pattern>*.[dD][sS][fF]</pattern>
       <pattern>*.[dD][fF][fF]</pattern>
       <pattern>*.[mM]4[aA]</pattern>
+      <pattern>*.[mM][kK][aA]</pattern>
       <pattern>VIDEO_TS.IFO</pattern>
     </patterns>
   </object>
