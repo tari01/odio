@@ -535,7 +535,17 @@ class GstReader(GstBase):
 
         elif self.pAudioInfo.finfo.format in [GstAudio.AudioFormat.F64LE, GstAudio.AudioFormat.F64BE, GstAudio.AudioFormat.F32BE, GstAudio.AudioFormat.F32, GstAudio.AudioFormat.S32BE, GstAudio.AudioFormat.U32LE, GstAudio.AudioFormat.U32BE, GstAudio.AudioFormat.S32]:
 
-            nAudioFormat = GstAudio.AudioFormat.S32LE
+            if self.pAudioInfo.bpf == 24:
+
+                nAudioFormat = GstAudio.AudioFormat.S24LE
+
+            elif self.pAudioInfo.bpf < 24:
+
+                nAudioFormat = GstAudio.AudioFormat.S16LE
+
+            else:
+
+                nAudioFormat = GstAudio.AudioFormat.S32LE
 
         elif self.pAudioInfo.finfo.format in [GstAudio.AudioFormat.S24_32LE, GstAudio.AudioFormat.S24_32BE, GstAudio.AudioFormat.U24_32LE, GstAudio.AudioFormat.U24_32BE, GstAudio.AudioFormat.S24BE, GstAudio.AudioFormat.U24LE, GstAudio.AudioFormat.U24BE, GstAudio.AudioFormat.S20LE, GstAudio.AudioFormat.S20BE, GstAudio.AudioFormat.U20LE, GstAudio.AudioFormat.U20BE, GstAudio.AudioFormat.S18LE, GstAudio.AudioFormat.S18BE, GstAudio.AudioFormat.U18LE, GstAudio.AudioFormat.U18BE, GstAudio.AudioFormat.S24]:
 
