@@ -164,7 +164,13 @@ class TagDialog(Dialog):
                         self.pListstore[nIndex][1] = self.pListstore[nIndex][1].replace(' / ', '/')
                         self.pListstore[nIndex][1] = self.pListstore[nIndex][1].strip()
 
-                    self.pListstore[nIndex][7] = self.ConvertToTitleCase(None, None, lstTitles[1][nTitleOffset].a.string)
+                    sTitle = lstTitles[1][nTitleOffset].a.string
+
+                    if g_pSettings.get_boolean('titlecase'):
+
+                        sTitle = self.ConvertToTitleCase(None, None, sTitle)
+
+                    self.pListstore[nIndex][7] = sTitle
 
                 if int(self.pListstore[nIndex][8]) > 0 and int(self.pListstore[nIndex][9]) > 1:
                     self.pListstore[nIndex][13] = os.path.join(TagDialog.ReplaceChars(self.pListstore[nIndex][2]), TagDialog.ReplaceChars(self.pListstore[nIndex][4]), 'Disc ' + self.pListstore[nIndex][8])
@@ -248,7 +254,10 @@ class TagDialog(Dialog):
         if self.bClipboardPaste:
 
             self.stripPastedSpaces(pEditable)
-            self.ConvertToTitleCase(None, pEditable)
+
+            if g_pSettings.get_boolean('titlecase'):
+
+                self.ConvertToTitleCase(None, pEditable)
 
         strText = self.pEntryTitle.get_text()
         self.pListstore[self.m_lstSelection[self.m_nCurrentFile]][7] = strText
@@ -512,7 +521,10 @@ class TagDialog(Dialog):
         strText = os.path.splitext(os.path.basename(self.pListstore[self.m_lstSelection[self.m_nCurrentFile]][0]))[0]
 
         pEntry.set_text(strText)
-        self.ConvertToTitleCase(None, pEntry)
+
+        if g_pSettings.get_boolean('titlecase'):
+
+            self.ConvertToTitleCase(None, pEntry)
 
     def displayFileTag(self):
 

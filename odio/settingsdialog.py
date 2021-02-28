@@ -16,6 +16,7 @@ class SettingsDialog(Dialog):
         self.pCheckButtonRemoveSilent.set_active(g_pSettings.get_boolean('remove-silent-channels'))
         self.pCheckButtonRemoveLfe.set_active(g_pSettings.get_boolean('remove-lfe-channel'))
         self.pCheckButtonSaturate.set_active(g_pSettings.get_boolean('saturate-multichannel'))
+        self.pCheckButtonTitleCase.set_active(g_pSettings.get_boolean('titlecase'))
         self.pFilechooserbuttonFLAC.set_filename(self.m_strFLAC)
         self.pFilechooserbuttonAAC.set_filename(self.m_strAAC)
 
@@ -41,6 +42,7 @@ class SettingsDialog(Dialog):
         g_pSettings.set_boolean('remove-silent-channels', self.pCheckButtonRemoveSilent.get_active())
         g_pSettings.set_boolean('remove-lfe-channel', self.pCheckButtonRemoveLfe.get_active())
         g_pSettings.set_boolean('saturate-multichannel', self.pCheckButtonSaturate.get_active())
+        g_pSettings.set_boolean('titlecase', self.pCheckButtonTitleCase.get_active())
         g_pSettings.set_string('default-compress', self.m_strCompress)
         g_pSettings.set_string('temp-location', self.m_strTemp)
 

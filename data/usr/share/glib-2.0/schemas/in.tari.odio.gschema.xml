@@ -82,5 +82,12 @@
           Delete image files used as album art after all jobs are complete.
        </description>
     </key>
+    <key type="b" name="titlecase">
+      <default>false</default>
+        <summary>Automatically title-case track names</summary>
+        <description>
+          Reformat the track name field to title case whenever it changes
+       </description>
+    </key>
   </schema>
 </schemalist>
