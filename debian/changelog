@@ -1,3 +1,15 @@
+odio (21.2.28) unstable; urgency=medium
+
+  * Add setting to disable automatic title-casing
+  * Added translation using Weblate (Sinhala)
+  * Decode 64 and 32-bit audio to their actual used bits
+  * Translated using Weblate (Portuguese (Brazil))
+  * Decode floating-point audio as S32LE
+  * Added *.mka to supported files
+  * Minor channel manipulation tweaks
+
+ -- Robert Tari <robert@tari.in>  Sun, 28 Feb 2021 15:45:00 +0200
+
 odio (21.2.13) unstable; urgency=medium
 
   * Always saturate 6.1 input to 7.1
