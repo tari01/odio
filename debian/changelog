@@ -1,3 +1,11 @@
+odio (21.3.28) unstable; urgency=medium
+
+  * odio/titlecase.py: Add 'del' to lowercase list
+  * odio/streamsdialog.py: Fix selected title index
+  * Translated using Weblate (Turkish)
+
+ -- Robert Tari <robert@tari.in>  Sun, 28 Mar 2021 17:38:00 +0200
+
 odio (21.2.28) unstable; urgency=medium
 
   * Add setting to disable automatic title-casing
