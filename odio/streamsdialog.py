@@ -55,7 +55,11 @@ class StreamsDialog(Dialog):
 
     def onTreeviewSelectionTitlesChanged(self, pTreeSelection):
 
-        self.populate(int(self.pListstoreTitles.get_string_from_iter(pTreeSelection.get_selected()[1])))
+        pIter = pTreeSelection.get_selected()[1]
+        nSelection = int(self.pListstoreTitles.get_string_from_iter(pIter))
+        nTitle = int(self.pListstoreTitles[nSelection][0]) - 1
+
+        self.populate(nTitle)
 
     def onTreeviewSelectionChaptersChanged(self, pTreeSelection):
 
