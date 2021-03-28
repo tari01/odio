@@ -12,7 +12,7 @@ import re
 __all__ = ['titlecase']
 __version__ = '0.7.2'
 
-SMALL = 'a|aka|an|and|at|by|con|de|en|for|from|in|nor|of|on|or|over|out|the|to|up|v\.?|via|vs\.?|with'
+SMALL = 'a|aka|an|and|at|by|con|de|del|en|for|from|in|nor|of|on|or|over|out|the|to|up|v\.?|via|vs\.?|with'
 PUNCT = r"""!"#$%&'‘()*+,\-./:;?@[\\\]_`{|}~"""
 
 SMALL_WORDS = re.compile(r'^(%s)$' % SMALL, re.I)
