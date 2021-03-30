@@ -552,7 +552,7 @@ class Odio(Application):
 
         strCommand = 'odio-edit'
 
-        for nIndex in reversed(self.m_lstSelectedRows):
+        for nIndex in self.m_lstSelectedRows:
 
             strCommand += ' ' + quote(self.pListstoreAudioFiles[nIndex][Column.FILEPATH])
 
