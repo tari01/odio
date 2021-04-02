@@ -528,6 +528,7 @@ class GstReader(GstBase):
     def decode(self):
 
         nAudioFormat = self.pAudioInfo.finfo.format
+        nRate = self.pAudioInfo.rate
 
         if self.pAudioInfo.finfo.format in [GstAudio.AudioFormat.UNKNOWN, GstAudio.AudioFormat.ENCODED, GstAudio.AudioFormat.S16BE, GstAudio.AudioFormat.U16LE, GstAudio.AudioFormat.U16BE, GstAudio.AudioFormat.S16]:
 
@@ -535,13 +536,20 @@ class GstReader(GstBase):
 
         elif self.pAudioInfo.finfo.format in [GstAudio.AudioFormat.F64LE, GstAudio.AudioFormat.F64BE, GstAudio.AudioFormat.F32BE, GstAudio.AudioFormat.F32, GstAudio.AudioFormat.S32BE, GstAudio.AudioFormat.U32LE, GstAudio.AudioFormat.U32BE, GstAudio.AudioFormat.S32]:
 
-            if self.pAudioInfo.bpf == 24:
+            if self.pAudioInfo.finfo.format == GstAudio.AudioFormat.F32LE:
 
-                nAudioFormat = GstAudio.AudioFormat.S24LE
+                if self.pAudioInfo.rate == 352800:
 
-            elif self.pAudioInfo.bpf < 24:
+                    nAudioFormat = GstAudio.AudioFormat.S24LE
+                    nRate = 88200
 
-                nAudioFormat = GstAudio.AudioFormat.S16LE
+                elif self.pAudioInfo.rate == 44100:
+
+                    nAudioFormat = GstAudio.AudioFormat.S16LE
+
+                else:
+
+                    nAudioFormat = GstAudio.AudioFormat.S24LE
 
             else:
 
@@ -555,7 +563,7 @@ class GstReader(GstBase):
 
         if nAudioFormat != self.pAudioInfo.finfo.format or lAudioChannelPositionNew != self.pAudioInfo.position or self.nChannelsNew != self.pAudioInfo.channels:
 
-            self.pAudioInfo.set_format(nAudioFormat, self.pAudioInfo.rate, self.nChannelsNew, lAudioChannelPositionNew)
+            self.pAudioInfo.set_format(nAudioFormat, nRate, self.nChannelsNew, lAudioChannelPositionNew)
 
         self.dAudioInfo['bps'] = self.pAudioInfo.finfo.width
         self.dAudioInfo['channels'] = self.pAudioInfo.channels
