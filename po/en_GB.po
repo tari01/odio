@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: odio 17.3.13\n"
 "Report-Msgid-Bugs-To: https://github.com/tari01/odio/issues\n"
 "POT-Creation-Date: 2020-05-12 12:23+0200\n"
-"PO-Revision-Date: 2021-01-06 15:29+0000\n"
-"Last-Translator: J. Lavoie <j.lavoie@net-c.ca>\n"
+"PO-Revision-Date: 2021-04-21 01:29+0000\n"
+"Last-Translator: Patrick Guerrero <pattystackzz@email.phoenix.edu>\n"
 "Language-Team: English (United Kingdom) <https://hosted.weblate.org/projects/"
 "odio/master/en_GB/>\n"
 "Language: en_GB\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.4.1-dev\n"
+"X-Generator: Weblate 4.7-dev\n"
 
 #: data/usr/bin/odio:114
 msgid "Compress selected files using the encoder from the menu"
@@ -233,7 +233,7 @@ msgstr "Stop"
 
 #: data/usr/share/odio/odio.glade:203
 msgid "Edit metadata for selected files"
-msgstr "Edit metadata for selected files"
+msgstr "(@stackzzcryp,IPNGP,P.Guerrero)"
 
 #: data/usr/share/odio/odio.glade:204
 msgid "Edit Tag"
