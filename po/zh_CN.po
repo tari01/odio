@@ -8,12 +8,16 @@ msgstr ""
 "Project-Id-Version: odio\n"
 "Report-Msgid-Bugs-To: Robert Tari <robert@tari.in>\n"
 "POT-Creation-Date: 2020-05-12 12:23+0200\n"
-"PO-Revision-Date: 2016-02-18 00:42+0000\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"PO-Revision-Date: 2021-04-24 04:31+0000\n"
+"Last-Translator: Elizabeth Sherrock <lizzyd710@gmail.com>\n"
+"Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
+"odio/master/zh_Hans/>\n"
+"Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: \n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 4.7-dev\n"
 
 #: data/usr/bin/odio:114
 msgid "Compress selected files using the encoder from the menu"
@@ -21,7 +25,7 @@ msgstr ""
 
 #: data/usr/bin/odio:126
 msgid "Ready"
-msgstr ""
+msgstr "准备好了"
 
 #: data/usr/bin/odio:193
 msgid "The program is working. Are you sure you want to quit?"
@@ -221,7 +225,7 @@ msgstr ""
 
 #: data/usr/share/odio/odio.glade:188
 msgid "Stop"
-msgstr ""
+msgstr "停"
 
 #: data/usr/share/odio/odio.glade:203
 msgid "Edit metadata for selected files"
@@ -321,7 +325,7 @@ msgstr ""
 
 #: data/usr/share/odio/odio.glade:550 data/usr/share/odio/tagdialog.glade:326
 msgid "Year"
-msgstr ""
+msgstr "年"
 
 #: data/usr/share/odio/odio.glade:565 data/usr/share/odio/tagdialog.glade:365
 msgid "Genre"
@@ -338,7 +342,7 @@ msgstr ""
 #: data/usr/share/odio/odio.glade:670
 #: data/usr/share/odio/settingsdialog.glade:215
 msgid "AAC"
-msgstr ""
+msgstr "AAC"
 
 #: data/usr/share/odio/odio.glade:680
 msgid "Compress selected files using the FLAC encoder"
@@ -347,7 +351,7 @@ msgstr ""
 #: data/usr/share/odio/odio.glade:681
 #: data/usr/share/odio/settingsdialog.glade:197
 msgid "FLAC"
-msgstr ""
+msgstr "FLAC"
 
 #: data/usr/share/odio/settingsdialog.glade:40
 msgid "Save"
@@ -437,7 +441,7 @@ msgstr ""
 
 #: data/usr/share/odio/settingsdialog.glade:271
 msgid "/tmp"
-msgstr ""
+msgstr "/tmp"
 
 #: data/usr/share/odio/settingsdialog.glade:275
 msgid "Temporary files will be saved in \"/tmp\"."
