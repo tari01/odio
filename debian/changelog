@@ -1,3 +1,13 @@
+odio (21.4.30) unstable; urgency=medium
+
+  * Translated using Weblate (Chinese (Simplified))
+  * Translated using Weblate (English (United Kingdom))
+  * odio/gst.py: Add native dsf/dff decoding
+  * Translated using Weblate (Russian)
+  * data/usr/bin/odio: Send files to Odio Edit in natural order
+
+ -- Robert Tari <robert@tari.in>  Fri, 30 Apr 2021 20:26:00 +0200
+
 odio (21.3.28) unstable; urgency=medium
 
   * odio/titlecase.py: Add 'del' to lowercase list
