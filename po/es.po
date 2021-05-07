@@ -8,13 +8,16 @@ msgstr ""
 "Project-Id-Version: odio\n"
 "Report-Msgid-Bugs-To: Robert Tari <robert@tari.in>\n"
 "POT-Creation-Date: 2020-05-12 12:23+0200\n"
-"PO-Revision-Date: 2017-04-18 08:16+0000\n"
-"Last-Translator: Adolfo Jayme <Unknown>\n"
-"Language-Team: Spanish <es@li.org>\n"
+"PO-Revision-Date: 2021-05-07 21:00+0000\n"
+"Last-Translator: Adolfo Jayme Barrientos <fitojb@ubuntu.com>\n"
+"Language-Team: Spanish <https://hosted.weblate.org/projects/odio/master/es/>"
+"\n"
+"Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: es\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.7-dev\n"
 
 #: data/usr/bin/odio:114
 msgid "Compress selected files using the encoder from the menu"
@@ -22,7 +25,7 @@ msgstr ""
 
 #: data/usr/bin/odio:126
 msgid "Ready"
-msgstr ""
+msgstr "Preparado"
 
 #: data/usr/bin/odio:193
 msgid "The program is working. Are you sure you want to quit?"
@@ -38,7 +41,7 @@ msgstr ""
 
 #: data/usr/bin/odio:294
 msgid "Odio encountered one or more warnings"
-msgstr ""
+msgstr "Odio encontró una o más alertas"
 
 #: data/usr/bin/odio:302
 msgid "The following files could not be analysed:"
@@ -66,11 +69,11 @@ msgstr ""
 #: data/usr/bin/odio:564
 #, python-brace-format
 msgid "Analysing {fileName}"
-msgstr ""
+msgstr "Analizando {fileName}"
 
 #: data/usr/bin/odio:752
 msgid "Open audio files"
-msgstr ""
+msgstr "Abrir archivos de audio"
 
 #: data/usr/bin/odio:919
 #, python-brace-format
@@ -98,7 +101,7 @@ msgstr ""
 #: data/usr/bin/odio:1089
 #, python-brace-format
 msgid "Failed to open {filepath}"
-msgstr ""
+msgstr "No se pudo abrir {filepath}"
 
 #: data/usr/bin/odio:1094
 msgid "Decoding successfully finished"
@@ -107,12 +110,12 @@ msgstr ""
 #: data/usr/bin/odio:1095
 #, python-brace-format
 msgid "Decoding {fileName}"
-msgstr ""
+msgstr "Descodificando {fileName}"
 
 #: data/usr/bin/odio:1119
 #, python-brace-format
 msgid "Failed to decode {filepath}"
-msgstr ""
+msgstr "No se pudo descodificar {filepath}"
 
 #: data/usr/bin/odio:1217
 msgid "Playback finished"
@@ -121,7 +124,7 @@ msgstr ""
 #: data/usr/bin/odio:1235
 #, python-brace-format
 msgid "Playing {fileName}"
-msgstr ""
+msgstr "Reproduciendo {fileName}"
 
 #: data/usr/bin/odio:1307
 msgid "Playback stopped"
@@ -134,10 +137,8 @@ msgstr "Acerca de "
 #: odio/single_instance.py:134 odio/single_instance.py:331
 msgid "translator-credits"
 msgstr ""
-"Launchpad Contributions:\n"
-"  Adolfo Jayme https://launchpad.net/~fitojb\n"
-"  Miguel de Dios https://launchpad.net/~tres-14159\n"
-"  Robert Tari https://launchpad.net/~robert-tari"
+"Adolfo Jayme Barrientos <fitojb@ubuntu.com>, 2017, 2021\n"
+"Miguel de Dios https://launchpad.net/~tres-14159"
 
 #: odio/tagdialog.py:68
 msgid "No allmusic.com page address found on the clipboard"
@@ -145,7 +146,7 @@ msgstr "No se encontró una dirección de allmusic.com en el portapapeles"
 
 #: odio/tagdialog.py:177
 msgid "Not all tracks got tracknames"
-msgstr ""
+msgstr "No todas las pistas tienen nombre"
 
 #: odio/tagdialog.py:187
 msgid "Error parsing web page"
@@ -157,7 +158,7 @@ msgstr "Seleccione un archivo de imagen"
 
 #: odio/tagdialog.py:423
 msgid "Convert to title case"
-msgstr ""
+msgstr "Utilizar mayusculación inicial estadounidense"
 
 #: odio/tagdialog.py:434
 msgid "Insert filename"
@@ -166,7 +167,7 @@ msgstr "Insertar el nombre del archivo"
 #: odio/treeview.py:293
 #, python-brace-format
 msgid "and {rowcount} more"
-msgstr ""
+msgstr "y {rowcount} más"
 
 #: data/usr/share/odio/logdialog.glade:13 data/usr/share/odio/odio.glade:262
 msgid "Log"
@@ -174,15 +175,15 @@ msgstr "Registro"
 
 #: data/usr/share/odio/logdialog.glade:79
 msgid "Group by album artist"
-msgstr ""
+msgstr "Agrupar por artista de álbum"
 
 #: data/usr/share/odio/logdialog.glade:80
 msgid "Group by artist"
-msgstr ""
+msgstr "Agrupar por artista"
 
 #: data/usr/share/odio/logdialog.glade:81
 msgid "Group by album"
-msgstr ""
+msgstr "Agrupar por álbum"
 
 #: data/usr/share/odio/logdialog.glade:93
 msgid "Clear"
@@ -234,7 +235,7 @@ msgstr "Editar metadatos de los archivos seleccionados"
 
 #: data/usr/share/odio/odio.glade:204
 msgid "Edit Tag"
-msgstr "Editar la etiqueta"
+msgstr "Editar etiqueta"
 
 #: data/usr/share/odio/odio.glade:219
 msgid "Open selected files in a wave editor"
@@ -242,11 +243,13 @@ msgstr "Abrir los archivos seleccionados en un editor de onda"
 
 #: data/usr/share/odio/odio.glade:220
 msgid "Edit audio"
-msgstr "Editar el sonido"
+msgstr "Editar audio"
 
 #: data/usr/share/odio/odio.glade:236
 msgid "Compress selected files using the method specified in Settings"
 msgstr ""
+"Comprimir los archivos seleccionados utilizando el método definido en "
+"Configuración"
 
 #: data/usr/share/odio/odio.glade:237
 msgid "Compress..."
@@ -276,15 +279,17 @@ msgstr "Información"
 #: data/usr/share/odio/odio.glade:339
 msgid "Delete image files used as album art after all jobs are complete"
 msgstr ""
+"Eliminar los archivos de imagen utilizados como cubiertas tras finalizar "
+"todas las tareas"
 
 #: data/usr/share/odio/odio.glade:340
 msgid "Delete Images"
-msgstr "Eliminar las imágenes"
+msgstr "Eliminar imágenes"
 
 #: data/usr/share/odio/odio.glade:407
 #: data/usr/share/odio/streamsdialog.glade:202
 msgid "Quality"
-msgstr ""
+msgstr "Calidad"
 
 #: data/usr/share/odio/odio.glade:421
 msgid "File"
@@ -364,7 +369,7 @@ msgstr "Guardar la configuración"
 
 #: data/usr/share/odio/settingsdialog.glade:68
 msgid "FLAC base folder"
-msgstr ""
+msgstr "Carpeta de base de FLAC"
 
 #: data/usr/share/odio/settingsdialog.glade:83
 msgid "Set the base directory for your FLAC files"
@@ -376,7 +381,7 @@ msgstr ""
 
 #: data/usr/share/odio/settingsdialog.glade:101
 msgid "AAC base folder"
-msgstr ""
+msgstr "Carpeta de base de AAC"
 
 #: data/usr/share/odio/settingsdialog.glade:116
 msgid "Set the base directory for your AAC files"
@@ -388,7 +393,7 @@ msgstr ""
 
 #: data/usr/share/odio/settingsdialog.glade:131
 msgid "Check fake stereo"
-msgstr ""
+msgstr "Comprobar falso estéreo"
 
 #: data/usr/share/odio/settingsdialog.glade:135
 msgid ""
@@ -398,7 +403,7 @@ msgstr ""
 
 #: data/usr/share/odio/settingsdialog.glade:147
 msgid "Remove silent channels"
-msgstr ""
+msgstr "Quitar canales silenciosos"
 
 #: data/usr/share/odio/settingsdialog.glade:151
 msgid "Remove silent channels from multichannel audio files."
@@ -414,19 +419,19 @@ msgstr ""
 
 #: data/usr/share/odio/settingsdialog.glade:184
 msgid "Compress button default action"
-msgstr ""
+msgstr "Acción predeterminada del botón Comprimir"
 
 #: data/usr/share/odio/settingsdialog.glade:201
 msgid "All selected files will be compressed to FLAC."
-msgstr ""
+msgstr "Se comprimirán todos los archivos seleccionados en FLAC."
 
 #: data/usr/share/odio/settingsdialog.glade:219
 msgid "All selected files will be compressed to AAC."
-msgstr ""
+msgstr "Se comprimirán todos los archivos seleccionados en AAC."
 
 #: data/usr/share/odio/settingsdialog.glade:234
 msgid "Auto"
-msgstr ""
+msgstr "Automático"
 
 #: data/usr/share/odio/settingsdialog.glade:238
 msgid ""
@@ -435,18 +440,22 @@ msgid ""
 "higher than 44100 Hz, as well as multichannel files) will be compressed to "
 "FLAC."
 msgstr ""
+"Todos los archivos estéreo de 16 bits y 44,1 kHz se comprimirán en AAC, "
+"mientras que todo el audio HD (archivos con más de 16 bits por muestra, "
+"aquellos cuya frecuencia de muestreo supera los 44 100 Hz, así como los "
+"multicanal) se comprimirán en FLAC."
 
 #: data/usr/share/odio/settingsdialog.glade:258
 msgid "Temporary files location"
-msgstr ""
+msgstr "Ubicación de archivos temporales"
 
 #: data/usr/share/odio/settingsdialog.glade:271
 msgid "/tmp"
-msgstr ""
+msgstr "/tmp"
 
 #: data/usr/share/odio/settingsdialog.glade:275
 msgid "Temporary files will be saved in \"/tmp\"."
-msgstr ""
+msgstr "Los archivos temporales se guardarán en «/tmp»."
 
 #: data/usr/share/odio/settingsdialog.glade:289
 msgid "Source folder"
@@ -504,7 +513,7 @@ msgstr "Cambiar imagen"
 
 #: data/usr/share/odio/tagdialog.glade:86
 msgid "Browse for an album cover"
-msgstr ""
+msgstr "Buscar una cubierta de álbum"
 
 #: data/usr/share/odio/tagdialog.glade:100
 msgid "Renumber"
@@ -512,7 +521,7 @@ msgstr "Renumerar"
 
 #: data/usr/share/odio/tagdialog.glade:104
 msgid "Change track numbers in selection"
-msgstr ""
+msgstr "Cambiar los números de las pistas en la selección"
 
 #: data/usr/share/odio/tagdialog.glade:118
 msgid "Previous file"
@@ -520,7 +529,7 @@ msgstr "Archivo anterior"
 
 #: data/usr/share/odio/tagdialog.glade:122
 msgid "Move to previous file in selection"
-msgstr ""
+msgstr "Moverse al archivo anterior en la selección"
 
 #: data/usr/share/odio/tagdialog.glade:136
 msgid "Next file"
@@ -528,7 +537,7 @@ msgstr "Archivo siguiente"
 
 #: data/usr/share/odio/tagdialog.glade:140
 msgid "Move to next file in selection"
-msgstr ""
+msgstr "Moverse al archivo siguiente en la selección"
 
 #: data/usr/share/odio/tagdialog.glade:167
 msgid "Output folder"
@@ -573,15 +582,15 @@ msgstr "Géneros y estilos"
 
 #: data/usr/share/odio/tagdialog.glade:449
 msgid "Number of disc in this set"
-msgstr ""
+msgstr "Número de disco en esta colección"
 
 #: data/usr/share/odio/tagdialog.glade:475
 msgid "Total discs"
-msgstr ""
+msgstr "Total de discos"
 
 #: data/usr/share/odio/tagdialog.glade:504
 msgid "Total number of discs in this set"
-msgstr ""
+msgstr "Número total de discos en esta colección"
 
 #: data/usr/share/odio/tagdialog.glade:555
 msgid "Track number"
@@ -601,12 +610,12 @@ msgstr "Comentarios de usuario"
 
 #: data/usr/share/odio/tagdialog.glade:691
 msgid "Title of the audio"
-msgstr ""
+msgstr "Título del audio"
 
 #: data/usr/share/odio/tagdialog.glade:707
 msgid "Cover art"
-msgstr "Carátula"
+msgstr "Cubierta"
 
 #: data/usr/share/odio/tagdialog.glade:711
 msgid "Copy this image to all files in selection"
-msgstr "Copiar esta imagen a todos los archivos seleccionados"
+msgstr "Copiar esta imagen en todos los archivos seleccionados"
