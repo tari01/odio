@@ -19,7 +19,9 @@ class StreamsDialog(Dialog):
 
         for dChapter in self.lTitles[nTitle]['chapter']:
 
-            self.pListstoreChapters.append([str(dChapter['ix']).zfill(2), str(datetime.timedelta(seconds=dChapter['length'])).split('.')[0], dChapter['length']])
+            if int(dChapter['length']) > 1:
+
+                self.pListstoreChapters.append([str(dChapter['ix']).zfill(2), str(datetime.timedelta(seconds=dChapter['length'])).split('.')[0], dChapter['length']])
 
         self.pTreeviewChapters.get_selection().select_path(0)
 
