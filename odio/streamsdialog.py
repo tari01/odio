@@ -5,6 +5,7 @@ from .gtk import Dialog, quote
 from gi.repository import Gtk
 import subprocess
 import datetime
+import re
 
 class StreamsDialog(Dialog):
 
@@ -24,7 +25,10 @@ class StreamsDialog(Dialog):
 
     def preinit(self, pParent, sPath):
 
-        self.lTitles = eval(subprocess.Popen('lsdvd -c -Oy -a ' + quote(sPath) + ' 2>/dev/null', stdout=subprocess.PIPE, shell=True, universal_newlines = True).communicate()[0].split('lsdvd = ', 1)[1], {})['track']
+        sOutput = subprocess.Popen('lsdvd -c -Oy -a ' + quote(sPath) + ' 2>/dev/null', stdout=subprocess.PIPE, shell=True, universal_newlines = True).communicate()[0].split('lsdvd = ', 1)[1]
+        pMatch = re.search('(.+^  \'device\' : \')([^\n]+)(\',$.+)', sOutput, re.MULTILINE | re.DOTALL)
+        sOutput = pMatch.group(1) + pMatch.group(2).replace('\'', '\\\'') + pMatch.group(3)
+        self.lTitles = eval(sOutput, {})['track']
 
         for dTitle in self.lTitles:
 
