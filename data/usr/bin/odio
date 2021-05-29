@@ -14,6 +14,7 @@ except:
 
 from odio.gtk import Application, g_pSettings, idle, quote
 from odio.gst import GstReader, GstEncoder, GstPlayer, GstSplitter, GstDvd, GstState
+from odio.sacd import SACD
 from odio.tagdialog import TagDialog
 from odio.logdialog import LogDialog
 from odio.settingsdialog import SettingsDialog
@@ -29,9 +30,7 @@ import subprocess
 import urllib.request, urllib.parse
 import shutil
 import errno
-import threading
 import multiprocessing
-import ctypes
 
 class State(IntEnum):
 
@@ -370,6 +369,27 @@ class Odio(Application):
             self.toggleToolbuttons(True)
 
         self.toggleSensitivity(True)
+
+    def onSacdProgress(self, fProgress, sFilePath, nTrack, nTracks):
+
+        if sFilePath:
+
+            nInsertIndex = len(self.pListstoreAudioFiles);
+
+            for nIndex in range(nInsertIndex - 1, -1, -1):
+
+                if os.path.dirname(sFilePath) in os.path.dirname(self.pListstoreAudioFiles[nIndex][Column.FILEPATH]):
+
+                    if nTrack < int(self.pListstoreAudioFiles[nIndex][Column.TRACK]):
+
+                        nInsertIndex = nIndex
+
+            pPixBuf = Gtk.IconTheme().get_default().load_icon('gtk-missing-image', 24, 0)
+            self.pListstoreAudioFiles.insert(nInsertIndex, [sFilePath, 'Unknown Artist', 'Unknown Artist', '', 'Unknown Album', '{:02.0f}'.format(nTrack + 1), '{:02.0f}'.format(nTracks), 'Track ' + str(nTrack + 1), '01', '01', '', '', '', 'Unknown Artist/Unknown Album', 0, pPixBuf, 16, 2, 44100, '', '□ □', 0])
+
+        self.pProgressbar.set_fraction(fProgress)
+
+        return not self.bQuit
 
     def fnProgress(self):
 
@@ -741,84 +761,35 @@ class Odio(Application):
 
                 elif strFileExt.lower() in ['.iso', '.dsf', '.dff']:
 
-                    AREA_TWOCH = 1
-                    AREA_MULCH = 2
-                    AREA_AUTO = 3
-                    lSacdProgress = [0.0]
-                    nSacdTracks = 0
+                    pSacd = SACD(strFilePath, strOutDir, self.onSacdProgress)
 
-                    def sacdConvert(lError):
+                    if pSacd.isOpen():
 
-                        lError[0] = oLibOdioSacd.odiolibsacd_Convert(str.encode(strOutDir), 88200, pOnProgress, None)
+                        self.pStatusBarLabel.set_text(_('Decoding {fileName}').format(fileName = strFilePath))
+                        sWarning = pSacd.getWarning()
 
-                    def onProgress(fProgress, sFilePathB, nTrack, pUserData = None):
+                        if len(sWarning):
 
-                        if sFilePathB:
+                            self.m_lstWarnings.append(sWarning)
 
-                            sFilePath = sFilePathB.decode()
-                            nInsertIndex = len(self.pListstoreAudioFiles);
+                        pSacd.start()
 
-                            for nIndex in range(nInsertIndex - 1, -1, -1):
+                        while pSacd.working() and not self.bQuit:
 
-                                if os.path.dirname(sFilePath) in os.path.dirname(self.pListstoreAudioFiles[nIndex][Column.FILEPATH]):
+                            pSacd.poll()
+                            idle()
 
-                                    if nTrack < int(self.pListstoreAudioFiles[nIndex][Column.TRACK]):
-
-                                        nInsertIndex = nIndex
-
-                            self.pListstoreAudioFiles.insert(nInsertIndex, [sFilePath, 'Unknown Artist', 'Unknown Artist', '', 'Unknown Album', '{:02.0f}'.format(nTrack + 1), '{:02.0f}'.format(nSacdTracks), 'Track ' + str(nTrack + 1), '01', '01', '', '', '', 'Unknown Artist/Unknown Album', 0, pPixBuf, 16, 2, 44100, '', '□ □', 0])
-
-                        lSacdProgress[0] = fProgress / 100
-                        self.pProgressbar.set_fraction(lSacdProgress[0])
-
-                        return not self.bQuit
-
-                    OnProgress = ctypes.CFUNCTYPE(ctypes.c_bool, ctypes.c_float, ctypes.c_char_p, ctypes.c_int, ctypes.c_void_p)
-                    pOnProgress = OnProgress(onProgress)
-                    oLibOdioSacd = ctypes.cdll.LoadLibrary('/usr/lib/libodiosacd.so')
-                    bError = oLibOdioSacd.odiolibsacd_Open(str.encode(strFilePath), AREA_AUTO)
-                    strResult = _('Ready')
-
-                    if (bError):
-
-                        strResult = _('Failed to open {filepath}').format(filepath=strFilePath)
+                        sResult = pSacd.close()
 
                     else:
 
-                        nSacdTracks = oLibOdioSacd.odiolibsacd_GetTrackCount(AREA_AUTO)
+                        self.pStatusBarLabel.set_text(_('Failed to open {filepath}').format(filepath=strFilePath))
 
-                        self.pStatusBarLabel.set_text(_('Decoding {fileName}').format(fileName = strFilePath))
-                        nTwoCh = oLibOdioSacd.odiolibsacd_GetTrackCount(AREA_TWOCH)
-                        nMulCh = oLibOdioSacd.odiolibsacd_GetTrackCount(AREA_MULCH)
+                    if self.bQuit:
 
-                        if nTwoCh > 0 and nMulCh > 0 and nTwoCh != nMulCh:
+                        return
 
-                            self.m_lstWarnings.append('The SACD multichannel and stereo areas had a different track count: extracted both.')
-
-                        lError = [False]
-                        pThread = threading.Thread(target=sacdConvert, args=(lError,))
-                        pThread.start()
-
-                        while lSacdProgress[0] < 0.99 and not self.bQuit:
-
-                            time.sleep(0.04);
-                            idle()
-
-                        pThread.join()
-
-                        if (lError[0]):
-
-                            strResult = _('Failed to decode {filepath}').format(filepath=strFilePath)
-
-                        else:
-
-                            oLibOdioSacd.odiolibsacd_Close()
-
-                        if self.bQuit:
-
-                            return
-
-                    self.pStatusBarLabel.set_text(strResult)
+                    self.pStatusBarLabel.set_text(sResult)
                     self.pProgressbar.set_fraction(0.0)
 
                 elif not bExists:
