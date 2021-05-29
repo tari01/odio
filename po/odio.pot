@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: odio 21.2.28\n"
+"Project-Id-Version: odio 21.4.30\n"
 "Report-Msgid-Bugs-To: https://github.com/tari01/odio/issues\n"
-"POT-Creation-Date: 2021-03-07 22:39+0100\n"
+"POT-Creation-Date: 2021-05-29 23:25+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -470,7 +470,21 @@ msgstr ""
 msgid "translator-credits"
 msgstr ""
 
-#: odio/streamsdialog.py:37
+#: odio/sacd.py:55
+msgid "The SACD multichannel and stereo areas had a different track count: extracted both."
+msgstr ""
+
+#: odio/sacd.py:81 data/usr/bin/odio:198 data/usr/bin/odio:365
+#: data/usr/bin/odio:899 data/usr/bin/odio:997
+msgid "Ready"
+msgstr ""
+
+#: odio/sacd.py:89
+#, python-brace-format
+msgid "Failed to decode {filepath}"
+msgstr ""
+
+#: odio/streamsdialog.py:43
 #, python-brace-format
 msgid "Disc {path} contains no LPCM audio"
 msgstr ""
@@ -504,60 +518,50 @@ msgstr ""
 msgid "and {rowcount} more"
 msgstr ""
 
-#: data/usr/bin/odio:179
+#: data/usr/bin/odio:178
 msgid "Compress selected files using the encoder from the menu"
 msgstr ""
 
-#: data/usr/bin/odio:199 data/usr/bin/odio:366 data/usr/bin/odio:780
-#: data/usr/bin/odio:928 data/usr/bin/odio:1026
-msgid "Ready"
-msgstr ""
-
-#: data/usr/bin/odio:241
+#: data/usr/bin/odio:240
 msgid "The program is working. Are you sure you want to quit?"
 msgstr ""
 
-#: data/usr/bin/odio:416
+#: data/usr/bin/odio:436
 msgid "Odio encountered one or more warnings"
 msgstr ""
 
-#: data/usr/bin/odio:452
+#: data/usr/bin/odio:472
 #, python-brace-format
 msgid "Analysing {fileName}"
 msgstr ""
 
-#: data/usr/bin/odio:458 data/usr/bin/odio:464 data/usr/bin/odio:790
+#: data/usr/bin/odio:478 data/usr/bin/odio:484 data/usr/bin/odio:768
 #, python-brace-format
 msgid "Decoding {fileName}"
 msgstr ""
 
-#: data/usr/bin/odio:488
+#: data/usr/bin/odio:508
 #, python-brace-format
 msgid "Compressing {fileName}"
 msgstr ""
 
-#: data/usr/bin/odio:601
+#: data/usr/bin/odio:621
 msgid ""
 "Your temporary files directory has only {:.2f} GB of free space left. Running out of space can cause nasty things.\n"
 "\n"
 "Continue adding files?"
 msgstr ""
 
-#: data/usr/bin/odio:614
+#: data/usr/bin/odio:634
 msgid "Open audio files"
 msgstr ""
 
-#: data/usr/bin/odio:784
+#: data/usr/bin/odio:786
 #, python-brace-format
 msgid "Failed to open {filepath}"
 msgstr ""
 
-#: data/usr/bin/odio:811
-#, python-brace-format
-msgid "Failed to decode {filepath}"
-msgstr ""
-
-#: data/usr/bin/odio:947
+#: data/usr/bin/odio:918
 #, python-brace-format
 msgid "Playing {fileName}"
 msgstr ""
