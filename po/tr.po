@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: odio\n"
 "Report-Msgid-Bugs-To: Robert Tari <robert@tari.in>\n"
 "POT-Creation-Date: 2020-05-12 12:23+0200\n"
-"PO-Revision-Date: 2021-03-15 00:03+0000\n"
-"Last-Translator: Hasan <hasanyildiz0@yaani.com>\n"
+"PO-Revision-Date: 2021-11-03 19:37+0000\n"
+"Last-Translator: Oğuz Ersen <oguzersen@protonmail.com>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/odio/master/tr/>"
 "\n"
 "Language: tr\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.5.2-dev\n"
+"X-Generator: Weblate 4.9-dev\n"
 
 #: data/usr/bin/odio:114
 msgid "Compress selected files using the encoder from the menu"
@@ -33,11 +33,11 @@ msgstr "Program halen çalışıyor. Çıkmak istediğinizden emin misiniz?"
 
 #: data/usr/bin/odio:244
 msgid "Files successfully compressed"
-msgstr ""
+msgstr "Dosyalar başarıyla sıkıştırıldı"
 
 #: data/usr/bin/odio:283
 msgid "File analysis complete"
-msgstr ""
+msgstr "Dosya çözümleme tamamlandı"
 
 #: data/usr/bin/odio:294
 msgid "Odio encountered one or more warnings"
@@ -45,31 +45,32 @@ msgstr "Odio bir veya birden fazla uyarı ile karşılaştı"
 
 #: data/usr/bin/odio:302
 msgid "The following files could not be analysed:"
-msgstr ""
+msgstr "Aşağıdaki dosyalar çözümlenemedi:"
 
 #: data/usr/bin/odio:303
 msgid "Odio encountered one or more errors"
-msgstr ""
+msgstr "Odio bir veya daha fazla hatayla karşılaştı"
 
 #: data/usr/bin/odio:397 data/usr/bin/odio:631
 #, python-brace-format
 msgid "Compressing {fileName}"
-msgstr "Sıkıştırılıyor {fileName}"
+msgstr "{fileName} sıkıştırılıyor"
 
 #: data/usr/bin/odio:437 data/usr/bin/odio:666
 #, python-brace-format
 msgid "Calculating replay gain for {fileName}"
-msgstr ""
+msgstr "{fileName} için tekrar kazancı hesaplanıyor"
 
 #: data/usr/bin/odio:543
 #, python-brace-format
 msgid "\"{fileName}\" may contain errors, had to force-decode."
 msgstr ""
+"\"{fileName}\" hatalar içerebilir, kod çözmeye zorlamak zorunda kalındı."
 
 #: data/usr/bin/odio:564
 #, python-brace-format
 msgid "Analysing {fileName}"
-msgstr "Analiz ediliyor {fileName}"
+msgstr "{fileName} çözümleniyor"
 
 #: data/usr/bin/odio:752
 msgid "Open audio files"
@@ -78,25 +79,25 @@ msgstr "Ses dosyası aç"
 #: data/usr/bin/odio:919
 #, python-brace-format
 msgid "Select audio file to split with {fileName}"
-msgstr ""
+msgstr "{fileName} ile bölünecek ses dosyasını seç"
 
 #: data/usr/bin/odio:1001
 #, python-brace-format
 msgid "Splitting {fileName}"
-msgstr ""
+msgstr "{fileName} bölünüyor"
 
 #: data/usr/bin/odio:1008
 msgid "File splitting successfully finished"
-msgstr ""
+msgstr "Dosya bölme başarıyla tamamlandı"
 
 #: data/usr/bin/odio:1026
 #, python-brace-format
 msgid "Extracting {fileName}"
-msgstr ""
+msgstr "{fileName} çıkartılıyor"
 
 #: data/usr/bin/odio:1043
 msgid "Audio extraction successfully finished"
-msgstr ""
+msgstr "Ses çıkarma başarıyla tamamlandı"
 
 #: data/usr/bin/odio:1089
 #, python-brace-format
@@ -105,7 +106,7 @@ msgstr "Açma işlemi başarısız {filepath}"
 
 #: data/usr/bin/odio:1094
 msgid "Decoding successfully finished"
-msgstr ""
+msgstr "Kod çözme başarıyla tamamlandı"
 
 #: data/usr/bin/odio:1095
 #, python-brace-format
@@ -119,7 +120,7 @@ msgstr "Çözme işlemi başarısız {filepath}"
 
 #: data/usr/bin/odio:1217
 msgid "Playback finished"
-msgstr ""
+msgstr "Oynatma tamamlandı"
 
 #: data/usr/bin/odio:1235
 #, python-brace-format
@@ -128,17 +129,17 @@ msgstr "Oynatılıyor {fileName}"
 
 #: data/usr/bin/odio:1307
 msgid "Playback stopped"
-msgstr ""
+msgstr "Oynatma durduruldu"
 
 #: odio/single_instance.py:128 odio/single_instance.py:325
 msgid "About "
-msgstr ""
+msgstr "Hakkında "
 
 #: odio/single_instance.py:134 odio/single_instance.py:331
 msgid "translator-credits"
 msgstr ""
-"Weblate Katkıları:\n"
-"Burak Hüseyin Ekseli linkedin: /ekseli"
+"Burak Hüseyin Ekseli linkedin: /ekseli\n"
+"Oğuz Ersen"
 
 #: odio/tagdialog.py:68
 msgid "No allmusic.com page address found on the clipboard"
@@ -167,7 +168,7 @@ msgstr "Dosya adı girin"
 #: odio/treeview.py:293
 #, python-brace-format
 msgid "and {rowcount} more"
-msgstr "ve {rowcount} ve dahası"
+msgstr "ve {rowcount} dahası"
 
 #: data/usr/share/odio/logdialog.glade:13 data/usr/share/odio/odio.glade:262
 msgid "Log"
@@ -363,7 +364,7 @@ msgstr "Kaydet"
 
 #: data/usr/share/odio/settingsdialog.glade:44
 msgid "Save the settings"
-msgstr ""
+msgstr "Ayarları kaydet"
 
 #: data/usr/share/odio/settingsdialog.glade:68
 msgid "FLAC base folder"
@@ -391,13 +392,15 @@ msgstr "AAC albümleri için bir konum seç"
 
 #: data/usr/share/odio/settingsdialog.glade:131
 msgid "Check fake stereo"
-msgstr "Fake stereo kontrolü"
+msgstr "Sahte çift kanalı denetle"
 
 #: data/usr/share/odio/settingsdialog.glade:135
 msgid ""
 "Compare channels in stereo files - if they are identical, save the audio as "
 "mono."
 msgstr ""
+"Çift kanallı dosyalardaki kanalları karşılaştır - eğer aynıysa sesi tek "
+"kanallı olarak kaydet."
 
 #: data/usr/share/odio/settingsdialog.glade:147
 msgid "Remove silent channels"
@@ -405,15 +408,15 @@ msgstr "Sessiz kanalları sil"
 
 #: data/usr/share/odio/settingsdialog.glade:151
 msgid "Remove silent channels from multichannel audio files."
-msgstr ""
+msgstr "Çok kanallı ses dosyalarından sessiz kanalları kaldır."
 
 #: data/usr/share/odio/settingsdialog.glade:163
 msgid "Remove LFE channel"
-msgstr ""
+msgstr "LFE kanalını kaldır"
 
 #: data/usr/share/odio/settingsdialog.glade:167
 msgid "Remove the LFE channel from multichannel audio files."
-msgstr ""
+msgstr "LFE kanalını çok kanallı ses dosyalarından kaldır."
 
 #: data/usr/share/odio/settingsdialog.glade:184
 msgid "Compress button default action"
@@ -421,11 +424,11 @@ msgstr "Sıkıştırma butonu varsayılan eylem"
 
 #: data/usr/share/odio/settingsdialog.glade:201
 msgid "All selected files will be compressed to FLAC."
-msgstr "Bütün seçilen dosyalar FLAC formatında sıkıştırılacak."
+msgstr "Bütün seçilen dosyalar FLAC biçiminde sıkıştırılacak."
 
 #: data/usr/share/odio/settingsdialog.glade:219
 msgid "All selected files will be compressed to AAC."
-msgstr "Bütün seçilen dosyalar AAC formatında sıkıştırılacak."
+msgstr "Bütün seçilen dosyalar AAC biçiminde sıkıştırılacak."
 
 #: data/usr/share/odio/settingsdialog.glade:234
 msgid "Auto"
@@ -438,9 +441,10 @@ msgid ""
 "higher than 44100 Hz, as well as multichannel files) will be compressed to "
 "FLAC."
 msgstr ""
-"Bütün 16-bit 44.1 KHz stero dosyalar AAC formatında sıkıştırılacak, diğer HD "
-"ses dosyaları ise (örnek başı 16 bitten fazla olan dosyalar, 44100Hz'den "
-"fazla olan dosyalar, çok kanallı dosyalar) FLAC formatında sıkıştırılacak."
+"Bütün 16-bit 44.1 KHz çift kanallı dosyalar AAC biçiminde sıkıştırılacak, "
+"diğer HD ses dosyaları ise (örnek başı 16 bitten fazla olan dosyalar, "
+"örnekleme hızı 44100Hz'den fazla olan dosyalar, çok kanallı dosyalar) FLAC "
+"biçiminde sıkıştırılacak."
 
 #: data/usr/share/odio/settingsdialog.glade:258
 msgid "Temporary files location"
@@ -477,15 +481,15 @@ msgstr "Kısım"
 
 #: data/usr/share/odio/streamsdialog.glade:166
 msgid "Language"
-msgstr ""
+msgstr "Dil"
 
 #: data/usr/share/odio/streamsdialog.glade:178
 msgid "Format"
-msgstr ""
+msgstr "Biçim"
 
 #: data/usr/share/odio/streamsdialog.glade:190
 msgid "Channels"
-msgstr ""
+msgstr "Kanallar"
 
 #: data/usr/share/odio/streamsdialog.glade:235
 msgid "Extract selected streams"
@@ -503,6 +507,8 @@ msgstr "Etiketi kopyala"
 msgid ""
 "Copy the allmusic.com album page address in your browser and click here"
 msgstr ""
+"allmusic.com albüm sayfası adresini tarayıcınızda kopyalayın ve buraya "
+"tıklayın"
 
 #: data/usr/share/odio/tagdialog.glade:82
 msgid "Change image"
