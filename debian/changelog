@@ -1,3 +1,14 @@
+odio (21.11.13) unstable; urgency=medium
+
+  * Translated using Weblate (Turkish)
+  * Update translation file
+  * Move SACD decoding to separate module
+  * odio/streamsdialog.py: Do not display chapters shorter than 1 second
+  * odio/streamsdialog.py: Escape single quotes in lsdvd output
+  * Translated using Weblate (Spanish)
+
+ -- Robert Tari <robert@tari.in>  Sat, 13 Nov 2021 22:32:00 +0200
+
 odio (21.4.30) unstable; urgency=medium
 
   * Translated using Weblate (Chinese (Simplified))
