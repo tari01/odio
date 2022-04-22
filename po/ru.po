@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: odio\n"
 "Report-Msgid-Bugs-To: Robert Tari <robert@tari.in>\n"
 "POT-Creation-Date: 2020-05-12 12:23+0200\n"
-"PO-Revision-Date: 2021-04-01 22:26+0000\n"
-"Last-Translator: t4llkr <anaterem2015@yandex.ru>\n"
+"PO-Revision-Date: 2022-04-23 21:07+0000\n"
+"Last-Translator: Максим Белозеров <mxite@ya.ru>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/odio/master/ru/>"
 "\n"
 "Language: ru\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 4.6-dev\n"
+"X-Generator: Weblate 4.12.1-dev\n"
 
 #: data/usr/bin/odio:114
 msgid "Compress selected files using the encoder from the menu"
@@ -26,11 +26,11 @@ msgstr ""
 
 #: data/usr/bin/odio:126
 msgid "Ready"
-msgstr ""
+msgstr "Готово"
 
 #: data/usr/bin/odio:193
 msgid "The program is working. Are you sure you want to quit?"
-msgstr ""
+msgstr "Программа выполняется. Уверены, что хотите выйти?"
 
 #: data/usr/bin/odio:244
 msgid "Files successfully compressed"
@@ -38,7 +38,7 @@ msgstr ""
 
 #: data/usr/bin/odio:283
 msgid "File analysis complete"
-msgstr ""
+msgstr "Анализ файлов выполнен"
 
 #: data/usr/bin/odio:294
 msgid "Odio encountered one or more warnings"
@@ -46,7 +46,7 @@ msgstr ""
 
 #: data/usr/bin/odio:302
 msgid "The following files could not be analysed:"
-msgstr ""
+msgstr "Следующие файлы не удалось проанализировать:"
 
 #: data/usr/bin/odio:303
 msgid "Odio encountered one or more errors"
@@ -70,11 +70,11 @@ msgstr ""
 #: data/usr/bin/odio:564
 #, python-brace-format
 msgid "Analysing {fileName}"
-msgstr ""
+msgstr "Анализ {fileName}"
 
 #: data/usr/bin/odio:752
 msgid "Open audio files"
-msgstr ""
+msgstr "Открыть аудиофайлы"
 
 #: data/usr/bin/odio:919
 #, python-brace-format
@@ -120,7 +120,7 @@ msgstr "Не удалось декодировать {filepath}"
 
 #: data/usr/bin/odio:1217
 msgid "Playback finished"
-msgstr ""
+msgstr "Воспроизведение закончено"
 
 #: data/usr/bin/odio:1235
 #, python-brace-format
@@ -474,40 +474,41 @@ msgstr ""
 
 #: data/usr/share/odio/streamsdialog.glade:166
 msgid "Language"
-msgstr ""
+msgstr "Язык"
 
 #: data/usr/share/odio/streamsdialog.glade:178
 msgid "Format"
-msgstr ""
+msgstr "Формат"
 
 #: data/usr/share/odio/streamsdialog.glade:190
 msgid "Channels"
-msgstr ""
+msgstr "Каналы"
 
 #: data/usr/share/odio/streamsdialog.glade:235
 msgid "Extract selected streams"
-msgstr ""
+msgstr "Извлечь выбранные потоки"
 
 #: data/usr/share/odio/tagdialog.glade:44
 msgid "Tag editor"
-msgstr ""
+msgstr "Редактор тегов"
 
 #: data/usr/share/odio/tagdialog.glade:64
 msgid "Get tag"
-msgstr ""
+msgstr "Получить тег"
 
 #: data/usr/share/odio/tagdialog.glade:68
 msgid ""
 "Copy the allmusic.com album page address in your browser and click here"
 msgstr ""
+"Скопируйте в браузере адрес страницы альбома на allmusic.com и нажмите здесь"
 
 #: data/usr/share/odio/tagdialog.glade:82
 msgid "Change image"
-msgstr ""
+msgstr "Сменить изображение"
 
 #: data/usr/share/odio/tagdialog.glade:86
 msgid "Browse for an album cover"
-msgstr ""
+msgstr "Выбрать обложку альбома"
 
 #: data/usr/share/odio/tagdialog.glade:100
 msgid "Renumber"
@@ -515,23 +516,23 @@ msgstr ""
 
 #: data/usr/share/odio/tagdialog.glade:104
 msgid "Change track numbers in selection"
-msgstr ""
+msgstr "Изменить нумерацию выбранных треков"
 
 #: data/usr/share/odio/tagdialog.glade:118
 msgid "Previous file"
-msgstr ""
+msgstr "Предыдущий файл"
 
 #: data/usr/share/odio/tagdialog.glade:122
 msgid "Move to previous file in selection"
-msgstr ""
+msgstr "Перейти к предыдущему выделенному файлу"
 
 #: data/usr/share/odio/tagdialog.glade:136
 msgid "Next file"
-msgstr ""
+msgstr "Следующий файл"
 
 #: data/usr/share/odio/tagdialog.glade:140
 msgid "Move to next file in selection"
-msgstr ""
+msgstr "Перейти к следующему выделенному файлу"
 
 #: data/usr/share/odio/tagdialog.glade:167
 msgid "Output folder"
@@ -548,7 +549,7 @@ msgstr ""
 #: data/usr/share/odio/tagdialog.glade:585
 #: data/usr/share/odio/tagdialog.glade:642
 msgid "Copy this field to all files in selection"
-msgstr ""
+msgstr "Скопировать поле для всех выделенных файлов"
 
 #: data/usr/share/odio/tagdialog.glade:189
 msgid "The output folder relative to the base folder"
@@ -556,23 +557,23 @@ msgstr ""
 
 #: data/usr/share/odio/tagdialog.glade:238
 msgid "Name of the album artist"
-msgstr ""
+msgstr "Исполнитель альбома"
 
 #: data/usr/share/odio/tagdialog.glade:275
 msgid "Name of the artist for this track"
-msgstr ""
+msgstr "Исполнитель трека"
 
 #: data/usr/share/odio/tagdialog.glade:311
 msgid "Album title"
-msgstr ""
+msgstr "Название альбома"
 
 #: data/usr/share/odio/tagdialog.glade:348
 msgid "Recording year"
-msgstr ""
+msgstr "Год записи"
 
 #: data/usr/share/odio/tagdialog.glade:396
 msgid "Genres and styles"
-msgstr ""
+msgstr "Жанры и стили"
 
 #: data/usr/share/odio/tagdialog.glade:449
 msgid "Number of disc in this set"
@@ -588,19 +589,19 @@ msgstr ""
 
 #: data/usr/share/odio/tagdialog.glade:555
 msgid "Track number"
-msgstr ""
+msgstr "Номер трека"
 
 #: data/usr/share/odio/tagdialog.glade:581
 msgid "Total tracks"
-msgstr ""
+msgstr "Всего треков"
 
 #: data/usr/share/odio/tagdialog.glade:610
 msgid "Total number of tracks"
-msgstr ""
+msgstr "Общее количество треков"
 
 #: data/usr/share/odio/tagdialog.glade:660
 msgid "User comments"
-msgstr ""
+msgstr "Комментарии"
 
 #: data/usr/share/odio/tagdialog.glade:691
 msgid "Title of the audio"
