@@ -220,8 +220,7 @@ class GstReader(GstBase):
         pAudioConvert = self.pPipeline.get_by_name('aconv')
         pPad = pAudioConvert.get_static_pad('sink')
         self.pOrigCaps = pPad.get_current_caps()
-        self.pAudioInfo = GstAudio.AudioInfo.new()
-        self.pAudioInfo.from_caps(self.pOrigCaps)
+        self.pAudioInfo = GstAudio.AudioInfo.new_from_caps(self.pOrigCaps)
         self.pAudioInfo.layout = GstAudio.AudioLayout.INTERLEAVED
         self.lMapping = [not self.bRemoveSilent] * self.pAudioInfo.channels
         self.nDuration = self.pPipeline.query_duration(Gst.Format.TIME)[1]
