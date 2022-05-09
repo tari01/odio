@@ -803,6 +803,10 @@ class Odio(Application):
 
                     return
 
+            while Tasks.count(GstState.RUNNING)[0] > 0:
+
+                idle()
+
             # Start analysing files
             if len(self.pListstoreAudioFiles) > nRows:
 
