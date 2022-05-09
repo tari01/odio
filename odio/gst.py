@@ -927,11 +927,25 @@ class GstSplitter(GstBase):
 
         dCue = {'file': '', 'tracks': []}
 
-        with open(sCuePath, 'r', errors='backslashreplace') as pFile:
+        with open(sCuePath, 'rb') as pFile:
 
             for sLine in pFile:
 
-                sLine = sLine.strip().replace('\\x92', '\'').replace('\\x85', '')
+                try:
+
+                    sLine = sLine.decode('utf-8')
+
+                except:
+
+                    try:
+
+                        sLine = sLine.decode('utf-16')
+
+                    except:
+
+                        sLine = sLine.decode('cp1252')
+
+                sLine = sLine.strip()
 
                 pMatch = re.match('^FILE "(.*)" .*$', sLine)
 
