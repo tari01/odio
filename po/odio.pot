@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: odio 21.4.30\n"
+"Project-Id-Version: odio 22.5.8\n"
 "Report-Msgid-Bugs-To: https://github.com/tari01/odio/issues\n"
-"POT-Creation-Date: 2021-05-29 23:25+0200\n"
+"POT-Creation-Date: 2022-05-09 23:00+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -475,7 +475,7 @@ msgid "The SACD multichannel and stereo areas had a different track count: extra
 msgstr ""
 
 #: odio/sacd.py:81 data/usr/bin/odio:198 data/usr/bin/odio:365
-#: data/usr/bin/odio:899 data/usr/bin/odio:997
+#: data/usr/bin/odio:917 data/usr/bin/odio:1015
 msgid "Ready"
 msgstr ""
 
@@ -526,42 +526,47 @@ msgstr ""
 msgid "The program is working. Are you sure you want to quit?"
 msgstr ""
 
-#: data/usr/bin/odio:436
+#: data/usr/bin/odio:399
 msgid "Odio encountered one or more warnings"
 msgstr ""
 
-#: data/usr/bin/odio:472
+#: data/usr/bin/odio:476
 #, python-brace-format
 msgid "Analysing {fileName}"
 msgstr ""
 
-#: data/usr/bin/odio:478 data/usr/bin/odio:484 data/usr/bin/odio:768
+#: data/usr/bin/odio:482 data/usr/bin/odio:488 data/usr/bin/odio:780
 #, python-brace-format
 msgid "Decoding {fileName}"
 msgstr ""
 
-#: data/usr/bin/odio:508
+#: data/usr/bin/odio:512
 #, python-brace-format
 msgid "Compressing {fileName}"
 msgstr ""
 
-#: data/usr/bin/odio:621
+#: data/usr/bin/odio:625
 msgid ""
 "Your temporary files directory has only {:.2f} GB of free space left. Running out of space can cause nasty things.\n"
 "\n"
 "Continue adding files?"
 msgstr ""
 
-#: data/usr/bin/odio:634
+#: data/usr/bin/odio:638
 msgid "Open audio files"
 msgstr ""
 
-#: data/usr/bin/odio:786
+#: data/usr/bin/odio:750
+#, python-brace-format
+msgid "The audio file refernced in {fileName} does not exist. You can attempt to fix it by editing the \"FILE\" line manually."
+msgstr ""
+
+#: data/usr/bin/odio:798
 #, python-brace-format
 msgid "Failed to open {filepath}"
 msgstr ""
 
-#: data/usr/bin/odio:918
+#: data/usr/bin/odio:936
 #, python-brace-format
 msgid "Playing {fileName}"
 msgstr ""
