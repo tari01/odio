@@ -939,11 +939,11 @@ class GstSplitter(GstBase):
 
                     try:
 
-                        sLine = sLine.decode('utf-16')
+                        sLine = sLine.decode('ISO-8859-1')
 
                     except:
 
-                        sLine = sLine.decode('cp1252')
+                        sLine = sLine.decode('utf-16')
 
                 sLine = sLine.strip()
 
