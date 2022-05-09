@@ -391,6 +391,15 @@ class Odio(Application):
 
         return not self.bQuit
 
+    def showWarnings(self):
+
+        if len(self.m_lstWarnings) and not self.bQuit:
+
+            oDlg = Gtk.MessageDialog(parent=self.pWindow, modal=True, message_type=Gtk.MessageType.WARNING, buttons=Gtk.ButtonsType.CLOSE, text='\n'.join(self.m_lstWarnings), use_markup=True)
+            oDlg.set_title(_('Odio encountered one or more warnings'))
+            oDlg.run()
+            oDlg.destroy()
+
     def fnProgress(self):
 
         if self.bQuit:
@@ -430,12 +439,7 @@ class Odio(Application):
 
             if self.nState == State.ANALYSING:
 
-                if len(self.m_lstWarnings and not self.bQuit):
-
-                    oDlg = Gtk.MessageDialog(parent=self.pWindow, modal=True, message_type=Gtk.MessageType.WARNING, buttons=Gtk.ButtonsType.CLOSE, text='\n'.join(self.m_lstWarnings))
-                    oDlg.set_title(_('Odio encountered one or more warnings'))
-                    oDlg.run()
-                    oDlg.destroy()
+                self.showWarnings()
 
             elif self.nState == State.ENCODING:
 
@@ -681,7 +685,7 @@ class Odio(Application):
 
                 dCue = GstSplitter.parseCueSheet(strFilePath)
 
-                if dCue['file'] in lstFiles:
+                if dCue is not None and dCue['file'] in lstFiles:
 
                     lstFiles.remove(dCue['file'])
 
@@ -724,19 +728,27 @@ class Odio(Application):
 
                     Tasks.reset()
                     dCue = GstSplitter.parseCueSheet(strFilePath)
-                    strTempDir = self.getTempDir(dCue['file'])
 
-                    if strTempDir not in self.m_lstTempDirs:
+                    if dCue is not None:
 
-                        self.m_lstTempDirs.append(strTempDir)
+                        strTempDir = self.getTempDir(dCue['file'])
 
-                    for dTrack in dCue['tracks']:
+                        if strTempDir not in self.m_lstTempDirs:
 
-                        pGstSplitter = GstSplitter()
-                        Tasks.add(pGstSplitter, dCue['file'], strTempDir, dTrack['start'], dTrack['end'], dTrack['performer'], dTrack['title'], len(dCue['tracks']))
+                            self.m_lstTempDirs.append(strTempDir)
 
-                    idle()
-                    self.runTasks(self.fnSplit)
+                        for dTrack in dCue['tracks']:
+
+                            pGstSplitter = GstSplitter()
+                            Tasks.add(pGstSplitter, dCue['file'], strTempDir, dTrack['start'], dTrack['end'], dTrack['performer'], dTrack['title'], len(dCue['tracks']))
+
+                        idle()
+                        self.runTasks(self.fnSplit)
+
+                    else:
+
+                        sWarning = _('The audio file refernced in {fileName} does not exist. You can attempt to fix it by editing the "FILE" line manually.').format(fileName = '<b>' + strFilePath + '</b>')
+                        self.m_lstWarnings.append(sWarning)
 
                 elif strFileName.upper() == 'VIDEO_TS.IFO':
 
@@ -835,6 +847,8 @@ class Odio(Application):
 
                 self.resetControls()
                 self.nState = State.IDLE
+
+                self.showWarnings()
 
     def runTasks(self, pFunc):
 

@@ -958,6 +958,10 @@ class GstSplitter(GstBase):
 
                         dCue['file'] = os.path.splitext(dCue['file'])[0] + '.ape'
 
+                    if not os.path.exists(dCue['file']):
+
+                        return None
+
                     continue
 
                 pMatch = re.match('^TRACK \d\d .*$', sLine)
@@ -970,7 +974,7 @@ class GstSplitter(GstBase):
 
                 pMatch = re.match('^TITLE "(.*)"$', sLine)
 
-                if dCue['tracks'] and pMatch:
+                if pMatch and dCue['tracks']:
 
                     dCue['tracks'][-1]['title'] = pMatch.group(1).replace('/', '-')
 
