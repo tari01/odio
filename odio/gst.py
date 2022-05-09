@@ -940,6 +940,10 @@ class GstSplitter(GstBase):
                     sDirPath = os.path.dirname(sCuePath)
                     dCue['file'] = os.path.join(sDirPath, pMatch.group(1))
 
+                    if not os.path.exists(dCue['file']):
+
+                        dCue['file'] = os.path.splitext(dCue['file'])[0] + '.ape'
+
                     continue
 
                 pMatch = re.match('^TRACK \d\d .*$', sLine)
