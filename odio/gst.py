@@ -960,6 +960,10 @@ class GstSplitter(GstBase):
 
                     if not os.path.exists(dCue['file']):
 
+                        dCue['file'] = os.path.splitext(dCue['file'])[0] + '.flac'
+
+                    if not os.path.exists(dCue['file']):
+
                         return None
 
                     continue
