@@ -683,7 +683,7 @@ class Odio(Application):
 
             if strFilePath.lower().endswith('.cue'):
 
-                dCue = GstSplitter.parseCueSheet(strFilePath)
+                dCue, bWarn = GstSplitter.parseCueSheet(strFilePath)
 
                 if dCue is not None and dCue['file'] in lstFiles:
 
@@ -727,7 +727,7 @@ class Odio(Application):
                 if strFileExt.lower() == '.cue':
 
                     Tasks.reset()
-                    dCue = GstSplitter.parseCueSheet(strFilePath)
+                    dCue, bWarn = GstSplitter.parseCueSheet(strFilePath)
 
                     if dCue is not None:
 
@@ -745,7 +745,7 @@ class Odio(Application):
                         idle()
                         self.runTasks(self.fnSplit)
 
-                    else:
+                    elif bWarn:
 
                         sWarning = _('The audio file refernced in {fileName} does not exist. You can attempt to fix it by editing the "FILE" line manually.').format(fileName = '<b>' + strFilePath + '</b>')
                         self.m_lstWarnings.append(sWarning)

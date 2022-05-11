@@ -926,6 +926,7 @@ class GstSplitter(GstBase):
     def parseCueSheet(sCuePath):
 
         dCue = {'file': '', 'tracks': []}
+        bHaveFile = False
 
         with open(sCuePath, 'rb') as pFile:
 
@@ -951,6 +952,10 @@ class GstSplitter(GstBase):
 
                 if pMatch:
 
+                    if bHaveFile:
+
+                        return None, False
+
                     sDirPath = os.path.dirname(sCuePath)
                     dCue['file'] = os.path.join(sDirPath, pMatch.group(1))
 
@@ -964,7 +969,9 @@ class GstSplitter(GstBase):
 
                     if not os.path.exists(dCue['file']):
 
-                        return None
+                        return None, True
+
+                    bHaveFile = True
 
                     continue
 
@@ -1004,7 +1011,7 @@ class GstSplitter(GstBase):
 
                     continue
 
-        return dCue
+        return dCue, True
 
 class GstDvd(GstBase):
 
