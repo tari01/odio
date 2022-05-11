@@ -26,6 +26,7 @@ import os
 import os.path
 import re
 import time
+import signal
 import subprocess
 import urllib.request, urllib.parse
 import shutil
@@ -1036,4 +1037,5 @@ class Odio(Application):
 
 if __name__ == "__main__":
 
+    GLib.unix_signal_add(GLib.PRIORITY_DEFAULT, signal.SIGINT, Gtk.main_quit)
     Odio(False)
