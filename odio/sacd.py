@@ -17,19 +17,22 @@ class SACD:
 
             sFilePath = sFilePath.decode()
 
+        if self.nTracks != 0 and nTrack != -1:
+
+            nTrack = self.nTrack
+
         self.lSacdProgress[0] = fProgress / 100
-        bContinue = self.pProgress(self.lSacdProgress[0], sFilePath, nTrack, self.nSacdTracks)
+        bContinue = self.pProgress(self.lSacdProgress[0], sFilePath, nTrack, self.nTracks)
 
         return bContinue
 
-    def __init__(self, sFilePath, sOutDir, pProgress):
+    def __init__(self, sFilePath, sOutDir, pProgress, nTrack, nTracks):
 
         AREA_TWOCH = 1
         AREA_MULCH = 2
         AREA_AUTO = 3
         self.oLibOdioSacd = ctypes.cdll.LoadLibrary('/usr/lib/libodiosacd.so')
         self.pThread = None
-        self.nSacdTracks = 0
         self.sWarning = ''
         self.lSacdProgress = [0.0]
         self.sFilePath = sFilePath
@@ -39,10 +42,15 @@ class SACD:
         self.pOnProgress = OnProgress(self.onProgress)
         self.lErrors = [False, False]
         self.lErrors[0] = self.oLibOdioSacd.odiolibsacd_Open(str.encode(sFilePath), AREA_AUTO)
+        self.nTrack = nTrack
+        self.nTracks = nTracks
 
         if not self.lErrors[0]:
 
-            self.nSacdTracks = self.oLibOdioSacd.odiolibsacd_GetTrackCount(AREA_AUTO)
+            if self.nTracks == 0:
+
+                self.nTracks = self.oLibOdioSacd.odiolibsacd_GetTrackCount(AREA_AUTO)
+
             nTwoCh = self.oLibOdioSacd.odiolibsacd_GetTrackCount(AREA_TWOCH)
             nMulCh = self.oLibOdioSacd.odiolibsacd_GetTrackCount(AREA_MULCH)
 

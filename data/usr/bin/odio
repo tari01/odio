@@ -773,7 +773,18 @@ class Odio(Application):
 
                 elif strFileExt.lower() in ['.iso', '.dsf', '.dff']:
 
-                    pSacd = SACD(strFilePath, strOutDir, self.onSacdProgress)
+                    nTracks = 0
+
+                    if strFileExt.lower() in ['.dsf', '.dff']:
+
+                        for sPath in list(lstFiles):
+
+                            if os.path.dirname(strFilePath) == os.path.dirname(sPath):
+
+                                nTracks += 1
+
+                    pSacd = SACD(strFilePath, strOutDir, self.onSacdProgress, nTrack, nTracks)
+                    nTrack += 1
 
                     if pSacd.isOpen():
 
