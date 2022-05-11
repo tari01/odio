@@ -7,16 +7,6 @@ import time
 
 class SACD:
 
-    lSacdProgress = [0.0]
-    pThread = None
-    pOnProgress = None
-    lErrors = [False, False]
-    sFilePath = ''
-    sOutDir = ''
-    oLibOdioSacd = ctypes.cdll.LoadLibrary('/usr/lib/libodiosacd.so')
-    nSacdTracks = 0
-    sWarning = ''
-
     def convert(self, lErrors):
 
         lErrors[1] = self.oLibOdioSacd.odiolibsacd_Convert(str.encode(self.sOutDir), 88200, self.pOnProgress, None)
@@ -37,11 +27,17 @@ class SACD:
         AREA_TWOCH = 1
         AREA_MULCH = 2
         AREA_AUTO = 3
+        self.oLibOdioSacd = ctypes.cdll.LoadLibrary('/usr/lib/libodiosacd.so')
+        self.pThread = None
+        self.nSacdTracks = 0
+        self.sWarning = ''
+        self.lSacdProgress = [0.0]
         self.sFilePath = sFilePath
         self.sOutDir = sOutDir
         self.pProgress = pProgress
         OnProgress = ctypes.CFUNCTYPE(ctypes.c_bool, ctypes.c_float, ctypes.c_char_p, ctypes.c_int, ctypes.c_void_p)
         self.pOnProgress = OnProgress(self.onProgress)
+        self.lErrors = [False, False]
         self.lErrors[0] = self.oLibOdioSacd.odiolibsacd_Open(str.encode(sFilePath), AREA_AUTO)
 
         if not self.lErrors[0]:
