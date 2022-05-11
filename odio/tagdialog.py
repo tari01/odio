@@ -509,6 +509,7 @@ class TagDialog(Dialog):
         strText = strText.replace(' (Insert', ' (insert')
         strText = strText.replace(' (Instr.', ' (instrumental')
         strText = strText.replace(' Version)', ' version)')
+        strText = strText.replace(' Remix)', ' remix)')
         strText = strText.strip()
 
         if pEntry != None:
