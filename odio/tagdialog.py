@@ -527,6 +527,10 @@ class TagDialog(Dialog):
         strText = strText.replace(' Remix)', ' remix)')
         strText = strText.strip()
 
+        while '  ' in strText:
+
+             strText = strText.replace('  ', ' ')
+
         if pEntry != None:
             pEntry.set_text(strText)
         else:
