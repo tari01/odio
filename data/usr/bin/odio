@@ -65,6 +65,7 @@ class Column(IntEnum):
     QUALITY = 19
     SILENCE = 20
     MODIFIED = 21
+    BASEPATH = 22
 
 class Tasks:
 
@@ -149,13 +150,12 @@ class Odio(Application):
 
             shutil.rmtree('/tmp/' + APPNAME)
 
-        if g_pSettings.get_string('destination-aac') == '' and g_pSettings.get_string('destination-flac') == '':
+        if len(g_pSettings.get_strv('destinations')) == 0:
 
             strMusic = GLib.get_user_special_dir(GLib.UserDirectory.DIRECTORY_MUSIC) or GLib.get_home_dir()
             strDownloads = GLib.get_user_special_dir(GLib.UserDirectory.DIRECTORY_DOWNLOAD) or GLib.get_home_dir()
 
-            g_pSettings.set_string('destination-aac', strMusic)
-            g_pSettings.set_string('destination-flac', strMusic)
+            g_pSettings.set_strv('destinations', [strMusic])
             g_pSettings.set_string('source-folder', strDownloads)
             g_pSettings.set_string('image-folder', strDownloads)
 
@@ -354,7 +354,7 @@ class Odio(Application):
                     nInsertIndex = nIndex
 
         pPixBuf = Gtk.IconTheme().get_default().load_icon('gtk-missing-image', 24, 0)
-        self.pListstoreAudioFiles.insert(nInsertIndex, [sFilePath, 'Unknown Artist', 'Unknown Artist', '', 'Unknown Album', '{:02.0f}'.format(nTrack + 1), '{:02.0f}'.format(nTracks), 'Track ' + str(nTrack + 1), '01', '01', '', '', '', 'Unknown Artist/Unknown Album', 0, pPixBuf, 16, 2, 44100, '', '□ □', 0])
+        self.pListstoreAudioFiles.insert(nInsertIndex, [sFilePath, 'Unknown Artist', 'Unknown Artist', '', 'Unknown Album', '{:02.0f}'.format(nTrack + 1), '{:02.0f}'.format(nTracks), 'Track ' + str(nTrack + 1), '01', '01', '', '', '', 'Unknown Artist/Unknown Album', 0, pPixBuf, 16, 2, 44100, '', '□ □', 0, ''])
         Tasks.feed()
 
         return False
@@ -386,7 +386,7 @@ class Odio(Application):
                         nInsertIndex = nIndex
 
             pPixBuf = Gtk.IconTheme().get_default().load_icon('gtk-missing-image', 24, 0)
-            self.pListstoreAudioFiles.insert(nInsertIndex, [sFilePath, 'Unknown Artist', 'Unknown Artist', '', 'Unknown Album', '{:02.0f}'.format(nTrack + 1), '{:02.0f}'.format(nTracks), 'Track ' + str(nTrack + 1), '01', '01', '', '', '', 'Unknown Artist/Unknown Album', 0, pPixBuf, 16, 2, 44100, '', '□ □', 0])
+            self.pListstoreAudioFiles.insert(nInsertIndex, [sFilePath, 'Unknown Artist', 'Unknown Artist', '', 'Unknown Album', '{:02.0f}'.format(nTrack + 1), '{:02.0f}'.format(nTracks), 'Track ' + str(nTrack + 1), '01', '01', '', '', '', 'Unknown Artist/Unknown Album', 0, pPixBuf, 16, 2, 44100, '', '□ □', 0, ''])
 
         self.pProgressbar.set_fraction(fProgress)
 
@@ -498,12 +498,12 @@ class Odio(Application):
         if sEncoder == 'aac':
 
             sExtension = 'm4a'
-            strOutFilePath = os.path.join(g_pSettings.get_string('destination-aac'), pRow[Column.FOLDER], strOutFilePath + sExtension)
+            strOutFilePath = os.path.join(pRow[Column.BASEPATH], pRow[Column.FOLDER], strOutFilePath + sExtension)
 
         else:
 
             sExtension = 'flac'
-            strOutFilePath = os.path.join(g_pSettings.get_string('destination-flac'), pRow[Column.FOLDER], strOutFilePath + sExtension)
+            strOutFilePath = os.path.join(pRow[Column.BASEPATH], pRow[Column.FOLDER], strOutFilePath + sExtension)
 
         if len(strOutFilePath.encode('utf-8')) > 255:
 
@@ -821,7 +821,7 @@ class Odio(Application):
                     nTrack += 1
                     strTrack = '{:02.0f}'.format(nTrack)
                     nTracks = len([sPath for sPath in lstFiles if os.path.split(sPath)[0] == strFileDir and sPath.lower().endswith(('.flac', '.wv', '.ape', '.wav', '.m4a'))])
-                    self.pListstoreAudioFiles.append([strFilePath, 'Unknown Artist', 'Unknown Artist', '', 'Unknown Album', strTrack, '{:02.0f}'.format(nTracks), 'Track ' + strTrack, '01', '01', '', '', '', 'Unknown Artist/Unknown Album', 0, pPixBuf, 16, 2, 44100, '', '□ □', 0])
+                    self.pListstoreAudioFiles.append([strFilePath, 'Unknown Artist', 'Unknown Artist', '', 'Unknown Album', strTrack, '{:02.0f}'.format(nTracks), 'Track ' + strTrack, '01', '01', '', '', '', 'Unknown Artist/Unknown Album', 0, pPixBuf, 16, 2, 44100, '', '□ □', 0, ''])
 
                 if self.bQuit:
 

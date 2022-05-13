@@ -77,6 +77,8 @@
       <column type="gchararray"/>
       <!-- column-name modified -->
       <column type="guint64"/>
+      <!-- column-name basepath -->
+      <column type="gchararray"/>
     </columns>
   </object>
   <object class="GtkWindow" id="window">

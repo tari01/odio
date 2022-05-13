@@ -1,15 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <schemalist>
   <schema id="in.tari.odio" path="/in/tari/odio/" gettext-domain="odio">
-    <key type="s" name="destination-flac">
-      <default>''</default>
-      <summary>FLAC base folder</summary>
-      <description>This sets the path to the base folder for your FLAC albums.</description>
-    </key>
-    <key type="s" name="destination-aac">
-      <default>''</default>
-      <summary>AAC base folder</summary>
-      <description>This sets the path to the base folder for your AAC albums.</description>
+    <key type="as" name="destinations">
+      <default>[]</default>
+      <summary>Base folder</summary>
+      <description>This holds the paths to the base folders for your albums.</description>
     </key>
     <key type="s" name="source-folder">
       <default>''</default>

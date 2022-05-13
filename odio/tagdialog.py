@@ -27,6 +27,20 @@ class TagDialog(Dialog):
 
         self.onButtonFileUpClicked(None)
 
+        lDestinations = g_pSettings.get_strv('destinations')
+
+        for sDestination in lDestinations:
+
+            self.pComboBoxTextBaseFolder.append(sDestination, sDestination)
+
+        self.pComboBoxTextBaseFolder.set_active_id(lDestinations[0])
+
+    def onComboBoxTextBaseFolderChanged(self, pComboBoxText):
+
+        for nIndex in self.m_lstSelection:
+
+            self.pListstore[nIndex][22] = self.pComboBoxTextBaseFolder.get_active_id()
+
     def onButtonFileUpClicked(self, pButton):
 
         self.m_nCurrentFile -= 1
@@ -428,6 +442,7 @@ class TagDialog(Dialog):
         pButton.set_active(True)
 
         for nIndex in self.m_lstSelection:
+
             self.pListstore[nIndex][13] = self.pEntryFolder.get_text()
 
         return True
