@@ -512,7 +512,9 @@ class TagDialog(Dialog):
         strText = strText.replace('(*)', '')
         strText = strText.replace('(#/*)', '')
         strText = strText.replace('()', '')
-        strText = strText.replace("''", '"')
+        strText = strText.replace(" & ", ' and ')
+        strText = strText.replace(" Vs ", ' and ')
+        strText = strText.replace(' Feat. ', ' and ')
         strText = strText.replace(' (Alternate Take', ' (alternate take')
         strText = strText.replace(' (Alternative Take', ' (alternate take')
         strText = strText.replace(' (Master Take', ' (master take')
@@ -525,6 +527,7 @@ class TagDialog(Dialog):
         strText = strText.replace(' (Instr.', ' (instrumental')
         strText = strText.replace(' Version)', ' version)')
         strText = strText.replace(' Remix)', ' remix)')
+        strText = strText.replace(' Mix)', ' mix)')
         strText = strText.strip()
 
         while '  ' in strText:
