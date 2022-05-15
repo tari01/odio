@@ -512,6 +512,7 @@ class TagDialog(Dialog):
         strText = strText.replace('(*)', '')
         strText = strText.replace('(#/*)', '')
         strText = strText.replace('()', '')
+        strText = strText.replace('–', '-')
         strText = strText.replace(" & ", ' and ')
         strText = strText.replace(" Vs ", ' and ')
         strText = strText.replace(' Feat. ', ' and ')
