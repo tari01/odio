@@ -1,3 +1,25 @@
+odio (22.5.15) unstable; urgency=medium
+
+  * odio/titlecase.py: Lowercase 'without'
+  * debian/postinst: Drop file
+  * odio/tagdialog.py: Add some more title autoformating rules
+  * po/odio.pot: Update translation catalogue
+  * odio/tagdialog.py: Collapse multiple spaces when autoformatting
+  * Add multiple base paths
+  * data/usr/bin/odio: Add SIGINT handler
+  * Fix DSF/DFF track numbers and list order
+  * odio/sacd.py: Make all class variables private to instance
+  * odio/tagdialog.py: Lowercase 'Remix' in titles
+  * Ignore cuesheets with multiple FILE sections
+  * odio/gst.py: Fall back to FLAC cuesheet source if WAV/APE are not found
+  * odio/gst.py: Change cuesheet decoding fallback order
+  * Catch and warn about cuesheets with a bad FILE line
+  * data/usr/bin/odio: Wait for all tasks to finish before starting analysis
+  * odio/gst.py: Open cuesheet as binary and try multiple decoders
+  * odio/gst.py: Try to parse APE with cuesheet if WAV does not exist
+
+ -- Robert Tari <robert@tari.in>  Sun, 15 May 2022 18:36:00 +0200
+
 odio (22.5.8) unstable; urgency=medium
 
   * odio/gst.py: Switch to GstAudio.AudioInfo.new_from_caps
