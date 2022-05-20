@@ -10,6 +10,7 @@ gi.require_version('Gtk', '3.0')
 
 from gi.repository import Gst, GstAudio, GstTag, GLib, GObject, Gtk
 from odio.gtk import logger, idle
+from odio.appdata import APPVERSION
 from enum import IntEnum
 from mutagen.mp4 import MP4
 import filecmp
@@ -790,6 +791,16 @@ class GstEncoder(GstBase):
                     else:
 
                         del self.dTags[sKey]
+
+            # If we don't provide anything, GStreamer will put 'Rock'
+            if self.dTags['genre'] == '':
+
+                self.dTags['genre'] = 'Unknown Genre'
+
+            # If we don't provide anything, GStreamer will put 'Track 2'
+            if self.dTags['comment'] == '':
+
+                self.dTags['comment'] = 'Odio ' + APPVERSION + '/' + Gst.version_string()
 
             self.dTags['replaygain-reference-level'] = 89.0
 
