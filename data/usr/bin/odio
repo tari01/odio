@@ -170,6 +170,7 @@ class Odio(Application):
         self.m_lstWarnings = []
         self.m_bSettingsShown = False
         self.m_lstTempDirs = []
+        self.sDestination = g_pSettings.get_strv('destinations')[0]
 
     def postinit(self):
 
@@ -354,7 +355,7 @@ class Odio(Application):
                     nInsertIndex = nIndex
 
         pPixBuf = Gtk.IconTheme().get_default().load_icon('gtk-missing-image', 24, 0)
-        self.pListstoreAudioFiles.insert(nInsertIndex, [sFilePath, 'Unknown Artist', 'Unknown Artist', '', 'Unknown Album', '{:02.0f}'.format(nTrack + 1), '{:02.0f}'.format(nTracks), 'Track ' + str(nTrack + 1), '01', '01', '', '', '', 'Unknown Artist/Unknown Album', 0, pPixBuf, 16, 2, 44100, '', '□ □', 0, ''])
+        self.pListstoreAudioFiles.insert(nInsertIndex, [sFilePath, 'Unknown Artist', 'Unknown Artist', '', 'Unknown Album', '{:02.0f}'.format(nTrack + 1), '{:02.0f}'.format(nTracks), 'Track ' + str(nTrack + 1), '01', '01', '', '', '', 'Unknown Artist/Unknown Album', 0, pPixBuf, 16, 2, 44100, '', '□ □', 0, self.sDestination])
         Tasks.feed()
 
         return False
@@ -386,7 +387,7 @@ class Odio(Application):
                         nInsertIndex = nIndex
 
             pPixBuf = Gtk.IconTheme().get_default().load_icon('gtk-missing-image', 24, 0)
-            self.pListstoreAudioFiles.insert(nInsertIndex, [sFilePath, 'Unknown Artist', 'Unknown Artist', '', 'Unknown Album', '{:02.0f}'.format(nTrack + 1), '{:02.0f}'.format(nTracks), 'Track ' + str(nTrack + 1), '01', '01', '', '', '', 'Unknown Artist/Unknown Album', 0, pPixBuf, 16, 2, 44100, '', '□ □', 0, ''])
+            self.pListstoreAudioFiles.insert(nInsertIndex, [sFilePath, 'Unknown Artist', 'Unknown Artist', '', 'Unknown Album', '{:02.0f}'.format(nTrack + 1), '{:02.0f}'.format(nTracks), 'Track ' + str(nTrack + 1), '01', '01', '', '', '', 'Unknown Artist/Unknown Album', 0, pPixBuf, 16, 2, 44100, '', '□ □', 0, self.sDestination])
 
         self.pProgressbar.set_fraction(fProgress)
 
@@ -821,7 +822,7 @@ class Odio(Application):
                     nTrack += 1
                     strTrack = '{:02.0f}'.format(nTrack)
                     nTracks = len([sPath for sPath in lstFiles if os.path.split(sPath)[0] == strFileDir and sPath.lower().endswith(('.flac', '.wv', '.ape', '.wav', '.m4a'))])
-                    self.pListstoreAudioFiles.append([strFilePath, 'Unknown Artist', 'Unknown Artist', '', 'Unknown Album', strTrack, '{:02.0f}'.format(nTracks), 'Track ' + strTrack, '01', '01', '', '', '', 'Unknown Artist/Unknown Album', 0, pPixBuf, 16, 2, 44100, '', '□ □', 0, ''])
+                    self.pListstoreAudioFiles.append([strFilePath, 'Unknown Artist', 'Unknown Artist', '', 'Unknown Album', strTrack, '{:02.0f}'.format(nTracks), 'Track ' + strTrack, '01', '01', '', '', '', 'Unknown Artist/Unknown Album', 0, pPixBuf, 16, 2, 44100, '', '□ □', 0, self.sDestination])
 
                 if self.bQuit:
 
