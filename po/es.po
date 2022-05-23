@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: odio\n"
 "Report-Msgid-Bugs-To: Robert Tari <robert@tari.in>\n"
 "POT-Creation-Date: 2020-05-12 12:23+0200\n"
-"PO-Revision-Date: 2021-05-07 21:00+0000\n"
-"Last-Translator: Adolfo Jayme Barrientos <fitojb@ubuntu.com>\n"
+"PO-Revision-Date: 2022-05-24 16:20+0000\n"
+"Last-Translator: Luiz Carlos Lucasv <csversut@gmail.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/odio/master/es/>"
 "\n"
 "Language: es\n"
@@ -17,11 +17,11 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.7-dev\n"
+"X-Generator: Weblate 4.13-dev\n"
 
 #: data/usr/bin/odio:114
 msgid "Compress selected files using the encoder from the menu"
-msgstr ""
+msgstr "Comprimir archivos seleccionados usando el codificador del menú"
 
 #: data/usr/bin/odio:126
 msgid "Ready"
@@ -459,11 +459,12 @@ msgstr "Los archivos temporales se guardarán en «/tmp»."
 
 #: data/usr/share/odio/settingsdialog.glade:289
 msgid "Source folder"
-msgstr ""
+msgstr "Carpeta de origen"
 
 #: data/usr/share/odio/settingsdialog.glade:293
 msgid "Temporary files will be saved in the source file's directory."
 msgstr ""
+"Los archivos temporales se guardarán en el directorio del archivo de origen."
 
 #: data/usr/share/odio/streamsdialog.glade:42
 msgid "Audio streams"
@@ -492,7 +493,7 @@ msgstr "Canales"
 
 #: data/usr/share/odio/streamsdialog.glade:235
 msgid "Extract selected streams"
-msgstr ""
+msgstr "Extraer flujos seleccionados"
 
 #: data/usr/share/odio/tagdialog.glade:44
 msgid "Tag editor"
@@ -558,7 +559,7 @@ msgstr "Copiar este campo en todos los archivos seleccionados"
 
 #: data/usr/share/odio/tagdialog.glade:189
 msgid "The output folder relative to the base folder"
-msgstr ""
+msgstr "La carpeta de salida relativa a la carpeta base"
 
 #: data/usr/share/odio/tagdialog.glade:238
 msgid "Name of the album artist"
