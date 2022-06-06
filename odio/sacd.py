@@ -17,7 +17,7 @@ class SACD:
 
             sFilePath = sFilePath.decode()
 
-        if self.nTracks != 0 and nTrack != -1:
+        if self.bIso == False and nTrack != -1:
 
             nTrack = self.nTrack
 
@@ -44,10 +44,11 @@ class SACD:
         self.lErrors[0] = self.oLibOdioSacd.odiolibsacd_Open(str.encode(sFilePath), AREA_AUTO)
         self.nTrack = nTrack
         self.nTracks = nTracks
+        self.bIso = sFilePath.lower().endswith('iso')
 
         if not self.lErrors[0]:
 
-            if self.nTracks == 0:
+            if self.bIso:
 
                 self.nTracks = self.oLibOdioSacd.odiolibsacd_GetTrackCount(AREA_AUTO)
 
