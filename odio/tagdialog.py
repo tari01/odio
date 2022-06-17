@@ -116,7 +116,7 @@ class TagDialog(Dialog):
             lstStyles = pDoc.find('div', {'class': 'styles'})
             pAlbumArtist = pDoc.find('h2', {'class': 'album-artist'}) or pDoc.find('h3', {'class': 'album-artist'}) or pDoc.find('h3', {'class': 'release-artist'}) or pDoc.find('h2', {'class': 'release-artist'})
             pAlbum = pDoc.find('h2', {'class': 'album-title'}) or pDoc.find('h2', {'class': 'release-title'}) or pDoc.find('h1', {'class': 'album-title'}) or pDoc.find('a', {'class': 'album-title'})
-            strAlbum = pAlbum.contents[0].replace('[', '(').replace(']', ')').replace('&amp;', '&').strip()
+            strAlbum = pAlbum.contents[0].replace('[', '(').replace(']', ')').replace('&amp;', '&').replace('’', '\'').strip()
 
             if pGenres is not None:
 
@@ -503,6 +503,7 @@ class TagDialog(Dialog):
         strText = titlecase(strText)
         strText = strText.replace('’', '\'')
         strText = strText.replace('´', '\'')
+        strText = strText.replace('’', '\'')
         strText = strText.replace('[', '(')
         strText = strText.replace('&amp;', '&')
         strText = strText.replace(']', ')')
