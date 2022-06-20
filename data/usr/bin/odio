@@ -728,6 +728,10 @@ class Odio(Application):
 
                 if strFileExt.lower() == '.cue':
 
+                    while Tasks.count(GstState.RUNNING)[0] > 0:
+
+                        idle()
+
                     Tasks.reset()
                     dCue, bWarn = GstSplitter.parseCueSheet(strFilePath)
 
