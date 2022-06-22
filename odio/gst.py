@@ -1039,7 +1039,7 @@ class GstSplitter(GstBase):
 
                     continue
 
-        return dCue, True
+        return dCue, False
 
 class GstDvd(GstBase):
 

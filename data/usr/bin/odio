@@ -687,9 +687,29 @@ class Odio(Application):
 
                 dCue, bWarn = GstSplitter.parseCueSheet(strFilePath)
 
-                if dCue is not None and dCue['file'] in lstFiles:
+                if dCue is not None:
 
-                    lstFiles.remove(dCue['file'])
+                    if dCue['file'] in lstFiles:
+
+                        lstFiles.remove(dCue['file'])
+
+        for nIndex, strFilePath in enumerate(list(lstFiles)):
+
+            if strFilePath.lower().endswith('.cue'):
+
+                dCue, bWarn = GstSplitter.parseCueSheet(strFilePath)
+
+                if dCue is not None and bWarn == False:
+
+                    for sPathDuplicate in list(lstFiles)[nIndex + 1:]:
+
+                        if sPathDuplicate.lower().endswith('.cue') and sPathDuplicate != strFilePath and os.path.dirname(strFilePath) == os.path.dirname(sPathDuplicate):
+
+                            dCueDuplicate, bWarnDuplicate = GstSplitter.parseCueSheet(sPathDuplicate)
+
+                            if bWarnDuplicate == False and dCueDuplicate is not None and dCueDuplicate['file'] == dCue['file']:
+
+                                lstFiles.remove(sPathDuplicate)
 
         lstFiles.sort()
 
