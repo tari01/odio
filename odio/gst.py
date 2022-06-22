@@ -123,7 +123,10 @@ class GstBase:
     def onError(self, pBus, pMessage):
 
         pError = pMessage.parse_error()
-        logger.error(pError.gerror.message + ' ' + pError.debug)
+
+        if re.match('\.\./gstreamer/subprojects/gst-plugins-base/gst-libs/gst/audio/gstaudiodecoder\.c\(\d+\): gst_audio_decoder_finish_frame_or_subframe \(\): /GstPipeline:pipeline\d+/GstDecodeBin:decodebin\d+/avdec_ape:avdec_ape\d+:', pError.debug) is None:
+
+            logger.error(pError.gerror.message + ' ' + pError.debug)
 
         return True
 
