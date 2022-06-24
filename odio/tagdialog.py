@@ -25,21 +25,18 @@ class TagDialog(Dialog):
         self.pComboboxDiscTotal.set_model(self.pListstoreNumbers)
         self.pComboboxGenre.set_model(self.pListstoreGenres)
 
-        self.onButtonFileUpClicked(None)
-
         lDestinations = g_pSettings.get_strv('destinations')
 
         for sDestination in lDestinations:
 
             self.pComboBoxTextBaseFolder.append(sDestination, sDestination)
 
-        self.pComboBoxTextBaseFolder.set_active_id(lDestinations[0])
+        self.onButtonFileUpClicked(None)
 
     def onComboBoxTextBaseFolderChanged(self, pComboBoxText):
 
-        for nIndex in self.m_lstSelection:
-
-            self.pListstore[nIndex][22] = self.pComboBoxTextBaseFolder.get_active_id()
+        strText = self.pComboBoxTextBaseFolder.get_active_id()
+        self.pCheckbuttonBase.set_active(self.checkSharedField(22, strText))
 
     def onButtonFileUpClicked(self, pButton):
 
@@ -408,6 +405,16 @@ class TagDialog(Dialog):
 
         return True
 
+    def onCheckbuttonBaseButtonPressEvent(self, pButton, pEvent):
+
+        pButton.set_active(True)
+
+        for nIndex in self.m_lstSelection:
+
+            self.pListstore[nIndex][22] = self.pComboBoxTextBaseFolder.get_active_id()
+
+        return True
+
     def onCheckbuttonAlbumClicked(self, pButton, pEvent):
 
         pButton.set_active(True)
@@ -555,6 +562,7 @@ class TagDialog(Dialog):
     def displayFileTag(self):
 
         nRow = self.pListstore[self.m_lstSelection[self.m_nCurrentFile]]
+        self.pComboBoxTextBaseFolder.set_active_id(nRow[22])
         self.pEntryAlbumArtist.set_text(nRow[2])
         self.pEntryArtist.set_text(nRow[1])
         self.pEntryTitle.set_text(nRow[7])
