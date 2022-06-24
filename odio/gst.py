@@ -944,6 +944,38 @@ class GstSplitter(GstBase):
 
         with open(sCuePath, 'rb') as pFile:
 
+            nFiles = 0
+
+            for sLine in pFile:
+
+                try:
+
+                    sLine = sLine.decode('utf-8')
+
+                except:
+
+                    try:
+
+                        sLine = sLine.decode('ISO-8859-1')
+
+                    except:
+
+                        sLine = sLine.decode('utf-16')
+
+                sLine = sLine.strip()
+
+                pMatch = re.match('^FILE "(.*)" .*$', sLine)
+
+                if pMatch is not None:
+
+                    nFiles += 1
+
+                if nFiles > 1:
+
+                    return None, False
+
+        with open(sCuePath, 'rb') as pFile:
+
             for sLine in pFile:
 
                 try:
