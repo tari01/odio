@@ -310,6 +310,8 @@ class Odio(Application):
                 os.removedirs(sDirPath)
 
         self.pListstoreAudioFiles.remove(pIter)
+        pTreeSelection = self.pTreeViewAudioFiles.get_selection()
+        self.onTreeselectionChanged(pTreeSelection)
         Tasks.feed()
 
         return False
