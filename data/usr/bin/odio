@@ -989,6 +989,7 @@ class Odio(Application):
 
                 self.pGstPlayer.seek(0, nLength, False)
 
+            idle()
             GLib.timeout_add(40, self.onGstPlayerProgress)
 
         else:
@@ -1002,6 +1003,7 @@ class Odio(Application):
     def onScalePositionButtonReleaseEvent(self, pWidget, event):
 
         self.pGstPlayer.seek(self.pScalePosition.get_value(), None, False)
+        idle()
         self.m_bUpdateScale = True
 
     def onScalePositionChangeValue(self, pWidget, scale, value):
@@ -1009,6 +1011,7 @@ class Odio(Application):
         if self.m_bUpdateScale:
 
             self.pGstPlayer.seek(value, None, False)
+            idle()
 
         return False
 
