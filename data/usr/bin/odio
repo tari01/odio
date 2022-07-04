@@ -1010,6 +1010,8 @@ class Odio(Application):
 
         if self.m_bUpdateScale:
 
+            value = max(value, 0)
+            value = min(self.m_lstPlayQueue['files'][0]['length'], value)
             self.pGstPlayer.seek(value, None, False)
             idle()
 
