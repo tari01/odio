@@ -795,16 +795,6 @@ class GstEncoder(GstBase):
 
                         del self.dTags[sKey]
 
-            # If we don't provide anything, GStreamer will put 'Rock'
-            if self.dTags['genre'] == '':
-
-                self.dTags['genre'] = 'Unknown Genre'
-
-            # If we don't provide anything, GStreamer will put 'Track 2'
-            if self.dTags['comment'] == '':
-
-                self.dTags['comment'] = 'Odio ' + APPVERSION + '/' + Gst.version_string()
-
             self.dTags['replaygain-reference-level'] = 89.0
 
             if self.sEncoder == 'flac':
