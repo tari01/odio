@@ -1,3 +1,28 @@
+odio (22.7.5) unstable; urgency=medium
+
+  * odio/titlecase.py: Lowercase 'des'
+  * data/usr/bin/odio: Use a default base path
+  * odio/gst.py: Provide some defaults for the genre and comment tags
+  * Translated using Weblate (Spanish)
+  * Translated using Weblate (Portuguese (Brazil))
+  * odio/titlecase.py: Lowercase 'di'
+  * odio/sacd.py: Fix SACD ISO track numbering
+  * odio/tagdialog.py: Replace double dash
+  * odio/tagdialog.py: Autoformat ’ to '
+  * data/usr/bin/odio: Start GstSplitter only if no other tasks are running
+  * odio/gst.py: If the cuesheet's FILE does not exist, search for any single audio file in the same folder
+  * Ignore duplicate cuesheets pointing to the same source file
+  * odio/gst.py: Do not log APE decoding errors
+  * Add checkbox to tagdialog base folder combo
+  * odio/gst.py: Ignore cuefiles with multiple FILE lines
+  * Updated translation files
+  * data/usr/bin/odio: Update TreeSelection whenever an encoded file is removed
+  * data/usr/bin/odio: Fix successive seeks blocking playback
+  * data/usr/bin/odio: Make sure we seek within playing track boundaries
+  * Remove defaults for the genre and comment tags
+
+ -- Robert Tari <robert@tari.in>  Tue, 5 Jul 2022 11:04:00 +0200
+
 odio (22.5.15) unstable; urgency=medium
 
   * odio/titlecase.py: Lowercase 'without'
