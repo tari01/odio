@@ -8,16 +8,16 @@ msgstr ""
 "Project-Id-Version: odio\n"
 "Report-Msgid-Bugs-To: https://github.com/tari01/odio/issues\n"
 "POT-Creation-Date: 2022-06-29 02:59+0200\n"
-"PO-Revision-Date: 2021-11-03 19:37+0000\n"
-"Last-Translator: Oğuz Ersen <oguzersen@protonmail.com>\n"
-"Language-Team: Turkish <https://hosted.weblate.org/projects/odio/master/tr/"
-">\n"
+"PO-Revision-Date: 2022-07-13 08:19+0000\n"
+"Last-Translator: Oğuz Ersen <oguz@ersen.moe>\n"
+"Language-Team: Turkish <https://hosted.weblate.org/projects/odio/master/tr/>"
+"\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.9-dev\n"
+"X-Generator: Weblate 4.14-dev\n"
 
 #: data/usr/share/odio/logdialog.glade:13 data/usr/share/odio/odio.glade:227
 msgid "Log"
@@ -65,7 +65,7 @@ msgstr "Durdur"
 
 #: data/usr/share/odio/odio.glade:168
 msgid "Edit metadata for selected files"
-msgstr "Seçilen dosyaların metadosyalarını düzenle"
+msgstr "Seçilen dosyaların üst verilerini düzenle"
 
 #: data/usr/share/odio/odio.glade:169
 msgid "Edit Tag"
@@ -212,33 +212,35 @@ msgstr "Kaydet"
 
 #: data/usr/share/odio/settingsdialog.glade:87
 msgid "Remove LFE audio"
-msgstr ""
+msgstr "LFE sesini kaldır"
 
 #: data/usr/share/odio/settingsdialog.glade:91
 msgid "Remove the LFE channel if possible, otherwise replace it with silence"
-msgstr ""
+msgstr "Mümkünse LFE kanalını kaldır, değilse sessizlik ile değiştir"
 
 #: data/usr/share/odio/settingsdialog.glade:102
 msgid "Saturate multichannel files"
-msgstr ""
+msgstr "Çok kanallı dosyaları doyur"
 
 #: data/usr/share/odio/settingsdialog.glade:106
 msgid ""
 "Save multichannel files as 4.0, 5.1 or 7.1, copying audio to any newly added "
 "channels"
 msgstr ""
+"Sesi yeni eklenen kanallara kopyalayarak çok kanallı dosyaları 4.0, 5.1 veya "
+"7.1 olarak kaydet"
 
 #: data/usr/share/odio/settingsdialog.glade:122
 msgid "Channel mapping"
-msgstr ""
+msgstr "Kanal eşleme"
 
 #: data/usr/share/odio/settingsdialog.glade:138
 msgid "Base folders"
-msgstr ""
+msgstr "Ana klasörler"
 
 #: data/usr/share/odio/settingsdialog.glade:162
 msgid "Source folder"
-msgstr "Kaynak dosya konumu"
+msgstr "Kaynak klasör"
 
 #: data/usr/share/odio/settingsdialog.glade:166
 msgid "Temporary files will be saved in the source file's directory."
@@ -258,7 +260,7 @@ msgstr "Geçici dosyaların konumu"
 
 #: data/usr/share/odio/settingsdialog.glade:214
 msgid "Auto"
-msgstr "Oto"
+msgstr "Otomatik"
 
 #: data/usr/share/odio/settingsdialog.glade:218
 msgid ""
@@ -282,7 +284,7 @@ msgstr "Bütün seçilen dosyalar FLAC biçiminde sıkıştırılacak."
 
 #: data/usr/share/odio/settingsdialog.glade:272
 msgid "Compress button default action"
-msgstr "Sıkıştırma butonu varsayılan eylem"
+msgstr "Sıkıştır düğmesi öntanımlı eylemi"
 
 #: data/usr/share/odio/settingsdialog.glade:284
 msgid "Check fake stereo"
@@ -290,7 +292,7 @@ msgstr "Sahte çift kanalı denetle"
 
 #: data/usr/share/odio/settingsdialog.glade:288
 msgid "Save 2.0 files as 1.0 if the channels contain identical data"
-msgstr ""
+msgstr "Kanallar aynı verileri içeriyorsa 2.0 dosyalarını 1.0 olarak kaydet"
 
 #: data/usr/share/odio/settingsdialog.glade:299
 msgid "Remove silent channels"
@@ -298,35 +300,36 @@ msgstr "Sessiz kanalları sil"
 
 #: data/usr/share/odio/settingsdialog.glade:303
 msgid "Remove channels that contain no audio data"
-msgstr ""
+msgstr "Ses verisi içermeyen kanalları kaldır"
 
 #: data/usr/share/odio/settingsdialog.glade:319
 msgid "Tag dialog options"
-msgstr ""
+msgstr "Etiket iletişim kutusu seçenekleri"
 
 #: data/usr/share/odio/settingsdialog.glade:331
 msgid "Automatically title-case track names"
-msgstr ""
+msgstr "Şarkı adlarını otomatik olarak başlık büyüklüğüne dönüştür"
 
 #: data/usr/share/odio/settingsdialog.glade:335
 msgid "Reformat the track name field to title case whenever it changes"
 msgstr ""
+"Şarkı adı alanı her değiştiğinde başlık büyüklüğünde yeniden biçimlendir"
 
 #: data/usr/share/odio/settingsdialog.glade:357
 msgid "Add new folder"
-msgstr ""
+msgstr "Yeni klasör ekle"
 
 #: data/usr/share/odio/settingsdialog.glade:372
 msgid "Remove selected folder"
-msgstr ""
+msgstr "Seçilen klasörü kaldır"
 
 #: data/usr/share/odio/settingsdialog.glade:387
 msgid "Make selected folder the default"
-msgstr ""
+msgstr "Seçilen klasörü öntanımlı yap"
 
 #: data/usr/share/odio/settingsdialog.glade:420
 msgid "column"
-msgstr ""
+msgstr "sütun"
 
 #: data/usr/share/odio/streamsdialog.glade:31
 msgid "Audio streams"
@@ -357,6 +360,8 @@ msgstr "Etiketi kopyala"
 msgid ""
 "Copy the allmusic.com album page address from your web browser and click here"
 msgstr ""
+"Web tarayıcınızdan allmusic.com albüm sayfası adresini kopyalayın ve buraya "
+"tıklayın"
 
 #: data/usr/share/odio/tagdialog.glade:82
 msgid "Change image"
@@ -393,7 +398,7 @@ msgstr "Sonraki dosya konumuna taşı"
 
 #: data/usr/share/odio/tagdialog.glade:167
 msgid "Base folder"
-msgstr ""
+msgstr "Ana klasör"
 
 #: data/usr/share/odio/tagdialog.glade:172
 #: data/usr/share/odio/tagdialog.glade:205
@@ -411,15 +416,15 @@ msgstr "Bu alanı seçimdeki bütün dosyalara taşı"
 
 #: data/usr/share/odio/tagdialog.glade:188
 msgid "The base folder in which the output folder is created"
-msgstr ""
+msgstr "Çıktı klasörünün oluşturulduğu ana klasör"
 
 #: data/usr/share/odio/tagdialog.glade:200
 msgid "Output folder"
-msgstr "Çıktı dosyası"
+msgstr "Çıktı klasörü"
 
 #: data/usr/share/odio/tagdialog.glade:221
 msgid "The output folder relative to the base folder"
-msgstr "Çıkış dosyası ana dizin dosyası ile bağlantılıdır"
+msgstr "Ana klasöre göre çıktı klasörü"
 
 #: data/usr/share/odio/tagdialog.glade:270
 msgid "Name of the album artist"
@@ -484,7 +489,7 @@ msgstr "Bu görüntüyü seçimdeki bütün dosyalara kopyala"
 #: odio/gtk.py:177
 #, python-brace-format
 msgid "About {application}"
-msgstr ""
+msgstr "{application} hakkında"
 
 #: odio/gtk.py:183
 msgid "translator-credits"
@@ -497,6 +502,8 @@ msgid ""
 "The SACD multichannel and stereo areas had a different track count: "
 "extracted both."
 msgstr ""
+"SACD çok ve çift kanallı alanlarının kayıt sayısı farklıydı: her ikisi de "
+"çıkarıldı."
 
 #: odio/sacd.py:86 data/usr/bin/odio:200 data/usr/bin/odio:367
 #: data/usr/bin/odio:954 data/usr/bin/odio:1052
@@ -506,16 +513,16 @@ msgstr "Hazır"
 #: odio/sacd.py:94
 #, python-brace-format
 msgid "Failed to decode {filepath}"
-msgstr "Çözme işlemi başarısız {filepath}"
+msgstr "{filepath} çözülemedi"
 
 #: odio/settingsdialog.py:81
 msgid "Add a base folder"
-msgstr ""
+msgstr "Ana klasör ekle"
 
 #: odio/streamsdialog.py:43
 #, python-brace-format
 msgid "Disc {path} contains no LPCM audio"
-msgstr ""
+msgstr "{path} diski LPCM ses içermiyor"
 
 #: odio/tagdialog.py:80
 msgid "No allmusic.com page address found on the clipboard"
@@ -523,7 +530,7 @@ msgstr "Panoda allmusic.com adresi bulunamadı"
 
 #: odio/tagdialog.py:195
 msgid "Not all tracks got tracknames"
-msgstr "Şarkılar arasında isimsizler mevcut"
+msgstr "Tüm şarkıların şarkı adı yok"
 
 #: odio/tagdialog.py:205
 msgid "Error parsing web page"
@@ -552,7 +559,7 @@ msgstr "Menüdeki encoderi kullanarak seçimdeki dosyaları sıkıştır"
 
 #: data/usr/bin/odio:242
 msgid "The program is working. Are you sure you want to quit?"
-msgstr "Program halen çalışıyor. Çıkmak istediğinizden emin misiniz?"
+msgstr "Program hala çalışıyor. Çıkmak istediğinizden emin misiniz?"
 
 #: data/usr/bin/odio:401
 msgid "Odio encountered one or more warnings"
@@ -566,7 +573,7 @@ msgstr "{fileName} çözümleniyor"
 #: data/usr/bin/odio:484 data/usr/bin/odio:490 data/usr/bin/odio:817
 #, python-brace-format
 msgid "Decoding {fileName}"
-msgstr "Çözülüyor {fileName}"
+msgstr "{fileName} çözülüyor"
 
 #: data/usr/bin/odio:514
 #, python-brace-format
@@ -580,6 +587,10 @@ msgid ""
 "\n"
 "Continue adding files?"
 msgstr ""
+"Geçici dosyalar dizininizde yalnızca {:.2f} GB boş alan kaldı. "
+"Kullanılabilir alanın bitmesi kötü şeylere neden olabilir.\n"
+"\n"
+"Dosya eklemeye devam edilsin mi?"
 
 #: data/usr/bin/odio:640
 msgid "Open audio files"
@@ -591,24 +602,26 @@ msgid ""
 "The audio file refernced in {fileName} does not exist. You can attempt to "
 "fix it by editing the \"FILE\" line manually."
 msgstr ""
+"{fileName} adresinde belirtilen ses dosyası yok. \"FILE\" satırını elle "
+"düzenleyerek düzeltmeyi deneyebilirsiniz."
 
 #: data/usr/bin/odio:835
 #, python-brace-format
 msgid "Failed to open {filepath}"
-msgstr "Açma işlemi başarısız {filepath}"
+msgstr "{filepath} açılamadı"
 
 #: data/usr/bin/odio:973
 #, python-brace-format
 msgid "Playing {fileName}"
-msgstr "Oynatılıyor {fileName}"
+msgstr "{fileName} oynatılıyor"
 
 #: data/usr/share/applications/odio.desktop:3
 msgid "Odio"
-msgstr ""
+msgstr "Odio"
 
 #: data/usr/share/applications/odio.desktop:4
 msgid "Audio compression tool for FLAC and Nero AAC"
-msgstr ""
+msgstr "FLAC ve Nero AAC için ses sıkıştırma aracı"
 
 #~ msgid "Files successfully compressed"
 #~ msgstr "Dosyalar başarıyla sıkıştırıldı"
