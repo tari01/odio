@@ -930,22 +930,46 @@ class Odio(Application):
 
     def onWindowKeyPressEvent(self, pTreeView, pEvent):
 
-        if pEvent.state & Gdk.ModifierType.CONTROL_MASK and len(self.m_lstSelectedRows):
+        if len(self.m_lstSelectedRows):
 
-            if pEvent.keyval == 65361 and self.pToolbuttonPlay.get_visible():
+            if pEvent.state & Gdk.ModifierType.CONTROL_MASK:
 
-                self.onToolbuttonPlayClicked(None, 1)
+                if pEvent.keyval == 65361 and self.pToolbuttonPlay.get_visible():
 
-            elif pEvent.keyval == 65363 and self.pToolbuttonPlay.get_visible():
+                    self.onToolbuttonPlayClicked(None, 1)
 
-                self.onToolbuttonPlayClicked(None, -1)
+                elif pEvent.keyval == 65363 and self.pToolbuttonPlay.get_visible():
 
-            elif pEvent.keyval == 67 and self.pToolbuttonConvert.get_sensitive():
+                    self.onToolbuttonPlayClicked(None, -1)
 
-                if pEvent.state & Gdk.ModifierType.SHIFT_MASK:
-                    self.onMenuitemFLACActivate(None)
-                else:
-                    self.onMenuitemAACActivate(None)
+                elif pEvent.keyval == 67 and self.pToolbuttonConvert.get_sensitive():
+
+                    if pEvent.state & Gdk.ModifierType.SHIFT_MASK:
+                        self.onMenuitemFLACActivate(None)
+                    else:
+                        self.onMenuitemAACActivate(None)
+
+            if self.nState == State.PLAYING:
+
+                if pEvent.keyval in [65361, 65363]:
+
+                    nValue = int(self.pScalePosition.get_value())
+                    nJump = self.m_lstPlayQueue['files'][0]['length'] // 10
+
+                    if pEvent.keyval == 65361:
+
+                        nValue = nValue - nJump
+
+                    elif pEvent.keyval == 65363:
+
+                        nValue = nValue + nJump
+
+                    nValue = max(nValue, 0)
+                    nValue = min(self.m_lstPlayQueue['files'][0]['length'], nValue)
+                    self.pGstPlayer.seek(nValue, None, False)
+                    idle()
+
+                    return True
 
         return False
 
