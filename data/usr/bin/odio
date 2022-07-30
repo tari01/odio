@@ -171,6 +171,7 @@ class Odio(Application):
         self.m_bSettingsShown = False
         self.m_lstTempDirs = []
         self.sDestination = g_pSettings.get_strv('destinations')[0]
+        self.lCueFiles = []
 
     def postinit(self):
 
@@ -636,6 +637,7 @@ class Odio(Application):
 
         lstFiles = []
         self.m_lstWarnings = []
+        self.lCueFiles = []
 
         if lstUris is None:
 
@@ -695,24 +697,6 @@ class Odio(Application):
 
                         lstFiles.remove(dCue['file'])
 
-        for nIndex, strFilePath in enumerate(list(lstFiles)):
-
-            if strFilePath.lower().endswith('.cue'):
-
-                dCue, bWarn = GstSplitter.parseCueSheet(strFilePath)
-
-                if dCue is not None and bWarn == False:
-
-                    for sPathDuplicate in list(lstFiles)[nIndex + 1:]:
-
-                        if sPathDuplicate.lower().endswith('.cue') and sPathDuplicate != strFilePath and os.path.dirname(strFilePath) == os.path.dirname(sPathDuplicate):
-
-                            dCueDuplicate, bWarnDuplicate = GstSplitter.parseCueSheet(sPathDuplicate)
-
-                            if bWarnDuplicate == False and dCueDuplicate is not None and dCueDuplicate['file'] == dCue['file']:
-
-                                lstFiles.remove(sPathDuplicate)
-
         lstFiles.sort()
 
         if len(lstFiles):
@@ -757,8 +741,9 @@ class Odio(Application):
                     Tasks.reset()
                     dCue, bWarn = GstSplitter.parseCueSheet(strFilePath)
 
-                    if dCue is not None:
+                    if dCue is not None and dCue['file'] not in self.lCueFiles:
 
+                        self.lCueFiles.append(dCue['file'])
                         strTempDir = self.getTempDir(dCue['file'])
 
                         if strTempDir not in self.m_lstTempDirs:
