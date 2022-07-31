@@ -1005,6 +1005,10 @@ class GstSplitter(GstBase):
 
                     if not os.path.exists(dCue['file']):
 
+                        dCue['file'] = os.path.splitext(dCue['file'])[0] + '.wv'
+
+                    if not os.path.exists(dCue['file']):
+
                         lFilesAll = os.listdir(sDirPath)
                         lFilesGood = []
 
@@ -1012,7 +1016,7 @@ class GstSplitter(GstBase):
 
                             sFile = os.path.join(sDirPath, sFile)
 
-                            if os.path.isfile(sFile) and sFile.endswith(('.ape', '.flac', '.wav')):
+                            if os.path.isfile(sFile) and sFile.endswith(('.ape', '.flac', '.wv', '.wav')):
 
                                 lFilesGood.append(sFile)
 
