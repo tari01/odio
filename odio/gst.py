@@ -21,6 +21,7 @@ import uuid
 import shutil
 import subprocess
 import re
+import unicodedata
 
 Gst.init(None)
 
@@ -982,8 +983,11 @@ class GstSplitter(GstBase):
 
                         sLine = sLine.decode('utf-16')
 
-                sLine = sLine.strip()
+                if chr(0) in sLine:
 
+                    sLine = ''.join(nChar for nChar in sLine if unicodedata.category(nChar)[0] != 'C')
+
+                sLine = sLine.strip()
                 pMatch = re.match('^FILE "(.*)" .*$', sLine)
 
                 if pMatch:
