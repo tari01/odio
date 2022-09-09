@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: odio 20.5.21\n"
 "Report-Msgid-Bugs-To: https://github.com/tari01/odio/issues\n"
 "POT-Creation-Date: 2022-09-09 03:52+0200\n"
-"PO-Revision-Date: 2021-01-07 00:27+0000\n"
+"PO-Revision-Date: 2022-09-10 10:20+0000\n"
 "Last-Translator: Allan Nordhøy <epost@anotheragency.no>\n"
 "Language-Team: Norwegian Bokmål <https://hosted.weblate.org/projects/odio/"
 "master/nb_NO/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.4.1-dev\n"
+"X-Generator: Weblate 4.14.1-dev\n"
 
 #: data/usr/share/odio/logdialog.glade:13 data/usr/share/odio/odio.glade:227
 msgid "Log"
@@ -236,7 +236,7 @@ msgstr "Kanaltilknytting"
 
 #: data/usr/share/odio/settingsdialog.glade:138
 msgid "Base folders"
-msgstr ""
+msgstr "Grunnmapper"
 
 #: data/usr/share/odio/settingsdialog.glade:162
 msgid "Source folder"
@@ -303,32 +303,36 @@ msgid "Remove channels that contain no audio data"
 msgstr "Fjern kanaler som ikke inneholder lydddata"
 
 #: data/usr/share/odio/settingsdialog.glade:319
+#, fuzzy
 msgid "Tag dialog options"
-msgstr ""
+msgstr "Etikettdialogvalg"
 
 #: data/usr/share/odio/settingsdialog.glade:331
+#, fuzzy
 msgid "Automatically title-case track names"
-msgstr ""
+msgstr "Automatisk amerikansk overskriftsstil for spornavn"
 
 #: data/usr/share/odio/settingsdialog.glade:335
+#, fuzzy
 msgid "Reformat the track name field to title case whenever it changes"
 msgstr ""
+"Reformater spornavnsfeltet til amerikansk overskriftsstil når dette skjer"
 
 #: data/usr/share/odio/settingsdialog.glade:357
 msgid "Add new folder"
-msgstr ""
+msgstr "Legg til ny mappe"
 
 #: data/usr/share/odio/settingsdialog.glade:372
 msgid "Remove selected folder"
-msgstr ""
+msgstr "Fjern valgt mappe"
 
 #: data/usr/share/odio/settingsdialog.glade:387
 msgid "Make selected folder the default"
-msgstr ""
+msgstr "Gjør valgt mappe til forvalg"
 
 #: data/usr/share/odio/settingsdialog.glade:420
 msgid "column"
-msgstr ""
+msgstr "kolonne"
 
 #: data/usr/share/odio/streamsdialog.glade:31
 msgid "Audio streams"
@@ -358,7 +362,7 @@ msgstr "Hent etikett"
 #: data/usr/share/odio/tagdialog.glade:68
 msgid ""
 "Copy the allmusic.com album page address from your web browser and click here"
-msgstr ""
+msgstr "Kopier allmusic.com-albumsideadressen fra nettleseren din og klikk her"
 
 #: data/usr/share/odio/tagdialog.glade:82
 msgid "Change image"
@@ -396,7 +400,7 @@ msgstr "Flytt til neste fil i utvalg"
 
 #: data/usr/share/odio/tagdialog.glade:167
 msgid "Base folder"
-msgstr ""
+msgstr "Grunnmappe"
 
 #: data/usr/share/odio/tagdialog.glade:172
 #: data/usr/share/odio/tagdialog.glade:205
@@ -414,7 +418,7 @@ msgstr "Kopier dette feltet til alle filer i utvalget"
 
 #: data/usr/share/odio/tagdialog.glade:188
 msgid "The base folder in which the output folder is created"
-msgstr ""
+msgstr "Grunnmappen der utdatamappen lages"
 
 #: data/usr/share/odio/tagdialog.glade:200
 msgid "Output folder"
@@ -499,6 +503,8 @@ msgid ""
 "The SACD multichannel and stereo areas had a different track count: "
 "extracted both."
 msgstr ""
+"SACD-multikanal og stereoområdene hadde forskjellig sporantall: pakket ut "
+"begge."
 
 #: odio/sacd.py:86 data/usr/bin/odio:201 data/usr/bin/odio:370
 #: data/usr/bin/odio:965 data/usr/bin/odio:1068
@@ -512,7 +518,7 @@ msgstr "Klarte ikke å dekode {filepath}"
 
 #: odio/settingsdialog.py:81
 msgid "Add a base folder"
-msgstr ""
+msgstr "Legg til en grunnmappe"
 
 #: odio/streamsdialog.py:43
 #, python-brace-format
@@ -537,11 +543,11 @@ msgstr "Velg en bildefil"
 
 #: odio/tagdialog.py:231
 msgid "This does not appear to be a valid JPEG image"
-msgstr ""
+msgstr "Dette ser ikke ut til å være et gyldig JPEG-bilde"
 
 #: odio/tagdialog.py:232
 msgid "Image format error"
-msgstr ""
+msgstr "Bildeformatfeil"
 
 #: odio/tagdialog.py:485
 #, fuzzy
@@ -606,6 +612,8 @@ msgid ""
 "The audio file refernced in {fileName} does not exist. You can attempt to "
 "fix it by editing the \"FILE\" line manually."
 msgstr ""
+"Lydfilen det vises til i {fileName} finnes ikke. Du kan prøve å fikse dette "
+"ved å redigere «FILE»-linjen manuelt."
 
 #: data/usr/bin/odio:822
 #, python-brace-format
