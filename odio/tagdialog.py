@@ -215,18 +215,19 @@ class TagDialog(Dialog):
         if dlg.run() == Gtk.ResponseType.OK:
 
             pRow = self.pListstore[self.m_lstSelection[self.m_nCurrentFile]]
-            pRow[12] = dlg.get_filename()
-            g_pSettings.set_string('image-folder', os.path.dirname(pRow[12]))
 
             try:
 
-                pPixBuf = GdkPixbuf.Pixbuf().new_from_file(self.pListstore[self.m_lstSelection[self.m_nCurrentFile]][12])
+                sFileName = dlg.get_filename()
+                g_pSettings.set_string('image-folder', os.path.dirname(sFileName))
+                pPixBuf = GdkPixbuf.Pixbuf().new_from_file(sFileName)
+                pRow[12] = sFileName
                 pRow[15] = pPixBuf.scale_simple((pPixBuf.get_width() * 24) / pPixBuf.get_height(), 24, GdkPixbuf.InterpType.HYPER)
                 pPixBuf = pPixBuf.scale_simple((pPixBuf.get_width() * 100) / pPixBuf.get_height(), 100, GdkPixbuf.InterpType.HYPER)
                 self.pImageCover.set_from_pixbuf(pPixBuf)
                 self.pCheckbuttonCover.set_active(self.checkSharedField(12, pRow[12]))
 
-            except:
+            except Exception as pException:
 
                 pDlg = Gtk.MessageDialog(self.pDialog, Gtk.DialogFlags.MODAL, Gtk.MessageType.WARNING, Gtk.ButtonsType.OK, _('This does not appear to be a valid JPEG image'))
                 pDlg.set_title(_('Image format error'))
