@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: odio\n"
 "Report-Msgid-Bugs-To: https://github.com/tari01/odio/issues\n"
-"POT-Creation-Date: 2022-06-29 02:59+0200\n"
+"POT-Creation-Date: 2022-09-09 03:52+0200\n"
 "PO-Revision-Date: 2021-01-06 15:29+0000\n"
 "Last-Translator: J. Lavoie <j.lavoie@net-c.ca>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/odio/master/fr/>\n"
@@ -503,8 +503,8 @@ msgid ""
 "extracted both."
 msgstr ""
 
-#: odio/sacd.py:86 data/usr/bin/odio:200 data/usr/bin/odio:367
-#: data/usr/bin/odio:954 data/usr/bin/odio:1052
+#: odio/sacd.py:86 data/usr/bin/odio:201 data/usr/bin/odio:370
+#: data/usr/bin/odio:965 data/usr/bin/odio:1068
 msgid "Ready"
 msgstr "Prêt"
 
@@ -538,11 +538,19 @@ msgstr "Erreur lors de l'analyse de la page web"
 msgid "Select an image file"
 msgstr "Sélectionner un fichier image"
 
-#: odio/tagdialog.py:475
+#: odio/tagdialog.py:231
+msgid "This does not appear to be a valid JPEG image"
+msgstr ""
+
+#: odio/tagdialog.py:232
+msgid "Image format error"
+msgstr ""
+
+#: odio/tagdialog.py:485
 msgid "Convert to title case"
 msgstr "Utiliser en tant que titre"
 
-#: odio/tagdialog.py:486
+#: odio/tagdialog.py:496
 msgid "Insert filename"
 msgstr "Insérez un nom de dossier"
 
@@ -551,34 +559,34 @@ msgstr "Insérez un nom de dossier"
 msgid "and {rowcount} more"
 msgstr "et {rowcount} de plus"
 
-#: data/usr/bin/odio:180
+#: data/usr/bin/odio:181
 msgid "Compress selected files using the encoder from the menu"
 msgstr "Compresser les fichiers sélectionnés à l'aide de l'encodeur du menu"
 
-#: data/usr/bin/odio:242
+#: data/usr/bin/odio:243
 msgid "The program is working. Are you sure you want to quit?"
 msgstr "Le programme est en cours. Êtes-vous sûr(e) de vouloir le quitter ?"
 
-#: data/usr/bin/odio:401
+#: data/usr/bin/odio:404
 msgid "Odio encountered one or more warnings"
 msgstr "Odio a rencontré un ou plusieurs avertissements"
 
-#: data/usr/bin/odio:478
+#: data/usr/bin/odio:481
 #, python-brace-format
 msgid "Analysing {fileName}"
 msgstr "Analyse de {fileName}"
 
-#: data/usr/bin/odio:484 data/usr/bin/odio:490 data/usr/bin/odio:817
+#: data/usr/bin/odio:487 data/usr/bin/odio:493 data/usr/bin/odio:804
 #, python-brace-format
 msgid "Decoding {fileName}"
 msgstr "Décodage de {fileName}"
 
-#: data/usr/bin/odio:514
+#: data/usr/bin/odio:517
 #, python-brace-format
 msgid "Compressing {fileName}"
 msgstr "Compression de {fileName}"
 
-#: data/usr/bin/odio:627
+#: data/usr/bin/odio:630
 msgid ""
 "Your temporary files directory has only {:.2f} GB of free space left. "
 "Running out of space can cause nasty things.\n"
@@ -586,23 +594,23 @@ msgid ""
 "Continue adding files?"
 msgstr ""
 
-#: data/usr/bin/odio:640
+#: data/usr/bin/odio:644
 msgid "Open audio files"
 msgstr "Fichiers audio ouverts"
 
-#: data/usr/bin/odio:776
+#: data/usr/bin/odio:763
 #, python-brace-format
 msgid ""
 "The audio file refernced in {fileName} does not exist. You can attempt to "
 "fix it by editing the \"FILE\" line manually."
 msgstr ""
 
-#: data/usr/bin/odio:835
+#: data/usr/bin/odio:822
 #, python-brace-format
 msgid "Failed to open {filepath}"
 msgstr "Échec de l'ouverture de {filepath}"
 
-#: data/usr/bin/odio:973
+#: data/usr/bin/odio:984
 #, python-brace-format
 msgid "Playing {fileName}"
 msgstr "Lecture de {fileName}"

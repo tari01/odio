@@ -7,11 +7,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: odio\n"
 "Report-Msgid-Bugs-To: https://github.com/tari01/odio/issues\n"
-"POT-Creation-Date: 2022-06-29 02:59+0200\n"
+"POT-Creation-Date: 2022-09-09 03:52+0200\n"
 "PO-Revision-Date: 2022-07-13 08:19+0000\n"
 "Last-Translator: Oğuz Ersen <oguz@ersen.moe>\n"
-"Language-Team: Turkish <https://hosted.weblate.org/projects/odio/master/tr/>"
-"\n"
+"Language-Team: Turkish <https://hosted.weblate.org/projects/odio/master/tr/"
+">\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -505,8 +505,8 @@ msgstr ""
 "SACD çok ve çift kanallı alanlarının kayıt sayısı farklıydı: her ikisi de "
 "çıkarıldı."
 
-#: odio/sacd.py:86 data/usr/bin/odio:200 data/usr/bin/odio:367
-#: data/usr/bin/odio:954 data/usr/bin/odio:1052
+#: odio/sacd.py:86 data/usr/bin/odio:201 data/usr/bin/odio:370
+#: data/usr/bin/odio:965 data/usr/bin/odio:1068
 msgid "Ready"
 msgstr "Hazır"
 
@@ -540,11 +540,19 @@ msgstr "İnternet sitesi çözümleme hatası"
 msgid "Select an image file"
 msgstr "Bir görüntü dosyası seçin"
 
-#: odio/tagdialog.py:475
+#: odio/tagdialog.py:231
+msgid "This does not appear to be a valid JPEG image"
+msgstr ""
+
+#: odio/tagdialog.py:232
+msgid "Image format error"
+msgstr ""
+
+#: odio/tagdialog.py:485
 msgid "Convert to title case"
 msgstr "Başlık büyüklüğüne dönüştür"
 
-#: odio/tagdialog.py:486
+#: odio/tagdialog.py:496
 msgid "Insert filename"
 msgstr "Dosya adı girin"
 
@@ -553,34 +561,34 @@ msgstr "Dosya adı girin"
 msgid "and {rowcount} more"
 msgstr "ve {rowcount} dahası"
 
-#: data/usr/bin/odio:180
+#: data/usr/bin/odio:181
 msgid "Compress selected files using the encoder from the menu"
 msgstr "Menüdeki encoderi kullanarak seçimdeki dosyaları sıkıştır"
 
-#: data/usr/bin/odio:242
+#: data/usr/bin/odio:243
 msgid "The program is working. Are you sure you want to quit?"
 msgstr "Program hala çalışıyor. Çıkmak istediğinizden emin misiniz?"
 
-#: data/usr/bin/odio:401
+#: data/usr/bin/odio:404
 msgid "Odio encountered one or more warnings"
 msgstr "Odio bir veya birden fazla uyarı ile karşılaştı"
 
-#: data/usr/bin/odio:478
+#: data/usr/bin/odio:481
 #, python-brace-format
 msgid "Analysing {fileName}"
 msgstr "{fileName} çözümleniyor"
 
-#: data/usr/bin/odio:484 data/usr/bin/odio:490 data/usr/bin/odio:817
+#: data/usr/bin/odio:487 data/usr/bin/odio:493 data/usr/bin/odio:804
 #, python-brace-format
 msgid "Decoding {fileName}"
 msgstr "{fileName} çözülüyor"
 
-#: data/usr/bin/odio:514
+#: data/usr/bin/odio:517
 #, python-brace-format
 msgid "Compressing {fileName}"
 msgstr "{fileName} sıkıştırılıyor"
 
-#: data/usr/bin/odio:627
+#: data/usr/bin/odio:630
 msgid ""
 "Your temporary files directory has only {:.2f} GB of free space left. "
 "Running out of space can cause nasty things.\n"
@@ -592,11 +600,11 @@ msgstr ""
 "\n"
 "Dosya eklemeye devam edilsin mi?"
 
-#: data/usr/bin/odio:640
+#: data/usr/bin/odio:644
 msgid "Open audio files"
 msgstr "Ses dosyası aç"
 
-#: data/usr/bin/odio:776
+#: data/usr/bin/odio:763
 #, python-brace-format
 msgid ""
 "The audio file refernced in {fileName} does not exist. You can attempt to "
@@ -605,12 +613,12 @@ msgstr ""
 "{fileName} adresinde belirtilen ses dosyası yok. \"FILE\" satırını elle "
 "düzenleyerek düzeltmeyi deneyebilirsiniz."
 
-#: data/usr/bin/odio:835
+#: data/usr/bin/odio:822
 #, python-brace-format
 msgid "Failed to open {filepath}"
 msgstr "{filepath} açılamadı"
 
-#: data/usr/bin/odio:973
+#: data/usr/bin/odio:984
 #, python-brace-format
 msgid "Playing {fileName}"
 msgstr "{fileName} oynatılıyor"
