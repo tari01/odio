@@ -1,3 +1,17 @@
+odio (22.10.31) unstable; urgency=medium
+
+  * Translated using Weblate (Norwegian Bokmål)
+  * odio/tagdialog.py: Only save image path if there were no load errors
+  * po/*: Update translation files
+  * odio/tagdialog.py: Catch wrong image format
+  * odio/gst.py: Drop control characters from malformed cuesheets
+  * odio/gst.py: Also search for *.wv files when looking for cuesheet sources
+  * data/usr/bin/odio: Fix ignoring duplicate cuesheets pointing to the same source file
+  * data/usr/bin/odio: Add seek jump via arrow keys
+  * Translated using Weblate (Turkish)
+
+ -- Robert Tari <robert@tari.in>  Mon, 31 Oct 2022 18:52:00 +0200
+
 odio (22.7.5) unstable; urgency=medium
 
   * odio/titlecase.py: Lowercase 'des'
