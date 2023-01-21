@@ -8,16 +8,16 @@ msgstr ""
 "Project-Id-Version: odio\n"
 "Report-Msgid-Bugs-To: https://github.com/tari01/odio/issues\n"
 "POT-Creation-Date: 2022-09-09 03:52+0200\n"
-"PO-Revision-Date: 2022-05-24 16:20+0000\n"
-"Last-Translator: Luiz Carlos Lucasv <csversut@gmail.com>\n"
-"Language-Team: Spanish <https://hosted.weblate.org/projects/odio/master/es/"
-">\n"
+"PO-Revision-Date: 2023-01-22 16:12+0000\n"
+"Last-Translator: gallegonovato <fran-carro@hotmail.es>\n"
+"Language-Team: Spanish <https://hosted.weblate.org/projects/odio/master/es/>"
+"\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.13-dev\n"
+"X-Generator: Weblate 4.15.1\n"
 
 #: data/usr/share/odio/logdialog.glade:13 data/usr/share/odio/odio.glade:227
 msgid "Log"
@@ -214,29 +214,32 @@ msgstr "Guardar"
 
 #: data/usr/share/odio/settingsdialog.glade:87
 msgid "Remove LFE audio"
-msgstr ""
+msgstr "Eliminar audio LFE"
 
 #: data/usr/share/odio/settingsdialog.glade:91
 msgid "Remove the LFE channel if possible, otherwise replace it with silence"
 msgstr ""
+"Elimina el canal LFE si es posible, de lo contrario sustitúyelo por silencio"
 
 #: data/usr/share/odio/settingsdialog.glade:102
 msgid "Saturate multichannel files"
-msgstr ""
+msgstr "Saturar los archivos multicanal"
 
 #: data/usr/share/odio/settingsdialog.glade:106
 msgid ""
 "Save multichannel files as 4.0, 5.1 or 7.1, copying audio to any newly added "
 "channels"
 msgstr ""
+"Guarda archivos multicanal como 4.0, 5.1 o 7.1, copiando el audio en los "
+"nuevos canales añadidos"
 
 #: data/usr/share/odio/settingsdialog.glade:122
 msgid "Channel mapping"
-msgstr ""
+msgstr "Mapeo de los canales"
 
 #: data/usr/share/odio/settingsdialog.glade:138
 msgid "Base folders"
-msgstr ""
+msgstr "Carpetas base"
 
 #: data/usr/share/odio/settingsdialog.glade:162
 msgid "Source folder"
@@ -294,6 +297,7 @@ msgstr "Comprobar falso estéreo"
 #: data/usr/share/odio/settingsdialog.glade:288
 msgid "Save 2.0 files as 1.0 if the channels contain identical data"
 msgstr ""
+"Guardar los ficheros 2.0 como 1.0 si los canales contienen datos idénticos"
 
 #: data/usr/share/odio/settingsdialog.glade:299
 msgid "Remove silent channels"
@@ -301,35 +305,37 @@ msgstr "Quitar canales silenciosos"
 
 #: data/usr/share/odio/settingsdialog.glade:303
 msgid "Remove channels that contain no audio data"
-msgstr ""
+msgstr "Eliminar los canales que no contienen datos de audio"
 
 #: data/usr/share/odio/settingsdialog.glade:319
 msgid "Tag dialog options"
-msgstr ""
+msgstr "Opciones del cuadro de diálogo de las etiquetas"
 
 #: data/usr/share/odio/settingsdialog.glade:331
 msgid "Automatically title-case track names"
-msgstr ""
+msgstr "Título automático de los nombres de las pistas"
 
 #: data/usr/share/odio/settingsdialog.glade:335
 msgid "Reformat the track name field to title case whenever it changes"
 msgstr ""
+"Reformatea el campo de nombre de la pista a mayúsculas y minúsculas siempre "
+"que cambie"
 
 #: data/usr/share/odio/settingsdialog.glade:357
 msgid "Add new folder"
-msgstr ""
+msgstr "Añadir una nueva carpeta"
 
 #: data/usr/share/odio/settingsdialog.glade:372
 msgid "Remove selected folder"
-msgstr ""
+msgstr "Eliminar la carpeta seleccionada"
 
 #: data/usr/share/odio/settingsdialog.glade:387
 msgid "Make selected folder the default"
-msgstr ""
+msgstr "Hacer que la carpeta seleccionada sea la predeterminada"
 
 #: data/usr/share/odio/settingsdialog.glade:420
 msgid "column"
-msgstr ""
+msgstr "columna"
 
 #: data/usr/share/odio/streamsdialog.glade:31
 msgid "Audio streams"
@@ -360,6 +366,8 @@ msgstr "Obtener etiqueta"
 msgid ""
 "Copy the allmusic.com album page address from your web browser and click here"
 msgstr ""
+"Copie la dirección de la página del álbum de allmusic.com desde su navegador "
+"y haga clic aquí"
 
 #: data/usr/share/odio/tagdialog.glade:82
 msgid "Change image"
@@ -396,7 +404,7 @@ msgstr "Moverse al archivo siguiente en la selección"
 
 #: data/usr/share/odio/tagdialog.glade:167
 msgid "Base folder"
-msgstr ""
+msgstr "Carpeta base"
 
 #: data/usr/share/odio/tagdialog.glade:172
 #: data/usr/share/odio/tagdialog.glade:205
@@ -414,7 +422,7 @@ msgstr "Copiar este campo en todos los archivos seleccionados"
 
 #: data/usr/share/odio/tagdialog.glade:188
 msgid "The base folder in which the output folder is created"
-msgstr ""
+msgstr "La carpeta base en la que se crea la carpeta de salida"
 
 #: data/usr/share/odio/tagdialog.glade:200
 msgid "Output folder"
@@ -487,7 +495,7 @@ msgstr "Copiar esta imagen en todos los archivos seleccionados"
 #: odio/gtk.py:177
 #, python-brace-format
 msgid "About {application}"
-msgstr ""
+msgstr "Acerca de {application}"
 
 #: odio/gtk.py:183
 msgid "translator-credits"
@@ -500,6 +508,8 @@ msgid ""
 "The SACD multichannel and stereo areas had a different track count: "
 "extracted both."
 msgstr ""
+"Las áreas multicanal y estéreo del SACD tenían un recuento de pistas "
+"diferente: extraídas ambas."
 
 #: odio/sacd.py:86 data/usr/bin/odio:201 data/usr/bin/odio:370
 #: data/usr/bin/odio:965 data/usr/bin/odio:1068
@@ -513,12 +523,12 @@ msgstr "No se pudo descodificar {filepath}"
 
 #: odio/settingsdialog.py:81
 msgid "Add a base folder"
-msgstr ""
+msgstr "Añadir una carpeta base"
 
 #: odio/streamsdialog.py:43
 #, python-brace-format
 msgid "Disc {path} contains no LPCM audio"
-msgstr ""
+msgstr "El disco {path} no contiene audio LPCM"
 
 #: odio/tagdialog.py:80
 msgid "No allmusic.com page address found on the clipboard"
@@ -538,11 +548,11 @@ msgstr "Seleccione un archivo de imagen"
 
 #: odio/tagdialog.py:231
 msgid "This does not appear to be a valid JPEG image"
-msgstr ""
+msgstr "Esto no parece ser una imagen JPEG válida"
 
 #: odio/tagdialog.py:232
 msgid "Image format error"
-msgstr ""
+msgstr "Error en el formato de la imagen"
 
 #: odio/tagdialog.py:485
 msgid "Convert to title case"
@@ -591,6 +601,10 @@ msgid ""
 "\n"
 "Continue adding files?"
 msgstr ""
+"Su directorio de archivos temporales sólo tiene {:.2f} GB de espacio libre. "
+"Quedarse sin espacio puede causar cosas desagradables.\n"
+"\n"
+"¿Seguir añadiendo archivos?"
 
 #: data/usr/bin/odio:644
 msgid "Open audio files"
@@ -602,6 +616,8 @@ msgid ""
 "The audio file refernced in {fileName} does not exist. You can attempt to "
 "fix it by editing the \"FILE\" line manually."
 msgstr ""
+"El archivo de audio referenciado en {fileName} no existe. Puedes intentar "
+"solucionarlo editando manualmente la línea \"FILE\"."
 
 #: data/usr/bin/odio:822
 #, python-brace-format
@@ -615,11 +631,11 @@ msgstr "Reproduciendo {fileName}"
 
 #: data/usr/share/applications/odio.desktop:3
 msgid "Odio"
-msgstr ""
+msgstr "Odio"
 
 #: data/usr/share/applications/odio.desktop:4
 msgid "Audio compression tool for FLAC and Nero AAC"
-msgstr ""
+msgstr "Compresor de audio para FLAC y Nero AAC"
 
 #~ msgid "About "
 #~ msgstr "Acerca de "
