@@ -112,7 +112,19 @@ class GstBase:
 
                 for sName, pValue in dTags.items():
 
-                    pEnc.add_tag_value(Gst.TagMergeMode.REPLACE_ALL, sName, pValue)
+                    if (sName != 'extended-comment'):
+
+                        pEnc.add_tag_value(Gst.TagMergeMode.REPLACE_ALL, sName, pValue)
+
+                    else:
+
+                        pEnc.add_tag_value(Gst.TagMergeMode.REPLACE_ALL, sName, pValue[0])
+
+                        if len (pValue) > 1:
+
+                            for sValue in pValue[1:]:
+
+                                pEnc.add_tag_value(Gst.TagMergeMode.APPEND, sName, sValue)
 
         self.pPipeline.set_state(Gst.State.PAUSED)
         self.pPipeline.get_state(Gst.CLOCK_TIME_NONE)
@@ -756,6 +768,7 @@ class GstEncoder(GstBase):
 
             self.nOperation = 1
             self.sOperation = 'encode'
+            self.dTags['extended-comment'] = []
 
             for sKey in ['track-number', 'track-count', 'album-disc-number', 'album-disc-count', 'date', 'image']:
 
@@ -781,7 +794,7 @@ class GstEncoder(GstBase):
 
                         elif sKey == 'date':
 
-                            self.dTags['extended-comment'] = 'DATE=' + self.dTags[sKey]
+                            self.dTags['extended-comment'].append ('DATE=' + self.dTags[sKey])
                             self.dTags[sKey] = GLib.Date.new_dmy(1, 1, int(self.dTags[sKey]))
 
                         elif sKey == 'image':
@@ -797,6 +810,14 @@ class GstEncoder(GstBase):
                         del self.dTags[sKey]
 
             self.dTags['replaygain-reference-level'] = 89.0
+            sGain = str (round (self.dTags['replaygain-track-gain'], 2))
+
+            if self.dTags['replaygain-track-gain'] >= 0:
+
+                sGain = '+' + sGain
+
+            self.dTags['extended-comment'].append('REPLAYGAIN_TRACK_GAIN=' + sGain + ' dB')
+            del self.dTags['replaygain-track-gain']
 
             if self.sEncoder == 'flac':
 
