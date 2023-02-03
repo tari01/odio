@@ -109,6 +109,7 @@ class GstBase:
             if dTags:
 
                 pEnc = self.pPipeline.get_by_name('enc')
+                pEnc.set_tag_merge_mode(Gst.TagMergeMode.KEEP_ALL)
 
                 for sName, pValue in dTags.items():
 
