@@ -66,6 +66,7 @@ class Column(IntEnum):
     SILENCE = 20
     MODIFIED = 21
     BASEPATH = 22
+    TIME = 23
 
 class Tasks:
 
@@ -185,6 +186,7 @@ class Odio(Application):
         self.pTreeviewcolumnDiscsTotal.get_cells()[0].set_property('xalign', 1.0)
         self.pTreeviewcolumnYear.get_cells()[0].set_property('xalign', 1.0)
         self.pTreeviewcolumnQuality.get_cells()[0].set_property('xalign', 1.0)
+        self.pTreeviewcolumnTime.get_cells()[0].set_property('xalign', 1.0)
 
         if APPDEBUG:
 
@@ -327,6 +329,10 @@ class Odio(Application):
         self.pListstoreAudioFiles[pIter][Column.QUALITY] = '/'.join([str(dAudioInfo['rate']), str(dAudioInfo['bps']), str(dAudioInfo['channels'])])
         self.pListstoreAudioFiles[pIter][Column.MODIFIED] = int(os.path.getmtime(dAudioInfo['file']))
 
+        fMinutes, fSeconds = divmod(dAudioInfo['duration'] // 1000000000, 60)
+
+        self.pListstoreAudioFiles[pIter][Column.TIME] = '{:.0f}:{:02.0f}'.format(fMinutes, fSeconds)
+
         lstSilence = ['■',' ', '■']
 
         if dAudioInfo['start']:
@@ -358,7 +364,7 @@ class Odio(Application):
                     nInsertIndex = nIndex
 
         pPixBuf = Gtk.IconTheme().get_default().load_icon('gtk-missing-image', 24, 0)
-        self.pListstoreAudioFiles.insert(nInsertIndex, [sFilePath, 'Unknown Artist', 'Unknown Artist', '', 'Unknown Album', '{:02.0f}'.format(nTrack + 1), '{:02.0f}'.format(nTracks), 'Track ' + str(nTrack + 1), '01', '01', '', '', '', 'Unknown Artist/Unknown Album', 0, pPixBuf, 16, 2, 44100, '', '□ □', 0, self.sDestination])
+        self.pListstoreAudioFiles.insert(nInsertIndex, [sFilePath, 'Unknown Artist', 'Unknown Artist', '', 'Unknown Album', '{:02.0f}'.format(nTrack + 1), '{:02.0f}'.format(nTracks), 'Track ' + str(nTrack + 1), '01', '01', '', '', '', 'Unknown Artist/Unknown Album', 0, pPixBuf, 16, 2, 44100, '', '□ □', 0, self.sDestination, '0:00'])
         Tasks.feed()
 
         return False
@@ -390,7 +396,7 @@ class Odio(Application):
                         nInsertIndex = nIndex
 
             pPixBuf = Gtk.IconTheme().get_default().load_icon('gtk-missing-image', 24, 0)
-            self.pListstoreAudioFiles.insert(nInsertIndex, [sFilePath, 'Unknown Artist', 'Unknown Artist', '', 'Unknown Album', '{:02.0f}'.format(nTrack + 1), '{:02.0f}'.format(nTracks), 'Track ' + str(nTrack + 1), '01', '01', '', '', '', 'Unknown Artist/Unknown Album', 0, pPixBuf, 16, 2, 44100, '', '□ □', 0, self.sDestination])
+            self.pListstoreAudioFiles.insert(nInsertIndex, [sFilePath, 'Unknown Artist', 'Unknown Artist', '', 'Unknown Album', '{:02.0f}'.format(nTrack + 1), '{:02.0f}'.format(nTracks), 'Track ' + str(nTrack + 1), '01', '01', '', '', '', 'Unknown Artist/Unknown Album', 0, pPixBuf, 16, 2, 44100, '', '□ □', 0, self.sDestination, '0:00'])
 
         self.pProgressbar.set_fraction(fProgress)
 
@@ -833,7 +839,7 @@ class Odio(Application):
                     nTrack += 1
                     strTrack = '{:02.0f}'.format(nTrack)
                     nTracks = len([sPath for sPath in lstFiles if os.path.split(sPath)[0] == strFileDir and sPath.lower().endswith(('.flac', '.wv', '.ape', '.wav', '.m4a'))])
-                    self.pListstoreAudioFiles.append([strFilePath, 'Unknown Artist', 'Unknown Artist', '', 'Unknown Album', strTrack, '{:02.0f}'.format(nTracks), 'Track ' + strTrack, '01', '01', '', '', '', 'Unknown Artist/Unknown Album', 0, pPixBuf, 16, 2, 44100, '', '□ □', 0, self.sDestination])
+                    self.pListstoreAudioFiles.append([strFilePath, 'Unknown Artist', 'Unknown Artist', '', 'Unknown Album', strTrack, '{:02.0f}'.format(nTracks), 'Track ' + strTrack, '01', '01', '', '', '', 'Unknown Artist/Unknown Album', 0, pPixBuf, 16, 2, 44100, '', '□ □', 0, self.sDestination, '0:00'])
 
                 if self.bQuit:
 
