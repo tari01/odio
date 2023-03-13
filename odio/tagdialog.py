@@ -549,6 +549,7 @@ class TagDialog(Dialog):
         strText = strText.replace(' Version)', ' version)')
         strText = strText.replace(' Remix)', ' remix)')
         strText = strText.replace(' Mix)', ' mix)')
+        strText = strText.replace('(Reprise', '(reprise')
         strText = strText.strip()
 
         while '  ' in strText:
