@@ -21,7 +21,7 @@ from odio.settingsdialog import SettingsDialog
 from odio.streamsdialog import StreamsDialog
 from odio.treeview import treeviewExtend
 from enum import IntEnum
-from gi.repository import Gtk, GLib, Gdk
+from gi.repository import Gtk, GLib, Gdk, Gio
 import os
 import os.path
 import re
@@ -176,6 +176,13 @@ class Odio(Application):
 
     def postinit(self):
 
+        pIconThemed = Gio.ThemedIcon.new_with_default_fallbacks ('edit-delete')
+        pEmblem = Gio.Emblem.new (pIconThemed)
+        pIconThemed = Gio.ThemedIcon.new_with_default_fallbacks ('image-x-generic')
+        pIconEmblemed = Gio.EmblemedIcon.new (pIconThemed, pEmblem)
+        pImage = Gtk.Image.new_from_gicon (pIconEmblemed, Gtk.IconSize.LARGE_TOOLBAR)
+        pImage.show()
+        self.pToolbuttonDeleteImages.set_icon_widget (pImage)
         self.pToolbuttonDeleteImages.set_active(g_pSettings.get_boolean('delete-images'))
         self.pToolbuttonPlay.set_menu(self.pMenuPlay)
         self.pToolbuttonConvert.set_menu(self.pMenuCompress)
