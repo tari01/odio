@@ -951,6 +951,7 @@ class Odio(Application):
 
                 if pEvent.keyval in [65361, 65363]:
 
+                    self.m_bUpdateScale = False
                     nValue = int(self.pScalePosition.get_value())
                     nJump = self.m_lstPlayQueue['files'][0]['length'] // 10
 
@@ -966,6 +967,7 @@ class Odio(Application):
                     nValue = min(self.m_lstPlayQueue['files'][0]['length'], nValue)
                     self.pGstPlayer.seek(nValue, None, False)
                     idle()
+                    self.m_bUpdateScale = True
 
                     return True
 
