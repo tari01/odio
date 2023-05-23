@@ -19,6 +19,7 @@ from odio.tagdialog import TagDialog
 from odio.logdialog import LogDialog
 from odio.settingsdialog import SettingsDialog
 from odio.streamsdialog import StreamsDialog
+from odio.errordialog import ErrorDialog
 from odio.treeview import treeviewExtend
 from enum import IntEnum
 from gi.repository import Gtk, GLib, Gdk, Gio
@@ -169,6 +170,7 @@ class Odio(Application):
         self.m_lstImages = []
         self.m_lstPlayQueue = {'mode': 0, 'files': []}
         self.m_lstWarnings = []
+        self.m_lErrors = []
         self.m_bSettingsShown = False
         self.m_lstTempDirs = []
         self.sDestination = g_pSettings.get_strv('destinations')[0]
@@ -328,6 +330,14 @@ class Odio(Application):
 
     def finishedAnalysisJob(self, pIter, dAudioInfo):
 
+        if dAudioInfo['error']:
+
+            self.m_lErrors.append (dAudioInfo['file'] + ':\n' + dAudioInfo['error']);
+            self.pListstoreAudioFiles.remove(pIter)
+            Tasks.feed()
+
+            return False
+
         self.pListstoreAudioFiles[pIter][Column.FILEPATH] = dAudioInfo['file']
         self.pListstoreAudioFiles[pIter][Column.LENGTH] = dAudioInfo['duration']
         self.pListstoreAudioFiles[pIter][Column.BPS] = dAudioInfo['bps']
@@ -411,12 +421,16 @@ class Odio(Application):
 
     def showWarnings(self):
 
-        if len(self.m_lstWarnings) and not self.bQuit:
+        if len (self.m_lstWarnings) and not self.bQuit:
 
-            oDlg = Gtk.MessageDialog(parent=self.pWindow, modal=True, message_type=Gtk.MessageType.WARNING, buttons=Gtk.ButtonsType.CLOSE, text='\n'.join(self.m_lstWarnings), use_markup=True)
+            oDlg = Gtk.MessageDialog (parent=self.pWindow, modal=True, message_type=Gtk.MessageType.WARNING, buttons=Gtk.ButtonsType.CLOSE, text='\n'.join(self.m_lstWarnings), use_markup=True)
             oDlg.set_title(_('Odio encountered one or more warnings'))
             oDlg.run()
             oDlg.destroy()
+
+        if len (self.m_lErrors) and not self.bQuit:
+
+            ErrorDialog (None, self.m_lErrors)
 
     def fnProgress(self):
 
@@ -650,6 +664,7 @@ class Odio(Application):
 
         lstFiles = []
         self.m_lstWarnings = []
+        self.m_lErrors = []
         self.lCueFiles = []
 
         if lstUris is None:

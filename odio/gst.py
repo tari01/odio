@@ -10,7 +10,7 @@ gi.require_version('Gtk', '3.0')
 
 from gi.repository import Gst, GstAudio, GstTag, GLib, GObject, Gtk
 from odio.gtk import logger, idle
-from odio.appdata import APPVERSION
+from odio.appdata import APPVERSION, APPDEBUG
 from enum import IntEnum
 from mutagen.mp4 import MP4
 import filecmp
@@ -81,6 +81,8 @@ class GstBase:
         self.nOperations = 0
         self.nState = GstState.IDLE
         self.sOperation = ''
+        self.sError = '';
+
 
     def init(self, sCommand, dTags):
 
@@ -140,7 +142,15 @@ class GstBase:
 
         if re.match('\.\./gstreamer/subprojects/gst-plugins-base/gst-libs/gst/audio/gstaudiodecoder\.c\(\d+\): gst_audio_decoder_finish_frame_or_subframe \(\): /GstPipeline:pipeline\d+/GstDecodeBin:decodebin\d+/avdec_ape:avdec_ape\d+:', pError.debug) is None:
 
-            logger.error(pError.gerror.message + ' ' + pError.debug)
+            self.sError = pError.gerror.message
+
+            if APPDEBUG:
+
+                self.sError = self.sError + ' ' + pError.debug
+
+            logger.error (self.sError)
+            self.nState = GstState.DONE
+            self.close ()
 
         return True
 
@@ -161,6 +171,7 @@ class GstBase:
 
     def getPosition(self):
 
+        idle ()
         fProgress = 0.0
 
         if self.nState == GstState.DONE:
@@ -223,6 +234,7 @@ class GstReader(GstBase):
         self.dAudioInfo['end'] = None
         self.dAudioInfo['file'] = self.sPath
         self.dAudioInfo['changed'] = False
+        self.dAudioInfo['error'] = False
 
         self.lSignals.append([None, 'message::element', self.onElement])
 
@@ -238,6 +250,11 @@ class GstReader(GstBase):
         pAudioConvert = self.pPipeline.get_by_name('aconv')
         pPad = pAudioConvert.get_static_pad('sink')
         self.pOrigCaps = pPad.get_current_caps()
+
+        if self.pOrigCaps is None:
+
+            return
+
         self.pAudioInfo = GstAudio.AudioInfo.new_from_caps(self.pOrigCaps)
         self.pAudioInfo.layout = GstAudio.AudioLayout.INTERLEAVED
         self.lMapping = [not self.bRemoveSilent] * self.pAudioInfo.channels
@@ -245,6 +262,13 @@ class GstReader(GstBase):
         self.nOperations = 2 + int(self.bCheckStereo and self.pAudioInfo.channels == 2)
         self.dAudioInfo['duration'] = self.nDuration
         self.play()
+
+    def onError(self, pBus, pMessage):
+
+        super().onError (pBus, pMessage)
+
+        self.dAudioInfo['error'] = self.sError
+        GLib.idle_add (self.pCallback, self.pParam, self.dAudioInfo)
 
     def onEos(self, pElement, pMessage):
 
