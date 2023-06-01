@@ -1,4 +1,4 @@
-# 23.6.01
+# 23.6.1
 
  - odio/titlecase.py: Lowercase 'du' (69a4240)
  - Translated using Weblate (English (United Kingdom)) (cb52bcc)
