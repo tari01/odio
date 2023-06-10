@@ -847,14 +847,12 @@ class Odio(Application):
 
                     else:
 
-                        self.pStatusBarLabel.set_text(_('Failed to open {filepath}').format(filepath=strFilePath))
+                        sError = strFilePath + ':\n' + _('This file does not seem to be an SACD source.')
+                        self.m_lErrors.append (sError)
 
                     if self.bQuit:
 
                         return
-
-                    self.pStatusBarLabel.set_text(sResult)
-                    self.pProgressbar.set_fraction(0.0)
 
                 elif not bExists:
 
