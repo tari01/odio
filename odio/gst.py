@@ -14,6 +14,7 @@ from odio.appdata import APPVERSION, APPDEBUG
 from enum import IntEnum
 from mutagen.mp4 import MP4
 import filecmp
+import mmap
 import os
 import os.path
 import time
@@ -864,6 +865,26 @@ class GstEncoder(GstBase):
                 pMp4['----:com.apple.iTunes:replaygain_track_gain'] = str(round(self.dTags['replaygain-track-gain'], 2)).encode()
                 pMp4['----:com.apple.iTunes:replaygain_track_peak'] = str(round(self.dTags['replaygain-track-peak'], 6)).encode()
                 pMp4.save()
+
+            else:
+
+                # Fix GstTag.TagImageType.FRONT_COVER
+
+                with open (self.sPathTmp, 'r+b') as pFile:
+
+                    mm = mmap.mmap (pFile.fileno (), 0)
+                    nPos = mm.find (b'\x00\x00\x00\x0A\x69\x6D\x61\x67\x65\x2F\x6A\x70\x65\x67')
+                    mm.close ()
+
+                    if nPos != -1:
+
+                        pFile.seek (nPos - 1)
+                        nVal = pFile.read (1)
+
+                        if nVal != b'\x03':
+
+                            pFile.seek (nPos - 1)
+                            pFile.write (b'\x03')
 
             shutil.move(self.sPathTmp, self.sPathOut)
 
