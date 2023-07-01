@@ -1,3 +1,8 @@
+# 23.7.1
+
+ - odio/gst.py: Fix wrong tag image type (c08f4d1)
+ - data/usr/bin/odio: Catch and report invalid SACD error (22d672b)
+
 # 23.6.1
 
  - odio/titlecase.py: Lowercase 'du' (69a4240)
