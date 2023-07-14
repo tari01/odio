@@ -218,6 +218,16 @@ class Odio(Application):
             GLib.timeout_add_seconds(1, self.onToolbuttonSettingsClicked, None)
             self.m_bSettingsShown = True
 
+        self.pGnomeSettings = Gio.Settings.new ('org.gnome.desktop.interface')
+        self.pGnomeSettings.connect ('changed::color-scheme', self.onColorSchemeChanged)
+        self.onColorSchemeChanged (self.pGnomeSettings, 'color-scheme')
+
+    def onColorSchemeChanged (self, pSettings, sKey):
+
+        sColorScheme = pSettings.get_string (sKey)
+        bDark = (sColorScheme == 'prefer-dark')
+        Gtk.Settings.get_default().props.gtk_application_prefer_dark_theme = bDark
+
     def convert(self, strMethod):
 
         Tasks.reset()
