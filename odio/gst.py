@@ -886,6 +886,10 @@ class GstEncoder(GstBase):
                             pFile.seek (nPos - 1)
                             pFile.write (b'\x03')
 
+                        elif APPDEBUG:
+
+                            print ("It seems GstTag.TagImageType.FRONT_COVER is now fixed.")
+
             shutil.move(self.sPathTmp, self.sPathOut)
 
             self.nState = GstState.DONE
