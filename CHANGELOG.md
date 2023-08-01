@@ -1,3 +1,8 @@
+# 23.8.1
+
+ - odio/gst.py: Report if the GstTag.TagImageType.FRONT_COVER bug is fixed (e2329f1)
+ - data/usr/bin/odio: Add colour scheme handler (d6f300b)
+
 # 23.7.1
 
  - odio/gst.py: Fix wrong tag image type (c08f4d1)
