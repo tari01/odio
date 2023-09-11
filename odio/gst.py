@@ -26,9 +26,12 @@ import unicodedata
 
 Gst.init(None)
 
-def escape(sFileName):
+def escape (sFileName):
 
-    return sFileName.replace('"', '\\"')
+    sFileName = sFileName.replace ('"', '\\"')
+    sFileName = sFileName.replace ("\\", "\\\\")
+
+    return sFileName
 
 class GstState(IntEnum):
 
