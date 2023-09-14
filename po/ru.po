@@ -9,7 +9,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: https://github.com/tari01/odio/issues\n"
 "POT-Creation-Date: 2022-09-09 03:52+0200\n"
 "PO-Revision-Date: 2023-09-15 02:52+0000\n"
-"Last-Translator: xXx <xxx_xxx_xxxxxxxxx@mail.ru>\n"
+"Last-Translator: t4llkr <anaterem2015@yandex.ru>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/odio/master/ru/>"
 "\n"
 "Language: ru\n"
@@ -560,15 +560,15 @@ msgstr "{rowcount} более"
 
 #: data/usr/bin/odio:181
 msgid "Compress selected files using the encoder from the menu"
-msgstr ""
+msgstr "Сжать выбранные файлы с помощью кодировщика из меню"
 
 #: data/usr/bin/odio:243
 msgid "The program is working. Are you sure you want to quit?"
-msgstr "Программа выполняется. Уверены, что хотите выйти?"
+msgstr "Программа сейчас работает. Вы уверены, что хотите выйти?"
 
 #: data/usr/bin/odio:404
 msgid "Odio encountered one or more warnings"
-msgstr ""
+msgstr "Odio заметил одну или несколько предупреждений"
 
 #: data/usr/bin/odio:481
 #, python-brace-format
@@ -583,7 +583,7 @@ msgstr "Декодирование {fileName}"
 #: data/usr/bin/odio:517
 #, python-brace-format
 msgid "Compressing {fileName}"
-msgstr ""
+msgstr "Сжимание {fileName}"
 
 #: data/usr/bin/odio:630
 msgid ""
@@ -599,7 +599,7 @@ msgstr ""
 
 #: data/usr/bin/odio:644
 msgid "Open audio files"
-msgstr "Открыть аудиофайлы"
+msgstr "Открыть айдиофайлы"
 
 #: data/usr/bin/odio:763
 #, python-brace-format
