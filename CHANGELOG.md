@@ -1,3 +1,10 @@
+# 23.10.1
+
+ - Translated using Weblate (Russian) (5f13f70)
+ - Translated using Weblate (Russian) (5f3c345)
+ - Translated using Weblate (Russian) (2bf65ad)
+ - odio/gst.py: Escape backslashes in file names (912d58b)
+
 # 23.8.1
 
  - odio/gst.py: Report if the GstTag.TagImageType.FRONT_COVER bug is fixed (e2329f1)
