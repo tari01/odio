@@ -2,13 +2,12 @@
 # -*- coding: utf-8 -*-
 
 from gi.repository import Gtk, Gdk, GdkPixbuf
-from bs4 import BeautifulSoup
+from requests_html import HTMLSession
 from .gtk import g_pSettings, Dialog
 from .appdata import *
 from .titlecase import titlecase
 import os
 import re
-import urllib.request
 
 class TagDialog(Dialog):
 
@@ -92,111 +91,135 @@ class TagDialog(Dialog):
             if not strPage.startswith('http'):
                 strPage = 'http://' + strPage
 
-            class FancyURLopener(urllib.request.FancyURLopener):
-                version = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/43.0.2357.130 Chrome/43.0.2357.130 Safari/537.36'
-
-            hFancyURLopener = FancyURLopener()
-            pPage = hFancyURLopener.open(strPage)
-
-            strPage = pPage.read()
-
-            pPage.close()
-
-            pDoc = BeautifulSoup(strPage, 'html.parser')
-            strGenre = ''
+            pSession = HTMLSession ()
+            pRequest = pSession.get (strPage)
+            pRequest.html.render ()
+            sGenre = ''
             nYear = 0
+            pReleaseYear = pRequest.html.find ("div.release-date", first=True)
+            pRecordingYear = pRequest.html.find ("div.recording-date", first=True)
+            lTitles = [pRequest.html.find ("div.performer"), pRequest.html.find ("div.title")]
+            lGenres = pRequest.html.find ("div.genre > div > a")
+            lStyles = pRequest.html.find ("div.styles  > div > a")
+            pAlbumArtist = pRequest.html.find ("h2#albumArtists", first=True)
+            pAlbum = pRequest.html.find ("h1#albumTitle", first=True)
+            sAlbum = pAlbum.text.replace ('[', '(')
+            sAlbum = sAlbum.replace ("]", ")")
+            sAlbum = sAlbum.replace ("&amp;", "&")
+            sAlbum = sAlbum.replace ("’", "'")
+            sAlbum = sAlbum.strip()
 
-            pReleaseYear = pDoc.find('div', {'class': 'release-date'})
-            pRecordingYear = pDoc.find('div', {'class': 'recording-date'})
-            lstTitles = [pDoc.findAll('td', {'class': 'performer'}), pDoc.findAll('div', {'class': 'title'})]
-            pGenres = pDoc.find('div', {'class': 'genre'})
-            lstStyles = pDoc.find('div', {'class': 'styles'})
-            pAlbumArtist = pDoc.find('h2', {'class': 'album-artist'}) or pDoc.find('h3', {'class': 'album-artist'}) or pDoc.find('h3', {'class': 'release-artist'}) or pDoc.find('h2', {'class': 'release-artist'})
-            pAlbum = pDoc.find('h2', {'class': 'album-title'}) or pDoc.find('h2', {'class': 'release-title'}) or pDoc.find('h1', {'class': 'album-title'}) or pDoc.find('a', {'class': 'album-title'})
-            strAlbum = pAlbum.contents[0].replace('[', '(').replace(']', ')').replace('&amp;', '&').replace('’', '\'').strip()
+            if lGenres:
 
-            if pGenres is not None:
+                for pGenre in lGenres:
 
-                for pGenre in pGenres.div.findAll('a'):
-                    strGenre += ', ' + pGenre.string.strip(';')
+                    sGenre += ', ' + pGenre.text.strip (';')
 
-            if lstStyles is not None:
+            if lStyles:
 
-                strGenre += ' - '
+                sGenre += ' - '
 
-                for pStyle in lstStyles.findAll('a'):
-                    strGenre += pStyle.string.strip(';') + ', '
+                for pStyle in lStyles:
 
-            if pReleaseYear is not None:
+                    sGenre += pStyle.text.strip (';') + ', '
 
-                lstReleaseYear = pReleaseYear.span.string.strip().replace('-', ' ').replace(',', '').split(' ')
+            if pReleaseYear:
 
-                for strYear in lstReleaseYear:
+                pReleaseYear = pReleaseYear.find ("span", first=True)
+                sReleaseYear = pReleaseYear.text.replace ('-', ' ')
+                sReleaseYear = sReleaseYear.replace (',', '')
+                lReleaseYear = pReleaseYear.text.split (' ')
 
-                    if strYear.isdigit():
-                        nYear = strYear
+                for sYear in lReleaseYear:
 
-            if pRecordingYear is not None:
+                    sYear = sYear.strip ()
 
-                strRecordingYear = pRecordingYear.div.string
+                    if sYear.isdigit ():
 
-                if strRecordingYear is not None:
+                        nYear = sYear
 
-                    lstRecordingYear = pRecordingYear.div.string.strip().replace('-', ' ').replace(',', '').split(' ')
+            if pRecordingYear:
 
-                    for strYear in lstRecordingYear:
+                pRecordingYear = pRecordingYear.find ("div", first=True)
+                sRecordingYear = pRecordingYear.text.replace ('-', ' ')
+                sRecordingYear = sRecordingYear.replace (',', '')
+                lRecordingYear = pRecordingYear.text.split (' ')
 
-                        if strYear.isdigit():
-                            nYear = strYear
+                for sYear in lRecordingYear:
 
-            if pAlbumArtist.a != None:
-                pAlbumArtist = pAlbumArtist.a
+                    sYear = sYear.strip ()
 
-            pAlbumArtist = ''.join(pAlbumArtist.strings).replace('&amp;', '&').strip()
+                    if sYear.isdigit ():
+
+                        nYear = sYear
+
+            pAlbumArtistA = pAlbumArtist.find ("a", first=True)
+
+            if pAlbumArtistA:
+
+                pAlbumArtist = pAlbumArtistA
+
+            sAlbumArtist = ''.join (pAlbumArtist.text)
+            sAlbumArtist = sAlbumArtist.replace ("&amp;", "&")
+            sAlbumArtist = sAlbumArtist.strip ()
 
             for nIndex in self.m_lstSelection:
 
-                self.pListstore[nIndex][2] = pAlbumArtist
-                self.pListstore[nIndex][1] = pAlbumArtist
-                self.pListstore[nIndex][4] = strAlbum
+                self.pListstore[nIndex][2] = sAlbumArtist
+                self.pListstore[nIndex][1] = sAlbumArtist
+                self.pListstore[nIndex][4] = sAlbum
 
                 if nYear != 0:
+
                     self.pListstore[nIndex][10] = nYear
 
-                if len(strGenre) != 0:
-                    self.pListstore[nIndex][3] = strGenre.strip(', ')
+                if sGenre:
 
-                if lstTitles[0] != None and len(lstTitles[1]) and nTitleOffset < len(lstTitles[1]):
+                    self.pListstore[nIndex][3] = sGenre.strip (", ")
 
-                    if pAlbumArtist == 'Various Artists' and lstTitles[0] != None and len(lstTitles[0]) == len(lstTitles[1]):
+                if lTitles[0] and lTitles[1] and nTitleOffset < len (lTitles[1]):
 
-                        self.pListstore[nIndex][1] = ''.join(lstTitles[0][nTitleOffset].findAll(text=True))
-                        self.pListstore[nIndex][1] = self.pListstore[nIndex][1].replace('&amp;', '&')
-                        self.pListstore[nIndex][1] = self.pListstore[nIndex][1].replace(' / ', '/')
-                        self.pListstore[nIndex][1] = self.pListstore[nIndex][1].strip()
+                    #if sAlbumArtist == "Various Artists" and len (lTitles[0]) == len (lTitles[1]):
+                    if len (lTitles[0]) == len (lTitles[1]):
 
-                    sTitle = lstTitles[1][nTitleOffset].a.string
+                        lPerformers = lTitles[0][nTitleOffset].find ("a")
 
-                    if g_pSettings.get_boolean('titlecase'):
+                        for pPerformer in lPerformers:
 
-                        sTitle = self.ConvertToTitleCase(None, None, sTitle)
+                            sPerformer = pPerformer.text.replace ("&amp;", "&")
+                            sPerformer = sPerformer.strip ()
+
+                            if sPerformer not in self.pListstore[nIndex][1]:
+
+                                self.pListstore[nIndex][1] += " and " + sPerformer
+
+                    pTitle = lTitles[1][nTitleOffset].find ("a", first=True)
+                    sTitle = pTitle.text
+
+                    if g_pSettings.get_boolean ('titlecase'):
+
+                        sTitle = self.ConvertToTitleCase (None, None, sTitle)
 
                     self.pListstore[nIndex][7] = sTitle
 
-                if int(self.pListstore[nIndex][8]) > 0 and int(self.pListstore[nIndex][9]) > 1:
-                    self.pListstore[nIndex][13] = os.path.join(TagDialog.ReplaceChars(self.pListstore[nIndex][2]), TagDialog.ReplaceChars(self.pListstore[nIndex][4]), 'Disc ' + self.pListstore[nIndex][8])
+                if int (self.pListstore[nIndex][8]) > 0 and int (self.pListstore[nIndex][9]) > 1:
+
+                    self.pListstore[nIndex][13] = os.path.join (TagDialog.ReplaceChars (self.pListstore[nIndex][2]), TagDialog.ReplaceChars (self.pListstore[nIndex][4]), "Disc " + self.pListstore[nIndex][8])
+
                 else:
-                    self.pListstore[nIndex][13] = os.path.join(TagDialog.ReplaceChars(self.pListstore[nIndex][2]), TagDialog.ReplaceChars(self.pListstore[nIndex][4]))
+
+                    self.pListstore[nIndex][13] = os.path.join (TagDialog.ReplaceChars (self.pListstore[nIndex][2]), TagDialog.ReplaceChars (self.pListstore[nIndex][4]))
 
                 nTitleOffset += 1
 
-            if lstTitles[1] == None or nTitleOffset > len(lstTitles[1]):
+            if lTitles[1] == None or nTitleOffset > len (lTitles[1]):
 
-                pDlg = Gtk.MessageDialog(self.pDialog, Gtk.DialogFlags.MODAL, Gtk.MessageType.WARNING, Gtk.ButtonsType.OK, _('Not all tracks got tracknames'))
-                pDlg.run()
-                pDlg.destroy()
+                pDlg = Gtk.MessageDialog (self.pDialog, Gtk.DialogFlags.MODAL, Gtk.MessageType.WARNING, Gtk.ButtonsType.OK, _('Not all tracks got tracknames'))
+                pDlg.run ()
+                pDlg.destroy ()
 
-            self.displayFileTag()
+            pSession.close ()
+            self.displayFileTag ()
 
         except Exception as e:
 
