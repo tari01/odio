@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: odio 23.4.1\n"
+"Project-Id-Version: odio 23.11.1\n"
 "Report-Msgid-Bugs-To: https://github.com/tari01/odio/issues\n"
-"POT-Creation-Date: 2023-05-23 23:23+0200\n"
+"POT-Creation-Date: 2023-11-01 11:54+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -488,8 +488,8 @@ msgstr ""
 msgid "The SACD multichannel and stereo areas had a different track count: extracted both."
 msgstr ""
 
-#: odio/sacd.py:86 data/usr/bin/odio:212 data/usr/bin/odio:393
-#: data/usr/bin/odio:995 data/usr/bin/odio:1098
+#: odio/sacd.py:86 data/usr/bin/odio:212 data/usr/bin/odio:403
+#: data/usr/bin/odio:1003 data/usr/bin/odio:1106
 msgid "Ready"
 msgstr ""
 
@@ -507,35 +507,35 @@ msgstr ""
 msgid "Disc {path} contains no LPCM audio"
 msgstr ""
 
-#: odio/tagdialog.py:80
+#: odio/tagdialog.py:79
 msgid "No allmusic.com page address found on the clipboard"
 msgstr ""
 
-#: odio/tagdialog.py:195
+#: odio/tagdialog.py:217
 msgid "Not all tracks got tracknames"
 msgstr ""
 
-#: odio/tagdialog.py:205
+#: odio/tagdialog.py:228
 msgid "Error parsing web page"
 msgstr ""
 
-#: odio/tagdialog.py:211
+#: odio/tagdialog.py:234
 msgid "Select an image file"
 msgstr ""
 
-#: odio/tagdialog.py:232
+#: odio/tagdialog.py:255
 msgid "This does not appear to be a valid JPEG image"
 msgstr ""
 
-#: odio/tagdialog.py:233
+#: odio/tagdialog.py:256
 msgid "Image format error"
 msgstr ""
 
-#: odio/tagdialog.py:486
+#: odio/tagdialog.py:509
 msgid "Convert to title case"
 msgstr ""
 
-#: odio/tagdialog.py:497
+#: odio/tagdialog.py:520
 msgid "Insert filename"
 msgstr ""
 
@@ -548,51 +548,50 @@ msgstr ""
 msgid "Compress selected files using the encoder from the menu"
 msgstr ""
 
-#: data/usr/bin/odio:254
+#: data/usr/bin/odio:264
 msgid "The program is working. Are you sure you want to quit?"
 msgstr ""
 
-#: data/usr/bin/odio:427
+#: data/usr/bin/odio:437
 msgid "Odio encountered one or more warnings"
 msgstr ""
 
-#: data/usr/bin/odio:508
+#: data/usr/bin/odio:518
 #, python-brace-format
 msgid "Analysing {fileName}"
 msgstr ""
 
-#: data/usr/bin/odio:514 data/usr/bin/odio:520 data/usr/bin/odio:832
+#: data/usr/bin/odio:524 data/usr/bin/odio:530 data/usr/bin/odio:842
 #, python-brace-format
 msgid "Decoding {fileName}"
 msgstr ""
 
-#: data/usr/bin/odio:544
+#: data/usr/bin/odio:554
 #, python-brace-format
 msgid "Compressing {fileName}"
 msgstr ""
 
-#: data/usr/bin/odio:657
+#: data/usr/bin/odio:667
 msgid ""
 "Your temporary files directory has only {:.2f} GB of free space left. Running out of space can cause nasty things.\n"
 "\n"
 "Continue adding files?"
 msgstr ""
 
-#: data/usr/bin/odio:672
+#: data/usr/bin/odio:682
 msgid "Open audio files"
 msgstr ""
 
-#: data/usr/bin/odio:791
+#: data/usr/bin/odio:801
 #, python-brace-format
 msgid "The audio file refernced in {fileName} does not exist. You can attempt to fix it by editing the \"FILE\" line manually."
 msgstr ""
 
-#: data/usr/bin/odio:850
-#, python-brace-format
-msgid "Failed to open {filepath}"
+#: data/usr/bin/odio:860
+msgid "This file does not seem to be an SACD source."
 msgstr ""
 
-#: data/usr/bin/odio:1014
+#: data/usr/bin/odio:1022
 #, python-brace-format
 msgid "Playing {fileName}"
 msgstr ""

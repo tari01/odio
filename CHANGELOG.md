@@ -1,3 +1,8 @@
+# 23.11.1
+
+ - odio/tagdialog.py: Lowercase 'N (133bc3a)
+ - odio/tagdialog.py: Use requests-html for AllMusic page parsing (5328345)
+
 # 23.10.1
 
  - Translated using Weblate (Russian) (5f13f70)
