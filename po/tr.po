@@ -8,16 +8,16 @@ msgstr ""
 "Project-Id-Version: odio\n"
 "Report-Msgid-Bugs-To: https://github.com/tari01/odio/issues\n"
 "POT-Creation-Date: 2023-11-01 11:54+0100\n"
-"PO-Revision-Date: 2023-06-01 12:33+0000\n"
-"Last-Translator: Hasan <hasanyildiz0@yaani.com>\n"
-"Language-Team: Turkish <https://hosted.weblate.org/projects/odio/master/tr/"
-">\n"
+"PO-Revision-Date: 2023-11-07 18:36+0000\n"
+"Last-Translator: Oğuz Ersen <oguz@ersen.moe>\n"
+"Language-Team: Turkish <https://hosted.weblate.org/projects/odio/master/tr/>"
+"\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.18-dev\n"
+"X-Generator: Weblate 5.2-dev\n"
 
 #: data/usr/share/odio/errordialog.glade:13
 msgid "Odio encountered one or more errors"
@@ -25,7 +25,7 @@ msgstr "Odio bir veya daha fazla hatayla karşılaştı"
 
 #: data/usr/share/odio/errordialog.glade:33
 msgid "Close"
-msgstr ""
+msgstr "Kapat"
 
 #: data/usr/share/odio/logdialog.glade:13 data/usr/share/odio/odio.glade:229
 msgid "Log"
@@ -624,7 +624,7 @@ msgstr ""
 
 #: data/usr/bin/odio:860
 msgid "This file does not seem to be an SACD source."
-msgstr ""
+msgstr "Bu dosya bir SACD kaynağı gibi görünmüyor."
 
 #: data/usr/bin/odio:1022
 #, python-brace-format
