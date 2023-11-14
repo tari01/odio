@@ -28,8 +28,8 @@ Gst.init(None)
 
 def escape (sFileName):
 
-    sFileName = sFileName.replace ('"', '\\"')
     sFileName = sFileName.replace ("\\", "\\\\")
+    sFileName = sFileName.replace ('"', '\\"')
 
     return sFileName
 
