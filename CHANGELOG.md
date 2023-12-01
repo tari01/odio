@@ -1,3 +1,9 @@
+# 23.12.1
+
+ - odio/gst.py: Fix file name escaping (da28466)
+ - Translated using Weblate (Turkish) (d9d8d77)
+ - Translated using Weblate (Spanish) (bc91f1c)
+
 # 23.11.1
 
  - odio/tagdialog.py: Lowercase 'N (133bc3a)
