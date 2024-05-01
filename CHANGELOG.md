@@ -1,3 +1,7 @@
+# 24.5.1
+
+ - Translated using Weblate (Portuguese (Brazil)) (863e079)
+
 # 23.12.1
 
  - odio/gst.py: Fix file name escaping (da28466)
