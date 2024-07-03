@@ -192,30 +192,6 @@ class Application:
 
         return False
 
-class Indicator(Application):
-
-    def __init__(self):
-
-        gi.require_version('AppIndicator3', '0.1')
-
-        from gi.repository import AppIndicator3
-
-        if APPDEBUG:
-
-            self.pIndicator = AppIndicator3.Indicator.new_with_path(APPNAME, APPNAME + '-active', AppIndicator3.IndicatorCategory.APPLICATION_STATUS, getDataPath('/usr/share/icons/ubuntu-mono-dark/status/24'))
-
-        else:
-
-            self.pIndicator = AppIndicator3.Indicator.new(APPNAME, APPNAME + '-active', AppIndicator3.IndicatorCategory.APPLICATION_STATUS)
-
-        Application.__init__(self, False, False)
-
-    def postinit(self):
-
-        self.pIndicator.set_attention_icon(APPNAME + '-attention')
-        self.pIndicator.set_status(AppIndicator3.IndicatorStatus.ACTIVE)
-        self.pIndicator.set_menu(self.pMenu)
-
 class Dialog():
 
     nResponseId = Gtk.ResponseType.CANCEL
