@@ -1,3 +1,7 @@
+# 24.9.1
+
+ - Translated using Weblate (English (United Kingdom)) (51b0c47)
+
 # 24.8.1
 
  - odio/gtk.py: Drop Indicator class (b3e35c8)
