@@ -1,3 +1,7 @@
+# 25.1.1
+
+ - Translated using Weblate (Serbian (Latin script)) (844e7f7)
+
 # 24.9.1
 
  - Translated using Weblate (English (United Kingdom)) (51b0c47)
