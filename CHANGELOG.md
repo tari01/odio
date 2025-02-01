@@ -1,3 +1,7 @@
+# 25.2.1
+
+ - Translated using Weblate (Tamil) (a6b5f1c)
+
 # 25.1.1
 
  - Translated using Weblate (Serbian (Latin script)) (844e7f7)
