@@ -12,7 +12,7 @@ import psutil
 import os
 import sys
 import gettext
-import pipes
+import shlex
 from .appdata import *
 
 def idle():
@@ -33,7 +33,7 @@ def quote(sText):
 
     else:
 
-        return pipes.quote(sText)
+        return shlex.quote(sText)
 
 def getDataPath(sPath):
 
