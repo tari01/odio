@@ -1,3 +1,7 @@
+# 25.3.1
+
+ - odio/gtk.py: Replace pipes with shlex (80c6afc)
+
 # 25.2.1
 
  - Translated using Weblate (Tamil) (a6b5f1c)
