@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.38.2 -->
+<!-- Generated with glade 3.40.0 -->
 <interface>
   <requires lib="gtk+" version="3.24"/>
   <object class="GtkImage" id="imageAdd">
@@ -146,140 +146,6 @@
               </packing>
             </child>
             <child>
-              <object class="GtkSeparator">
-                <property name="visible">True</property>
-                <property name="can-focus">False</property>
-                <property name="valign">end</property>
-                <property name="margin-top">10</property>
-              </object>
-              <packing>
-                <property name="left-attach">0</property>
-                <property name="top-attach">16</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkRadioButton" id="radiobuttonTempSource">
-                <property name="label" translatable="yes">Source folder</property>
-                <property name="visible">True</property>
-                <property name="can-focus">True</property>
-                <property name="receives-default">False</property>
-                <property name="tooltip-text" translatable="yes">Temporary files will be saved in the source file's directory.</property>
-                <property name="halign">start</property>
-                <property name="active">True</property>
-                <property name="draw-indicator">True</property>
-                <property name="group">radiobuttonTempTmp</property>
-                <signal name="toggled" handler="onRadiobuttonTempToggled" swapped="no"/>
-              </object>
-              <packing>
-                <property name="left-attach">0</property>
-                <property name="top-attach">13</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkRadioButton" id="radiobuttonTempTmp">
-                <property name="label" translatable="yes">/tmp</property>
-                <property name="visible">True</property>
-                <property name="can-focus">True</property>
-                <property name="receives-default">False</property>
-                <property name="tooltip-text" translatable="yes">Temporary files will be saved in "/tmp".</property>
-                <property name="halign">start</property>
-                <property name="active">True</property>
-                <property name="draw-indicator">True</property>
-                <signal name="toggled" handler="onRadiobuttonTempToggled" swapped="no"/>
-              </object>
-              <packing>
-                <property name="left-attach">0</property>
-                <property name="top-attach">12</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkLabel">
-                <property name="visible">True</property>
-                <property name="can-focus">False</property>
-                <property name="halign">start</property>
-                <property name="margin-top">10</property>
-                <property name="margin-bottom">5</property>
-                <property name="label" translatable="yes">Temporary files location</property>
-                <attributes>
-                  <attribute name="weight" value="bold"/>
-                </attributes>
-              </object>
-              <packing>
-                <property name="left-attach">0</property>
-                <property name="top-attach">11</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkRadioButton" id="radiobuttonCompressAuto">
-                <property name="label" translatable="yes">Auto</property>
-                <property name="visible">True</property>
-                <property name="can-focus">True</property>
-                <property name="receives-default">False</property>
-                <property name="tooltip-text" translatable="yes">All 16-bit 44.1 KHz stereo files will be compressed to AAC, while all HD audio (files with more than 16 bits per sample, files whose samplerate is higher than 44100 Hz, as well as multichannel files) will be compressed to FLAC.</property>
-                <property name="halign">start</property>
-                <property name="active">True</property>
-                <property name="draw-indicator">True</property>
-                <property name="group">radiobuttonCompressFLAC</property>
-                <signal name="toggled" handler="onRadiobuttonCompressToggled" swapped="no"/>
-              </object>
-              <packing>
-                <property name="left-attach">0</property>
-                <property name="top-attach">10</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkRadioButton" id="radiobuttonCompressAAC">
-                <property name="label" translatable="yes">AAC</property>
-                <property name="visible">True</property>
-                <property name="can-focus">True</property>
-                <property name="receives-default">False</property>
-                <property name="tooltip-text" translatable="yes">All selected files will be compressed to AAC.</property>
-                <property name="halign">start</property>
-                <property name="active">True</property>
-                <property name="draw-indicator">True</property>
-                <property name="group">radiobuttonCompressFLAC</property>
-                <signal name="toggled" handler="onRadiobuttonCompressToggled" swapped="no"/>
-              </object>
-              <packing>
-                <property name="left-attach">0</property>
-                <property name="top-attach">9</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkRadioButton" id="radiobuttonCompressFLAC">
-                <property name="label" translatable="yes">FLAC</property>
-                <property name="visible">True</property>
-                <property name="can-focus">True</property>
-                <property name="receives-default">False</property>
-                <property name="tooltip-text" translatable="yes">All selected files will be compressed to FLAC.</property>
-                <property name="halign">start</property>
-                <property name="active">True</property>
-                <property name="draw-indicator">True</property>
-                <signal name="toggled" handler="onRadiobuttonCompressToggled" swapped="no"/>
-              </object>
-              <packing>
-                <property name="left-attach">0</property>
-                <property name="top-attach">8</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkLabel">
-                <property name="visible">True</property>
-                <property name="can-focus">False</property>
-                <property name="halign">start</property>
-                <property name="margin-top">10</property>
-                <property name="margin-bottom">5</property>
-                <property name="label" translatable="yes">Compress button default action</property>
-                <attributes>
-                  <attribute name="weight" value="bold"/>
-                </attributes>
-              </object>
-              <packing>
-                <property name="left-attach">0</property>
-                <property name="top-attach">7</property>
-              </packing>
-            </child>
-            <child>
               <object class="GtkCheckButton" id="checkButtonFakeStereo">
                 <property name="label" translatable="yes">Check fake stereo</property>
                 <property name="visible">True</property>
@@ -307,38 +173,6 @@
               <packing>
                 <property name="left-attach">0</property>
                 <property name="top-attach">4</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkLabel">
-                <property name="visible">True</property>
-                <property name="can-focus">False</property>
-                <property name="halign">start</property>
-                <property name="margin-top">10</property>
-                <property name="margin-bottom">5</property>
-                <property name="label" translatable="yes">Tag dialog options</property>
-                <attributes>
-                  <attribute name="weight" value="bold"/>
-                </attributes>
-              </object>
-              <packing>
-                <property name="left-attach">0</property>
-                <property name="top-attach">14</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkCheckButton" id="checkButtonTitleCase">
-                <property name="label" translatable="yes">Automatically title-case track names</property>
-                <property name="visible">True</property>
-                <property name="can-focus">True</property>
-                <property name="receives-default">False</property>
-                <property name="tooltip-text" translatable="yes">Reformat the track name field to title case whenever it changes</property>
-                <property name="halign">start</property>
-                <property name="draw-indicator">True</property>
-              </object>
-              <packing>
-                <property name="left-attach">0</property>
-                <property name="top-attach">15</property>
               </packing>
             </child>
             <child>
@@ -440,6 +274,114 @@
                 <property name="left-attach">0</property>
                 <property name="top-attach">1</property>
               </packing>
+            </child>
+            <child>
+              <object class="GtkLabel">
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+                <property name="halign">start</property>
+                <property name="margin-top">10</property>
+                <property name="margin-bottom">5</property>
+                <property name="label" translatable="yes">Temporary files location</property>
+                <attributes>
+                  <attribute name="weight" value="bold"/>
+                </attributes>
+              </object>
+              <packing>
+                <property name="left-attach">0</property>
+                <property name="top-attach">7</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkRadioButton" id="radiobuttonTempTmp">
+                <property name="label" translatable="yes">/tmp</property>
+                <property name="visible">True</property>
+                <property name="can-focus">True</property>
+                <property name="receives-default">False</property>
+                <property name="tooltip-text" translatable="yes">Temporary files will be saved in "/tmp".</property>
+                <property name="halign">start</property>
+                <property name="active">True</property>
+                <property name="draw-indicator">True</property>
+                <property name="group">radiobuttonTempSource</property>
+                <signal name="toggled" handler="onRadiobuttonTempToggled" swapped="no"/>
+              </object>
+              <packing>
+                <property name="left-attach">0</property>
+                <property name="top-attach">8</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkRadioButton" id="radiobuttonTempSource">
+                <property name="label" translatable="yes">Source folder</property>
+                <property name="visible">True</property>
+                <property name="can-focus">True</property>
+                <property name="receives-default">False</property>
+                <property name="tooltip-text" translatable="yes">Temporary files will be saved in the source file's directory.</property>
+                <property name="halign">start</property>
+                <property name="active">True</property>
+                <property name="draw-indicator">True</property>
+                <signal name="toggled" handler="onRadiobuttonTempToggled" swapped="no"/>
+              </object>
+              <packing>
+                <property name="left-attach">0</property>
+                <property name="top-attach">9</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel">
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+                <property name="halign">start</property>
+                <property name="margin-top">10</property>
+                <property name="margin-bottom">5</property>
+                <property name="label" translatable="yes">Tag dialog options</property>
+                <attributes>
+                  <attribute name="weight" value="bold"/>
+                </attributes>
+              </object>
+              <packing>
+                <property name="left-attach">0</property>
+                <property name="top-attach">10</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkCheckButton" id="checkButtonTitleCase">
+                <property name="label" translatable="yes">Automatically title-case track names</property>
+                <property name="visible">True</property>
+                <property name="can-focus">True</property>
+                <property name="receives-default">False</property>
+                <property name="tooltip-text" translatable="yes">Reformat the track name field to title case whenever it changes</property>
+                <property name="halign">start</property>
+                <property name="draw-indicator">True</property>
+              </object>
+              <packing>
+                <property name="left-attach">0</property>
+                <property name="top-attach">11</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkSeparator">
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+                <property name="valign">end</property>
+                <property name="margin-top">10</property>
+              </object>
+              <packing>
+                <property name="left-attach">0</property>
+                <property name="top-attach">12</property>
+              </packing>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+            <child>
+              <placeholder/>
             </child>
           </object>
           <packing>

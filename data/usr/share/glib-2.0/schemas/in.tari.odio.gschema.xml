@@ -44,16 +44,6 @@
           Save multichannel files as 4.0, 5.1 or 7.1, copying audio to any newly added channels
        </description>
     </key>
-    <key type="s" name="default-compress">
-      <choices>
-        <choice value='flac'/>
-        <choice value='aac'/>
-        <choice value='auto'/>
-      </choices>
-      <default>'auto'</default>
-      <summary>Default compression method</summary>
-      <description>This sets the default action for the Compress button.</description>
-    </key>
     <key type="s" name="temp-location">
       <choices>
         <choice value='tmp'/>

@@ -187,8 +187,6 @@ class Odio(Application):
         self.pToolbuttonDeleteImages.set_icon_widget (pImage)
         self.pToolbuttonDeleteImages.set_active(g_pSettings.get_boolean('delete-images'))
         self.pToolbuttonPlay.set_menu(self.pMenuPlay)
-        self.pToolbuttonConvert.set_menu(self.pMenuCompress)
-        self.pToolbuttonConvert.set_arrow_tooltip_text(_('Compress selected files using the encoder from the menu'))
         self.pTreeviewcolumnTrack.get_cells()[0].set_property('xalign', 1.0)
         self.pTreeviewcolumnTracksTotal.get_cells()[0].set_property('xalign', 1.0)
         self.pTreeviewcolumnDisc.get_cells()[0].set_property('xalign', 1.0)
@@ -228,7 +226,7 @@ class Odio(Application):
         bDark = (sColorScheme == 'prefer-dark')
         Gtk.Settings.get_default().props.gtk_application_prefer_dark_theme = bDark
 
-    def convert(self, strMethod):
+    def onToolbuttonConvertClicked (self, oWidget, pData = None):
 
         Tasks.reset()
         self.nState = State.ENCODING
@@ -240,22 +238,11 @@ class Odio(Application):
 
             pIter = self.pListstoreAudioFiles.get_iter(nRow)
             pGstEncoder = GstEncoder()
-
-            if strMethod == 'flac' or (strMethod == 'auto' and (self.pListstoreAudioFiles[nRow][Column.SAMPLERATE] > 44100 or self.pListstoreAudioFiles[nRow][Column.BPS] > 16 or self.pListstoreAudioFiles[nRow][Column.CHANNELS] > 2)):
-
-                Tasks.add(pGstEncoder, pIter, 'flac')
-
-            else:
-
-                Tasks.add(pGstEncoder, pIter, 'aac')
+            Tasks.add (pGstEncoder, pIter)
 
         idle()
         Tasks.run(self.fnEncode)
         GLib.timeout_add(40, self.fnProgress);
-
-    def onToolbuttonConvertClicked(self, oWidget, pData = None):
-
-        self.convert(g_pSettings.get_string('default-compress'))
 
     def onWindowDeleteEvent(self, pWidget, event):
 
@@ -530,25 +517,15 @@ class Odio(Application):
         Tasks.lQueue[nTask]['progress'] = _('Decoding {fileName}').format(fileName = sOutPath)
         pGstDvd.run(strFilePath, sOutPath, int(sTitle), int(sChapter), fLength, self.finishedSplittingJob, int(sChapter) - 1, int(nChapters), sOutPath)
 
-    def fnEncode(self, pGstEncoder, pIter, sEncoder, nTask):
+    def fnEncode(self, pGstEncoder, pIter, nTask):
 
         pRow = self.pListstoreAudioFiles[pIter]
         strOutFilePath = pRow[Column.TRACK] + '. ' +  TagDialog.ReplaceChars(pRow[Column.ARTIST]) + ' - ' +  TagDialog.ReplaceChars(pRow[Column.TITLE]) + '.'
-        sExtension = ''
-
-        if sEncoder == 'aac':
-
-            sExtension = 'm4a'
-            strOutFilePath = os.path.join(pRow[Column.BASEPATH], pRow[Column.FOLDER], strOutFilePath + sExtension)
-
-        else:
-
-            sExtension = 'flac'
-            strOutFilePath = os.path.join(pRow[Column.BASEPATH], pRow[Column.FOLDER], strOutFilePath + sExtension)
+        strOutFilePath = os.path.join(pRow[Column.BASEPATH], pRow[Column.FOLDER], strOutFilePath + "flac")
 
         if len(strOutFilePath.encode('utf-8')) > 255:
 
-            strOutFilePath = strOutFilePath[: 255 - len(sExtension) - 3] + '...' + sExtension
+            strOutFilePath = strOutFilePath[: 248] + '...flac'
 
         strDestFolderPath = os.path.dirname(strOutFilePath)
         Tasks.lQueue[nTask]['progress'] = _('Compressing {fileName}').format(fileName = strOutFilePath)
@@ -578,13 +555,9 @@ class Odio(Application):
         dTags['comment'] = pRow[Column.COMMENT]
         dTags['image'] = pRow[Column.IMAGEPATH]
         dTags['date'] = pRow[Column.YEAR]
-        strTempFilePath = os.path.join(os.path.expanduser('~'), APPNAME + '-' + str(nTask) + '.' + sExtension)
+        strTempFilePath = os.path.join(os.path.expanduser('~'), APPNAME + '-' + str(nTask) + '.flac')
 
-        pGstEncoder.run(sEncoder, pRow[Column.FILEPATH], strTempFilePath, strOutFilePath, pRow[Column.BPS], pRow[Column.SAMPLERATE], pRow[Column.CHANNELS], pRow[Column.LENGTH], dTags, self.finishedEncodingJob, pIter)
-
-    def onMenuitemAACActivate(self, pWidget, pData = None):
-
-        self.convert('aac')
+        pGstEncoder.run (pRow[Column.FILEPATH], strTempFilePath, strOutFilePath, pRow[Column.BPS], pRow[Column.SAMPLERATE], pRow[Column.CHANNELS], pRow[Column.LENGTH], dTags, self.finishedEncodingJob, pIter)
 
     def toggleSensitivity(self, b, bList = None):
 
@@ -601,10 +574,6 @@ class Odio(Application):
         self.pToolbuttonEdit.set_sensitive(b)
         self.pToolbuttonConvert.set_sensitive(b)
         self.pToolbuttonPlay.set_sensitive(b)
-
-    def onMenuitemFLACActivate(self, pWidget, pData = None):
-
-        self.convert('flac')
 
     def onToolbuttonTagClicked(self, pWidget, pData = None):
 
@@ -966,9 +935,8 @@ class Odio(Application):
                 elif pEvent.keyval == 67 and self.pToolbuttonConvert.get_sensitive():
 
                     if pEvent.state & Gdk.ModifierType.SHIFT_MASK:
-                        self.onMenuitemFLACActivate(None)
-                    else:
-                        self.onMenuitemAACActivate(None)
+
+                        self.onToolbuttonConvertClicked (None)
 
             if self.nState == State.PLAYING:
 

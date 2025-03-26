@@ -9,7 +9,6 @@ class SettingsDialog(Dialog):
     def postinit(self, pData):
 
         self.m_lDestinations = g_pSettings.get_strv('destinations')
-        self.m_strCompress = g_pSettings.get_string('default-compress')
         self.m_strTemp = g_pSettings.get_string('temp-location')
         self.pCheckButtonFakeStereo.set_active(g_pSettings.get_boolean('check-fake-stereo'))
         self.pCheckButtonRemoveSilent.set_active(g_pSettings.get_boolean('remove-silent-channels'))
@@ -23,13 +22,6 @@ class SettingsDialog(Dialog):
 
         pTreeSelection = self.pTreeView.get_selection()
         pTreeSelection.select_path('0')
-
-        if self.m_strCompress == 'flac':
-            self.pRadiobuttonCompressFLAC.set_active(True)
-        elif self.m_strCompress == 'aac':
-            self.pRadiobuttonCompressAAC.set_active(True)
-        else:
-            self.pRadiobuttonCompressAuto.set_active(True)
 
         if self.m_strTemp == 'tmp':
             self.pRadiobuttonTempTmp.set_active(True)
@@ -46,7 +38,6 @@ class SettingsDialog(Dialog):
         g_pSettings.set_boolean('remove-lfe-channel', self.pCheckButtonRemoveLfe.get_active())
         g_pSettings.set_boolean('saturate-multichannel', self.pCheckButtonSaturate.get_active())
         g_pSettings.set_boolean('titlecase', self.pCheckButtonTitleCase.get_active())
-        g_pSettings.set_string('default-compress', self.m_strCompress)
         g_pSettings.set_string('temp-location', self.m_strTemp)
 
     def onTreeSelectionChanged(self, pTreeSelection):
@@ -110,15 +101,6 @@ class SettingsDialog(Dialog):
         del self.pListStore[nRow]
         self.pListStore.insert(0, [sPath])
         pTreeSelection.select_path('0')
-
-    def onRadiobuttonCompressToggled(self, pWidget):
-
-        if self.pRadiobuttonCompressFLAC.get_active():
-            self.m_strCompress = 'flac'
-        elif self.pRadiobuttonCompressAAC.get_active():
-            self.m_strCompress = 'aac'
-        else:
-            self.m_strCompress = 'auto'
 
     def onRadiobuttonTempToggled(self, pWidget):
 

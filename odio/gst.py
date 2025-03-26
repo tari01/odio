@@ -12,7 +12,6 @@ from gi.repository import Gst, GstAudio, GstTag, GLib, GObject, Gtk
 from odio.gtk import logger, idle
 from odio.appdata import APPVERSION, APPDEBUG
 from enum import IntEnum
-from mutagen.mp4 import MP4
 import filecmp
 import mmap
 import os
@@ -144,7 +143,7 @@ class GstBase:
 
         pError = pMessage.parse_error()
 
-        if re.match('\.\./gstreamer/subprojects/gst-plugins-base/gst-libs/gst/audio/gstaudiodecoder\.c\(\d+\): gst_audio_decoder_finish_frame_or_subframe \(\): /GstPipeline:pipeline\d+/GstDecodeBin:decodebin\d+/avdec_ape:avdec_ape\d+:', pError.debug) is None:
+        if re.match (r'\.\./gstreamer/subprojects/gst-plugins-base/gst-libs/gst/audio/gstaudiodecoder\.c\(\d+\): gst_audio_decoder_finish_frame_or_subframe \(\): /GstPipeline:pipeline\d+/GstDecodeBin:decodebin\d+/avdec_ape:avdec_ape\d+:', pError.debug) is None:
 
             self.sError = pError.gerror.message
 
@@ -733,7 +732,7 @@ class GstEncoder(GstBase):
 
         super().__init__()
 
-    def run(self, sEncoder, sPathIn, sPathTmp, sPathOut, nBps, nRate, nChannels, nDuration, dTags, pCallback, pParam):
+    def run (self, sPathIn, sPathTmp, sPathOut, nBps, nRate, nChannels, nDuration, dTags, pCallback, pParam):
 
         self.nState = GstState.RUNNING
         self.pCallback = pCallback
@@ -748,7 +747,6 @@ class GstEncoder(GstBase):
         self.sPathTmp = sPathTmp
         self.sPathOut = sPathOut
         self.nDuration = nDuration
-        self.sEncoder = sEncoder
         self.sChannels = str(nChannels)
         self.pProc = None
         self.lSignals.append([None, 'message::tag', self.onTag])
@@ -847,94 +845,38 @@ class GstEncoder(GstBase):
 
             self.dTags['extended-comment'].append('REPLAYGAIN_TRACK_GAIN=' + sGain + ' dB')
             del self.dTags['replaygain-track-gain']
+            self.init('filesrc location="' + escape(self.sPathIn) + '" ! decodebin ! audioconvert ! audio/x-raw, channels=(int)' + self.sChannels + ' ! flacenc name=enc quality=8 ! filesink location="' + escape(self.sPathTmp) + '"', self.dTags)
+            self.play()
 
-            if self.sEncoder == 'flac':
+        elif self.sOperation == 'encode':
 
-                self.init('filesrc location="' + escape(self.sPathIn) + '" ! decodebin ! audioconvert ! audio/x-raw, channels=(int)' + self.sChannels + ' ! flacenc name=enc quality=8 ! filesink location="' + escape(self.sPathTmp) + '"', self.dTags)
-                self.play()
+            # Fix GstTag.TagImageType.FRONT_COVER
 
-            else:
+            with open (self.sPathTmp, 'r+b') as pFile:
 
-                self.pProc = subprocess.Popen('neroAacEnc -if "' + escape(self.sPathIn) + '" -of "' + escape(self.sPathTmp) + '" -q 1.0 ', stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True, universal_newlines = True)
-                self.sOperation = 'nero-encode'
+                mm = mmap.mmap (pFile.fileno (), 0)
+                nPos = mm.find (b'\x00\x00\x00\x0A\x69\x6D\x61\x67\x65\x2F\x6A\x70\x65\x67')
+                mm.close ()
 
-        elif self.sOperation == 'encode' or self.sOperation == 'nero-tag':
+                if nPos != -1:
 
-            if self.sOperation == 'nero-tag':
+                    pFile.seek (nPos - 1)
+                    nVal = pFile.read (1)
 
-                shutil.move(self.sPathTmp.replace('m4a', 'tmp.m4a'), self.sPathTmp)
-
-                pMp4 = MP4(self.sPathTmp)
-                pMp4['----:com.apple.iTunes:replaygain_track_gain'] = str(round(self.dTags['replaygain-track-gain'], 2)).encode()
-                pMp4['----:com.apple.iTunes:replaygain_track_peak'] = str(round(self.dTags['replaygain-track-peak'], 6)).encode()
-                pMp4.save()
-
-            else:
-
-                # Fix GstTag.TagImageType.FRONT_COVER
-
-                with open (self.sPathTmp, 'r+b') as pFile:
-
-                    mm = mmap.mmap (pFile.fileno (), 0)
-                    nPos = mm.find (b'\x00\x00\x00\x0A\x69\x6D\x61\x67\x65\x2F\x6A\x70\x65\x67')
-                    mm.close ()
-
-                    if nPos != -1:
+                    if nVal != b'\x03':
 
                         pFile.seek (nPos - 1)
-                        nVal = pFile.read (1)
+                        pFile.write (b'\x03')
 
-                        if nVal != b'\x03':
+                    elif APPDEBUG:
 
-                            pFile.seek (nPos - 1)
-                            pFile.write (b'\x03')
-
-                        elif APPDEBUG:
-
-                            print ("It seems GstTag.TagImageType.FRONT_COVER is now fixed.")
+                        print ("It seems GstTag.TagImageType.FRONT_COVER is now fixed.")
 
             shutil.move(self.sPathTmp, self.sPathOut)
 
             self.nState = GstState.DONE
 
             GLib.idle_add(self.pCallback, self.pParam)
-
-    def getPosition(self):
-
-        if self.sOperation == 'replay-gain' and self.sEncoder == 'aac':
-
-            return super().getPosition() / 5
-
-        elif self.sOperation == 'nero-encode':
-
-            if self.pProc:
-
-                idle()
-
-                strLine = self.pProc.stderr.readline()
-
-                if not self.pProc.poll() is None and len(strLine) == 0:
-
-                    self.sOperation = 'nero-tag'
-                    self.pProc = None
-                    self.init('filesrc location="' + escape(self.sPathTmp) + '" ! qtdemux ! mp4mux name=enc ! filesink location="' + escape(self.sPathTmp.replace('m4a', 'tmp.m4a')) + '"', self.dTags)
-                    self.play()
-
-                    return 1.0
-
-                pMatch = re.match('(Processed )(\d+)( seconds\.\.\.\n)', strLine)
-
-                if pMatch:
-
-                    return 0.1 + min(float(pMatch.group(2)) / (self.nDuration / 1000000000) * 0.9, 0.9)
-
-            return 0.1
-
-        elif self.sOperation == 'nero-tag':
-
-            return 1.0
-
-        return super().getPosition()
 
     def close(self):
 
@@ -1029,7 +971,7 @@ class GstSplitter(GstBase):
 
                 sLine = sLine.strip()
 
-                pMatch = re.match('^FILE "(.*)" .*$', sLine)
+                pMatch = re.match (r'^FILE "(.*)" .*$', sLine)
 
                 if pMatch is not None:
 
@@ -1062,7 +1004,7 @@ class GstSplitter(GstBase):
                     sLine = ''.join(nChar for nChar in sLine if unicodedata.category(nChar)[0] != 'C')
 
                 sLine = sLine.strip()
-                pMatch = re.match('^FILE "(.*)" .*$', sLine)
+                pMatch = re.match (r'^FILE "(.*)" .*$', sLine)
 
                 if pMatch:
 
@@ -1110,7 +1052,7 @@ class GstSplitter(GstBase):
 
                     continue
 
-                pMatch = re.match('^TRACK \d\d .*$', sLine)
+                pMatch = re.match (r'^TRACK \d\d .*$', sLine)
 
                 if pMatch:
 
@@ -1118,7 +1060,7 @@ class GstSplitter(GstBase):
 
                     continue
 
-                pMatch = re.match('^TITLE "(.*)"$', sLine)
+                pMatch = re.match (r'^TITLE "(.*)"$', sLine)
 
                 if pMatch and dCue['tracks']:
 
@@ -1126,7 +1068,7 @@ class GstSplitter(GstBase):
 
                     continue
 
-                pMatch = re.match('^PERFORMER "(.*)"$', sLine)
+                pMatch = re.match (r'^PERFORMER "(.*)"$', sLine)
 
                 if dCue['tracks'] and pMatch:
 
@@ -1134,7 +1076,7 @@ class GstSplitter(GstBase):
 
                     continue
 
-                pMatch = re.match('^INDEX 01 (\d\d):(\d\d):(\d\d)$', sLine)
+                pMatch = re.match (r'^INDEX 01 (\d\d):(\d\d):(\d\d)$', sLine)
 
                 if dCue['tracks'] and pMatch:
 

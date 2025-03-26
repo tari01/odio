@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.38.2 -->
+<!-- Generated with glade 3.40.0 -->
 <interface>
   <requires lib="gtk+" version="3.24"/>
   <object class="GtkFileFilter" id="FileFilterInput">
@@ -196,12 +196,12 @@
               </packing>
             </child>
             <child>
-              <object class="GtkMenuToolButton" id="toolbuttonConvert">
+              <object class="GtkToolButton" id="toolbuttonConvert">
                 <property name="visible">True</property>
                 <property name="sensitive">False</property>
                 <property name="can-focus">True</property>
-                <property name="tooltip-text" translatable="yes">Compress selected files using the method specified in Settings</property>
-                <property name="label" translatable="yes">Compress...</property>
+                <property name="tooltip-text" translatable="yes">Compress selected files</property>
+                <property name="label" translatable="yes">Compress</property>
                 <property name="icon-name">media-record</property>
                 <signal name="clicked" handler="onToolbuttonConvertClicked" swapped="no"/>
                 <accelerator key="c" signal="clicked" modifiers="GDK_CONTROL_MASK"/>
@@ -637,32 +637,6 @@
             <property name="position">3</property>
           </packing>
         </child>
-      </object>
-    </child>
-  </object>
-  <object class="GtkMenu" id="menuCompress">
-    <property name="visible">True</property>
-    <property name="can-focus">False</property>
-    <child>
-      <object class="GtkMenuItem" id="menuitemAAC">
-        <property name="visible">True</property>
-        <property name="can-focus">True</property>
-        <property name="tooltip-text" translatable="yes">Compress selected files using the Nero AAC encoder</property>
-        <property name="label" translatable="yes">AAC</property>
-        <property name="use-underline">True</property>
-        <signal name="activate" handler="onMenuitemAACActivate" swapped="no"/>
-        <accelerator key="c" signal="activate" modifiers="GDK_CONTROL_MASK"/>
-      </object>
-    </child>
-    <child>
-      <object class="GtkMenuItem" id="menuitemFLAC">
-        <property name="visible">True</property>
-        <property name="can-focus">True</property>
-        <property name="tooltip-text" translatable="yes">Compress selected files using the FLAC encoder</property>
-        <property name="label" translatable="yes">FLAC</property>
-        <property name="use-underline">True</property>
-        <signal name="activate" handler="onMenuitemFLACActivate" swapped="no"/>
-        <accelerator key="c" signal="activate" modifiers="GDK_SHIFT_MASK | GDK_CONTROL_MASK"/>
       </object>
     </child>
   </object>

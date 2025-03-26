@@ -1,6 +1,6 @@
 [Desktop Entry]
 Name=Odio
-Comment=Audio compression tool for FLAC and Nero AAC
+Comment=Audio compression tool for FLAC
 Categories=GNOME;AudioVideo;GTK;
 Exec=/usr/bin/odio
 Icon=/usr/share/icons/hicolor/scalable/apps/odio.svg
