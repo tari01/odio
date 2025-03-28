@@ -2,7 +2,9 @@
 # -*- coding: utf-8 -*-
 
 from gi.repository import Gtk, Gdk, GdkPixbuf
-from requests_html import HTMLSession
+from selenium.webdriver import Chrome as WebDriverChrome
+from selenium.webdriver.chrome.options import Options as WebDriverOptions
+from selenium.webdriver.common.by import By as WebDriverBy
 from .gtk import g_pSettings, Dialog
 from .appdata import *
 from .titlecase import titlecase
@@ -81,7 +83,7 @@ class TagDialog(Dialog):
                 pDlg.destroy()
                 return
 
-            pMatch = re.match('^(\d*)(.+)', strPage)
+            pMatch = re.match(r'^(\d*)(.+)', strPage)
             strPage = pMatch.group(2)
             nTitleOffset = 0
 
@@ -91,18 +93,19 @@ class TagDialog(Dialog):
             if not strPage.startswith('http'):
                 strPage = 'http://' + strPage
 
-            pSession = HTMLSession ()
-            pRequest = pSession.get (strPage)
-            pRequest.html.render ()
+            pOptions = WebDriverOptions ()
+            pOptions.add_argument ("--headless")
+            pBrowser = WebDriverChrome (options=pOptions)
+            pBrowser.get (strPage)
             sGenre = ''
             nYear = 0
-            pReleaseYear = pRequest.html.find ("div.release-date", first=True)
-            pRecordingYear = pRequest.html.find ("div.recording-date", first=True)
-            lTitles = [pRequest.html.find ("div.performer"), pRequest.html.find ("div.title")]
-            lGenres = pRequest.html.find ("div.genre > div > a")
-            lStyles = pRequest.html.find ("div.styles  > div > a")
-            pAlbumArtist = pRequest.html.find ("h2#albumArtists", first=True)
-            pAlbum = pRequest.html.find ("h1#albumTitle", first=True)
+            pReleaseYear = pBrowser.find_element (WebDriverBy.CSS_SELECTOR, "div.release-date")
+            pRecordingYear = pBrowser.find_element (WebDriverBy.CSS_SELECTOR, "div.recording-date")
+            lTitles = [pBrowser.find_elements (WebDriverBy.CSS_SELECTOR, "div.performer"), pBrowser.find_elements (WebDriverBy.CSS_SELECTOR, "div.title")]
+            lGenres = pBrowser.find_elements (WebDriverBy.CSS_SELECTOR, "div.genre > div > a")
+            lStyles = pBrowser.find_elements (WebDriverBy.CSS_SELECTOR, "div.styles  > div > a")
+            pAlbumArtist = pBrowser.find_element (WebDriverBy.CSS_SELECTOR, "h2#albumArtists")
+            pAlbum = pBrowser.find_element (WebDriverBy.CSS_SELECTOR, "h1#albumTitle")
             sAlbum = pAlbum.text.replace ('[', '(')
             sAlbum = sAlbum.replace ("]", ")")
             sAlbum = sAlbum.replace ("&amp;", "&")
@@ -125,7 +128,7 @@ class TagDialog(Dialog):
 
             if pReleaseYear:
 
-                pReleaseYear = pReleaseYear.find ("span", first=True)
+                pReleaseYear = pReleaseYear.find_element (WebDriverBy.CSS_SELECTOR, "span")
                 sReleaseYear = pReleaseYear.text.replace ('-', ' ')
                 sReleaseYear = sReleaseYear.replace (',', '')
                 lReleaseYear = pReleaseYear.text.split (' ')
@@ -140,7 +143,7 @@ class TagDialog(Dialog):
 
             if pRecordingYear:
 
-                pRecordingYear = pRecordingYear.find ("div", first=True)
+                pRecordingYear = pRecordingYear.find_element (WebDriverBy.CSS_SELECTOR, "div")
                 sRecordingYear = pRecordingYear.text.replace ('-', ' ')
                 sRecordingYear = sRecordingYear.replace (',', '')
                 lRecordingYear = pRecordingYear.text.split (' ')
@@ -153,7 +156,7 @@ class TagDialog(Dialog):
 
                         nYear = sYear
 
-            pAlbumArtistA = pAlbumArtist.find ("a", first=True)
+            pAlbumArtistA = pAlbumArtist.find_element (WebDriverBy.CSS_SELECTOR, "a")
 
             if pAlbumArtistA:
 
@@ -182,7 +185,7 @@ class TagDialog(Dialog):
                     #if sAlbumArtist == "Various Artists" and len (lTitles[0]) == len (lTitles[1]):
                     if len (lTitles[0]) == len (lTitles[1]):
 
-                        lPerformers = lTitles[0][nTitleOffset].find ("a")
+                        lPerformers = lTitles[0][nTitleOffset].find_elements (WebDriverBy.CSS_SELECTOR, "a")
 
                         for pPerformer in lPerformers:
 
@@ -193,7 +196,7 @@ class TagDialog(Dialog):
 
                                 self.pListstore[nIndex][1] += " and " + sPerformer
 
-                    pTitle = lTitles[1][nTitleOffset].find ("a", first=True)
+                    pTitle = lTitles[1][nTitleOffset].find_element (WebDriverBy.CSS_SELECTOR, "a")
                     sTitle = pTitle.text
 
                     if g_pSettings.get_boolean ('titlecase'):
@@ -218,7 +221,7 @@ class TagDialog(Dialog):
                 pDlg.run ()
                 pDlg.destroy ()
 
-            pSession.close ()
+            pBrowser.close ()
             self.displayFileTag ()
 
         except Exception as e:
