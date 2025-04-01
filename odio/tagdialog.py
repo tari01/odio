@@ -5,6 +5,7 @@ from gi.repository import Gtk, Gdk, GdkPixbuf
 from selenium.webdriver import Chrome as WebDriverChrome
 from selenium.webdriver.chrome.options import Options as WebDriverOptions
 from selenium.webdriver.common.by import By as WebDriverBy
+from selenium.common.exceptions import NoSuchElementException
 from .gtk import g_pSettings, Dialog
 from .appdata import *
 from .titlecase import titlecase
@@ -70,6 +71,28 @@ class TagDialog(Dialog):
 
         return strText.replace('"', '').replace('*', '-').replace('/', '-').replace(':', '-').replace('<', '-').replace('>', '-').replace('?', '').replace('\\', '-').replace('|', '-')
 
+    def findElements (self, pBrowser, sSelector, bMultiple):
+
+        if bMultiple:
+
+            try:
+
+                pBrowser.find_elements (WebDriverBy.CSS_SELECTOR, sSelector)
+
+            except NoSuchElementException:
+
+                return None
+
+        else:
+
+            try:
+
+                pBrowser.find_element (WebDriverBy.CSS_SELECTOR, sSelector)
+
+            except NoSuchElementException:
+
+                return None
+
     def onButtonGetTagFromWebClicked(self, pButton):
 
         try:
@@ -99,18 +122,22 @@ class TagDialog(Dialog):
             pBrowser.get (strPage)
             sGenre = ''
             nYear = 0
-            pReleaseYear = pBrowser.find_element (WebDriverBy.CSS_SELECTOR, "div.release-date")
-            pRecordingYear = pBrowser.find_element (WebDriverBy.CSS_SELECTOR, "div.recording-date")
-            lTitles = [pBrowser.find_elements (WebDriverBy.CSS_SELECTOR, "div.performer"), pBrowser.find_elements (WebDriverBy.CSS_SELECTOR, "div.title")]
-            lGenres = pBrowser.find_elements (WebDriverBy.CSS_SELECTOR, "div.genre > div > a")
-            lStyles = pBrowser.find_elements (WebDriverBy.CSS_SELECTOR, "div.styles  > div > a")
-            pAlbumArtist = pBrowser.find_element (WebDriverBy.CSS_SELECTOR, "h2#albumArtists")
-            pAlbum = pBrowser.find_element (WebDriverBy.CSS_SELECTOR, "h1#albumTitle")
-            sAlbum = pAlbum.text.replace ('[', '(')
-            sAlbum = sAlbum.replace ("]", ")")
-            sAlbum = sAlbum.replace ("&amp;", "&")
-            sAlbum = sAlbum.replace ("’", "'")
-            sAlbum = sAlbum.strip()
+            pReleaseYear = self.findElements (pBrowser, "div.release-date", False)
+            pRecordingYear = self.findElements (pBrowser, "div.recording-date", False)
+            lTitles = [self.findElements (pBrowser, "div.performer", True), self.findElements (pBrowser, "div.title", True)]
+            lGenres = self.findElements (pBrowser, "div.genre > div > a", True)
+            lStyles = self.findElements (pBrowser, "div.styles  > div > a", True)
+            pAlbumArtist = self.findElements (pBrowser, "h2#albumArtists", False)
+            pAlbum = self.findElements (pBrowser, "h1#albumTitle", False)
+            sAlbum = None
+
+            if pAlbum:
+
+                sAlbum = pAlbum.text.replace ('[', '(')
+                sAlbum = sAlbum.replace ("]", ")")
+                sAlbum = sAlbum.replace ("&amp;", "&")
+                sAlbum = sAlbum.replace ("’", "'")
+                sAlbum = sAlbum.strip()
 
             if lGenres:
 
@@ -128,7 +155,7 @@ class TagDialog(Dialog):
 
             if pReleaseYear:
 
-                pReleaseYear = pReleaseYear.find_element (WebDriverBy.CSS_SELECTOR, "span")
+                pReleaseYear = self.findElements (pReleaseYear, "span", False)
                 sReleaseYear = pReleaseYear.text.replace ('-', ' ')
                 sReleaseYear = sReleaseYear.replace (',', '')
                 lReleaseYear = pReleaseYear.text.split (' ')
@@ -143,7 +170,7 @@ class TagDialog(Dialog):
 
             if pRecordingYear:
 
-                pRecordingYear = pRecordingYear.find_element (WebDriverBy.CSS_SELECTOR, "div")
+                pRecordingYear = self.findElements (pRecordingYear, "div", False)
                 sRecordingYear = pRecordingYear.text.replace ('-', ' ')
                 sRecordingYear = sRecordingYear.replace (',', '')
                 lRecordingYear = pRecordingYear.text.split (' ')
@@ -156,21 +183,30 @@ class TagDialog(Dialog):
 
                         nYear = sYear
 
-            pAlbumArtistA = pAlbumArtist.find_element (WebDriverBy.CSS_SELECTOR, "a")
+            sAlbumArtist = None
 
-            if pAlbumArtistA:
+            if pAlbumArtist:
 
-                pAlbumArtist = pAlbumArtistA
+                pAlbumArtistA = self.findElements (pAlbumArtist, "a", False)
 
-            sAlbumArtist = ''.join (pAlbumArtist.text)
-            sAlbumArtist = sAlbumArtist.replace ("&amp;", "&")
-            sAlbumArtist = sAlbumArtist.strip ()
+                if pAlbumArtistA:
+
+                    pAlbumArtist = pAlbumArtistA
+
+                sAlbumArtist = ''.join (pAlbumArtist.text)
+                sAlbumArtist = sAlbumArtist.replace ("&amp;", "&")
+                sAlbumArtist = sAlbumArtist.strip ()
 
             for nIndex in self.m_lstSelection:
 
-                self.pListstore[nIndex][2] = sAlbumArtist
-                self.pListstore[nIndex][1] = sAlbumArtist
-                self.pListstore[nIndex][4] = sAlbum
+                if sAlbumArtist:
+
+                    self.pListstore[nIndex][2] = sAlbumArtist
+                    self.pListstore[nIndex][1] = sAlbumArtist
+
+                if sAlbum:
+
+                    self.pListstore[nIndex][4] = sAlbum
 
                 if nYear != 0:
 
@@ -185,7 +221,7 @@ class TagDialog(Dialog):
                     #if sAlbumArtist == "Various Artists" and len (lTitles[0]) == len (lTitles[1]):
                     if len (lTitles[0]) == len (lTitles[1]):
 
-                        lPerformers = lTitles[0][nTitleOffset].find_elements (WebDriverBy.CSS_SELECTOR, "a")
+                        lPerformers = self.findElements (lTitles[0][nTitleOffset], "a", True)
 
                         for pPerformer in lPerformers:
 
@@ -196,7 +232,7 @@ class TagDialog(Dialog):
 
                                 self.pListstore[nIndex][1] += " and " + sPerformer
 
-                    pTitle = lTitles[1][nTitleOffset].find_element (WebDriverBy.CSS_SELECTOR, "a")
+                    pTitle = self.findElements (lTitles[1][nTitleOffset], "a", False)
                     sTitle = pTitle.text
 
                     if g_pSettings.get_boolean ('titlecase'):
