@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: odio 25.3.1\n"
+"Project-Id-Version: odio 25.4.1\n"
 "Report-Msgid-Bugs-To: https://github.com/tari01/odio/issues\n"
-"POT-Creation-Date: 2025-03-26 22:21+0100\n"
+"POT-Creation-Date: 2025-03-26 23:09+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -469,35 +469,35 @@ msgstr ""
 msgid "Disc {path} contains no LPCM audio"
 msgstr ""
 
-#: odio/tagdialog.py:79
+#: odio/tagdialog.py:104
 msgid "No allmusic.com page address found on the clipboard"
 msgstr ""
 
-#: odio/tagdialog.py:217
+#: odio/tagdialog.py:256
 msgid "Not all tracks got tracknames"
 msgstr ""
 
-#: odio/tagdialog.py:228
+#: odio/tagdialog.py:267
 msgid "Error parsing web page"
 msgstr ""
 
-#: odio/tagdialog.py:234
+#: odio/tagdialog.py:273
 msgid "Select an image file"
 msgstr ""
 
-#: odio/tagdialog.py:255
+#: odio/tagdialog.py:294
 msgid "This does not appear to be a valid JPEG image"
 msgstr ""
 
-#: odio/tagdialog.py:256
+#: odio/tagdialog.py:295
 msgid "Image format error"
 msgstr ""
 
-#: odio/tagdialog.py:509
+#: odio/tagdialog.py:548
 msgid "Convert to title case"
 msgstr ""
 
-#: odio/tagdialog.py:520
+#: odio/tagdialog.py:559
 msgid "Insert filename"
 msgstr ""
 

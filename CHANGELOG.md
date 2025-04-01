@@ -1,3 +1,9 @@
+# 25.4.1
+
+ - odio/tagdialog.py: Handle missing DOM elements (fa4fbaa)
+ - odio/tagdialog.py: Use selenium for web page scrobbling (26ec184)
+ - Drop AAC encoding (656a6dc)
+
 # 25.3.1
 
  - odio/gtk.py: Replace pipes with shlex (80c6afc)
