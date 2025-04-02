@@ -77,7 +77,7 @@ class TagDialog(Dialog):
 
             try:
 
-                pBrowser.find_elements (WebDriverBy.CSS_SELECTOR, sSelector)
+                return pBrowser.find_elements (WebDriverBy.CSS_SELECTOR, sSelector)
 
             except NoSuchElementException:
 
@@ -87,7 +87,7 @@ class TagDialog(Dialog):
 
             try:
 
-                pBrowser.find_element (WebDriverBy.CSS_SELECTOR, sSelector)
+                return pBrowser.find_element (WebDriverBy.CSS_SELECTOR, sSelector)
 
             except NoSuchElementException:
 
