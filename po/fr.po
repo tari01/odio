@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: odio\n"
 "Report-Msgid-Bugs-To: https://github.com/tari01/odio/issues\n"
-"POT-Creation-Date: 2023-11-01 11:54+0100\n"
+"POT-Creation-Date: 2025-03-26 23:09+0100\n"
 "PO-Revision-Date: 2023-06-01 12:33+0000\n"
 "Last-Translator: \"J. Lavoie\" <j.lavoie@net-c.ca>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/odio/master/fr/>\n"
@@ -87,14 +87,12 @@ msgid "Edit audio"
 msgstr "Modifier le fichier audio"
 
 #: data/usr/share/odio/odio.glade:203
-msgid "Compress selected files using the method specified in Settings"
+msgid "Compress selected files"
 msgstr ""
-"Compresser les fichiers sélectionnés à l'aide de la méthode spécifiée dans "
-"Paramètres"
 
 #: data/usr/share/odio/odio.glade:204
-msgid "Compress..."
-msgstr "Compresser…"
+msgid "Compress"
+msgstr ""
 
 #: data/usr/share/odio/odio.glade:228
 msgid "View the list of compressed titles"
@@ -188,36 +186,18 @@ msgid "Comment"
 msgstr "Commentaire"
 
 #: data/usr/share/odio/odio.glade:650
-msgid "Compress selected files using the Nero AAC encoder"
-msgstr "Compresser les fichiers sélectionnés avec l'encodeur Nero AAC"
-
-#: data/usr/share/odio/odio.glade:651
-#: data/usr/share/odio/settingsdialog.glade:232
-msgid "AAC"
-msgstr "AAC"
-
-#: data/usr/share/odio/odio.glade:661
-msgid "Compress selected files using the FLAC encoder"
-msgstr "Compresser les fichiers sélectionnés en utilisant l'encodeur FLAC"
-
-#: data/usr/share/odio/odio.glade:662
-#: data/usr/share/odio/settingsdialog.glade:250
-msgid "FLAC"
-msgstr "FLAC"
-
-#: data/usr/share/odio/odio.glade:676
 msgid "Play the first 10 seconds of selected files"
 msgstr "Lire les 10 premières secondes des fichiers sélectionnés"
 
-#: data/usr/share/odio/odio.glade:677
+#: data/usr/share/odio/odio.glade:651
 msgid "First 10 seconds"
 msgstr "Les 10 premières secondes"
 
-#: data/usr/share/odio/odio.glade:686
+#: data/usr/share/odio/odio.glade:660
 msgid "Play the last 10 seconds of selected files"
 msgstr "Lire les 10 dernières secondes des fichiers sélectionnés"
 
-#: data/usr/share/odio/odio.glade:687
+#: data/usr/share/odio/odio.glade:661
 msgid "Last 10 seconds"
 msgstr "Les 10 dernières secondes"
 
@@ -251,98 +231,70 @@ msgstr ""
 msgid "Base folders"
 msgstr ""
 
-#: data/usr/share/odio/settingsdialog.glade:162
+#: data/usr/share/odio/settingsdialog.glade:150
+msgid "Check fake stereo"
+msgstr "Contrôle de la fausse stéréo"
+
+#: data/usr/share/odio/settingsdialog.glade:154
+msgid "Save 2.0 files as 1.0 if the channels contain identical data"
+msgstr ""
+
+#: data/usr/share/odio/settingsdialog.glade:165
+msgid "Remove silent channels"
+msgstr "Supprimer les canaux silencieux"
+
+#: data/usr/share/odio/settingsdialog.glade:169
+msgid "Remove channels that contain no audio data"
+msgstr ""
+
+#: data/usr/share/odio/settingsdialog.glade:191
+msgid "Add new folder"
+msgstr ""
+
+#: data/usr/share/odio/settingsdialog.glade:206
+msgid "Remove selected folder"
+msgstr ""
+
+#: data/usr/share/odio/settingsdialog.glade:221
+msgid "Make selected folder the default"
+msgstr ""
+
+#: data/usr/share/odio/settingsdialog.glade:254
+msgid "column"
+msgstr ""
+
+#: data/usr/share/odio/settingsdialog.glade:285
+msgid "Temporary files location"
+msgstr "Emplacement des fichiers temporaires"
+
+#: data/usr/share/odio/settingsdialog.glade:297
+msgid "/tmp"
+msgstr "/tmp"
+
+#: data/usr/share/odio/settingsdialog.glade:301
+msgid "Temporary files will be saved in \"/tmp\"."
+msgstr "Les fichiers temporaires seront enregistrés dans « / tmp »."
+
+#: data/usr/share/odio/settingsdialog.glade:315
 msgid "Source folder"
 msgstr "Dossier source"
 
-#: data/usr/share/odio/settingsdialog.glade:166
+#: data/usr/share/odio/settingsdialog.glade:319
 msgid "Temporary files will be saved in the source file's directory."
 msgstr ""
 "Les fichiers temporaires seront enregistrés dans le répertoire du fichier "
 "source."
 
-#: data/usr/share/odio/settingsdialog.glade:180
-msgid "/tmp"
-msgstr "/tmp"
-
-#: data/usr/share/odio/settingsdialog.glade:184
-msgid "Temporary files will be saved in \"/tmp\"."
-msgstr "Les fichiers temporaires seront enregistrés dans « / tmp »."
-
-#: data/usr/share/odio/settingsdialog.glade:202
-msgid "Temporary files location"
-msgstr "Emplacement des fichiers temporaires"
-
-#: data/usr/share/odio/settingsdialog.glade:214
-msgid "Auto"
-msgstr "Auto"
-
-#: data/usr/share/odio/settingsdialog.glade:218
-msgid ""
-"All 16-bit 44.1 KHz stereo files will be compressed to AAC, while all HD "
-"audio (files with more than 16 bits per sample, files whose samplerate is "
-"higher than 44100 Hz, as well as multichannel files) will be compressed to "
-"FLAC."
-msgstr ""
-"Tous les fichiers stéréo 16 bits 44,1 KHz seront compressés en AAC, tandis "
-"que tous les fichiers audio HD (fichiers avec plus de 16 bits par "
-"échantillon, fichiers dont la fréquence d'échantillonnage est supérieure à "
-"44 100 Hz, ainsi que les fichiers multicanaux) seront compressés en FLAC."
-
-#: data/usr/share/odio/settingsdialog.glade:236
-msgid "All selected files will be compressed to AAC."
-msgstr "Tous les fichiers sélectionnés sont compressés dans AAC."
-
-#: data/usr/share/odio/settingsdialog.glade:254
-msgid "All selected files will be compressed to FLAC."
-msgstr "Tous les fichiers sélectionnés sont compressés dans FLAC."
-
-#: data/usr/share/odio/settingsdialog.glade:272
-msgid "Compress button default action"
-msgstr "Action par défaut du bouton de compression"
-
-#: data/usr/share/odio/settingsdialog.glade:284
-msgid "Check fake stereo"
-msgstr "Contrôle de la fausse stéréo"
-
-#: data/usr/share/odio/settingsdialog.glade:288
-msgid "Save 2.0 files as 1.0 if the channels contain identical data"
-msgstr ""
-
-#: data/usr/share/odio/settingsdialog.glade:299
-msgid "Remove silent channels"
-msgstr "Supprimer les canaux silencieux"
-
-#: data/usr/share/odio/settingsdialog.glade:303
-msgid "Remove channels that contain no audio data"
-msgstr ""
-
-#: data/usr/share/odio/settingsdialog.glade:319
+#: data/usr/share/odio/settingsdialog.glade:337
 msgid "Tag dialog options"
 msgstr ""
 
-#: data/usr/share/odio/settingsdialog.glade:331
+#: data/usr/share/odio/settingsdialog.glade:349
 msgid "Automatically title-case track names"
 msgstr ""
 
-#: data/usr/share/odio/settingsdialog.glade:335
+#: data/usr/share/odio/settingsdialog.glade:353
 msgid "Reformat the track name field to title case whenever it changes"
-msgstr ""
-
-#: data/usr/share/odio/settingsdialog.glade:357
-msgid "Add new folder"
-msgstr ""
-
-#: data/usr/share/odio/settingsdialog.glade:372
-msgid "Remove selected folder"
-msgstr ""
-
-#: data/usr/share/odio/settingsdialog.glade:387
-msgid "Make selected folder the default"
-msgstr ""
-
-#: data/usr/share/odio/settingsdialog.glade:420
-msgid "column"
 msgstr ""
 
 #: data/usr/share/odio/streamsdialog.glade:31
@@ -512,8 +464,8 @@ msgid ""
 "extracted both."
 msgstr ""
 
-#: odio/sacd.py:86 data/usr/bin/odio:212 data/usr/bin/odio:403
-#: data/usr/bin/odio:1003 data/usr/bin/odio:1106
+#: odio/sacd.py:86 data/usr/bin/odio:210 data/usr/bin/odio:390
+#: data/usr/bin/odio:971 data/usr/bin/odio:1074
 msgid "Ready"
 msgstr "Prêt"
 
@@ -522,7 +474,7 @@ msgstr "Prêt"
 msgid "Failed to decode {filepath}"
 msgstr "Échec du décodage {filepath}"
 
-#: odio/settingsdialog.py:81
+#: odio/settingsdialog.py:72
 msgid "Add a base folder"
 msgstr ""
 
@@ -531,35 +483,35 @@ msgstr ""
 msgid "Disc {path} contains no LPCM audio"
 msgstr ""
 
-#: odio/tagdialog.py:79
+#: odio/tagdialog.py:104
 msgid "No allmusic.com page address found on the clipboard"
 msgstr "Aucune adresse allmusic.com n'a été trouvée dans le presse-papier"
 
-#: odio/tagdialog.py:217
+#: odio/tagdialog.py:256
 msgid "Not all tracks got tracknames"
 msgstr "Tous les morceaux ne sont pas nommés"
 
-#: odio/tagdialog.py:228
+#: odio/tagdialog.py:267
 msgid "Error parsing web page"
 msgstr "Erreur lors de l'analyse de la page web"
 
-#: odio/tagdialog.py:234
+#: odio/tagdialog.py:273
 msgid "Select an image file"
 msgstr "Sélectionner un fichier image"
 
-#: odio/tagdialog.py:255
+#: odio/tagdialog.py:294
 msgid "This does not appear to be a valid JPEG image"
 msgstr ""
 
-#: odio/tagdialog.py:256
+#: odio/tagdialog.py:295
 msgid "Image format error"
 msgstr ""
 
-#: odio/tagdialog.py:509
+#: odio/tagdialog.py:548
 msgid "Convert to title case"
 msgstr "Utiliser en tant que titre"
 
-#: odio/tagdialog.py:520
+#: odio/tagdialog.py:559
 msgid "Insert filename"
 msgstr "Insérez un nom de dossier"
 
@@ -568,34 +520,30 @@ msgstr "Insérez un nom de dossier"
 msgid "and {rowcount} more"
 msgstr "et {rowcount} de plus"
 
-#: data/usr/bin/odio:191
-msgid "Compress selected files using the encoder from the menu"
-msgstr "Compresser les fichiers sélectionnés à l'aide de l'encodeur du menu"
-
-#: data/usr/bin/odio:264
+#: data/usr/bin/odio:251
 msgid "The program is working. Are you sure you want to quit?"
 msgstr "Le programme est en cours. Êtes-vous sûr(e) de vouloir le quitter ?"
 
-#: data/usr/bin/odio:437
+#: data/usr/bin/odio:424
 msgid "Odio encountered one or more warnings"
 msgstr "Odio a rencontré un ou plusieurs avertissements"
 
-#: data/usr/bin/odio:518
+#: data/usr/bin/odio:505
 #, python-brace-format
 msgid "Analysing {fileName}"
 msgstr "Analyse de {fileName}"
 
-#: data/usr/bin/odio:524 data/usr/bin/odio:530 data/usr/bin/odio:842
+#: data/usr/bin/odio:511 data/usr/bin/odio:517 data/usr/bin/odio:811
 #, python-brace-format
 msgid "Decoding {fileName}"
 msgstr "Décodage de {fileName}"
 
-#: data/usr/bin/odio:554
+#: data/usr/bin/odio:531
 #, python-brace-format
 msgid "Compressing {fileName}"
 msgstr "Compression de {fileName}"
 
-#: data/usr/bin/odio:667
+#: data/usr/bin/odio:636
 msgid ""
 "Your temporary files directory has only {:.2f} GB of free space left. "
 "Running out of space can cause nasty things.\n"
@@ -603,33 +551,80 @@ msgid ""
 "Continue adding files?"
 msgstr ""
 
-#: data/usr/bin/odio:682
+#: data/usr/bin/odio:651
 msgid "Open audio files"
 msgstr "Fichiers audio ouverts"
 
-#: data/usr/bin/odio:801
+#: data/usr/bin/odio:770
 #, python-brace-format
 msgid ""
 "The audio file refernced in {fileName} does not exist. You can attempt to "
 "fix it by editing the \"FILE\" line manually."
 msgstr ""
 
-#: data/usr/bin/odio:860
+#: data/usr/bin/odio:829
 msgid "This file does not seem to be an SACD source."
 msgstr ""
 
-#: data/usr/bin/odio:1022
+#: data/usr/bin/odio:990
 #, python-brace-format
 msgid "Playing {fileName}"
 msgstr "Lecture de {fileName}"
 
-#: data/usr/share/applications/odio.desktop:3
+#: data/usr/share/applications/odio.desktop:2
 msgid "Odio"
 msgstr ""
 
-#: data/usr/share/applications/odio.desktop:4
-msgid "Audio compression tool for FLAC and Nero AAC"
+#: data/usr/share/applications/odio.desktop:3
+msgid "Audio compression tool for FLAC"
 msgstr ""
+
+#~ msgid "Compress selected files using the method specified in Settings"
+#~ msgstr ""
+#~ "Compresser les fichiers sélectionnés à l'aide de la méthode spécifiée "
+#~ "dans Paramètres"
+
+#~ msgid "Compress..."
+#~ msgstr "Compresser…"
+
+#~ msgid "Compress selected files using the Nero AAC encoder"
+#~ msgstr "Compresser les fichiers sélectionnés avec l'encodeur Nero AAC"
+
+#~ msgid "AAC"
+#~ msgstr "AAC"
+
+#~ msgid "Compress selected files using the FLAC encoder"
+#~ msgstr "Compresser les fichiers sélectionnés en utilisant l'encodeur FLAC"
+
+#~ msgid "FLAC"
+#~ msgstr "FLAC"
+
+#~ msgid "Auto"
+#~ msgstr "Auto"
+
+#~ msgid ""
+#~ "All 16-bit 44.1 KHz stereo files will be compressed to AAC, while all HD "
+#~ "audio (files with more than 16 bits per sample, files whose samplerate is "
+#~ "higher than 44100 Hz, as well as multichannel files) will be compressed "
+#~ "to FLAC."
+#~ msgstr ""
+#~ "Tous les fichiers stéréo 16 bits 44,1 KHz seront compressés en AAC, "
+#~ "tandis que tous les fichiers audio HD (fichiers avec plus de 16 bits par "
+#~ "échantillon, fichiers dont la fréquence d'échantillonnage est supérieure "
+#~ "à 44 100 Hz, ainsi que les fichiers multicanaux) seront compressés en "
+#~ "FLAC."
+
+#~ msgid "All selected files will be compressed to AAC."
+#~ msgstr "Tous les fichiers sélectionnés sont compressés dans AAC."
+
+#~ msgid "All selected files will be compressed to FLAC."
+#~ msgstr "Tous les fichiers sélectionnés sont compressés dans FLAC."
+
+#~ msgid "Compress button default action"
+#~ msgstr "Action par défaut du bouton de compression"
+
+#~ msgid "Compress selected files using the encoder from the menu"
+#~ msgstr "Compresser les fichiers sélectionnés à l'aide de l'encodeur du menu"
 
 #, python-brace-format
 #~ msgid "Failed to open {filepath}"

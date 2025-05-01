@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: odio\n"
 "Report-Msgid-Bugs-To: https://github.com/tari01/odio/issues\n"
-"POT-Creation-Date: 2023-11-01 11:54+0100\n"
+"POT-Creation-Date: 2025-03-26 23:09+0100\n"
 "PO-Revision-Date: 2024-05-30 12:09+0000\n"
 "Last-Translator: Benjamin Alan Jamie <benjamin@weblate.org>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
@@ -88,12 +88,12 @@ msgid "Edit audio"
 msgstr "编辑音频"
 
 #: data/usr/share/odio/odio.glade:203
-msgid "Compress selected files using the method specified in Settings"
-msgstr "使用“设置”中指定的方法，压缩选择的文件"
+msgid "Compress selected files"
+msgstr ""
 
 #: data/usr/share/odio/odio.glade:204
-msgid "Compress..."
-msgstr "正在压缩……"
+msgid "Compress"
+msgstr ""
 
 #: data/usr/share/odio/odio.glade:228
 msgid "View the list of compressed titles"
@@ -185,36 +185,18 @@ msgid "Comment"
 msgstr ""
 
 #: data/usr/share/odio/odio.glade:650
-msgid "Compress selected files using the Nero AAC encoder"
-msgstr ""
-
-#: data/usr/share/odio/odio.glade:651
-#: data/usr/share/odio/settingsdialog.glade:232
-msgid "AAC"
-msgstr "AAC"
-
-#: data/usr/share/odio/odio.glade:661
-msgid "Compress selected files using the FLAC encoder"
-msgstr ""
-
-#: data/usr/share/odio/odio.glade:662
-#: data/usr/share/odio/settingsdialog.glade:250
-msgid "FLAC"
-msgstr "FLAC"
-
-#: data/usr/share/odio/odio.glade:676
 msgid "Play the first 10 seconds of selected files"
 msgstr "播放选择的文件的头 10 秒钟"
 
-#: data/usr/share/odio/odio.glade:677
+#: data/usr/share/odio/odio.glade:651
 msgid "First 10 seconds"
 msgstr "最开始的 10 秒"
 
-#: data/usr/share/odio/odio.glade:686
+#: data/usr/share/odio/odio.glade:660
 msgid "Play the last 10 seconds of selected files"
 msgstr "播放选择的文件的末尾 10 秒钟"
 
-#: data/usr/share/odio/odio.glade:687
+#: data/usr/share/odio/odio.glade:661
 msgid "Last 10 seconds"
 msgstr "最后面的 10 秒"
 
@@ -248,94 +230,68 @@ msgstr ""
 msgid "Base folders"
 msgstr ""
 
-#: data/usr/share/odio/settingsdialog.glade:162
-msgid "Source folder"
-msgstr "原始文件文件夹"
-
-#: data/usr/share/odio/settingsdialog.glade:166
-msgid "Temporary files will be saved in the source file's directory."
-msgstr "临时文件会存储在原始文件的路径下。"
-
-#: data/usr/share/odio/settingsdialog.glade:180
-msgid "/tmp"
-msgstr "/tmp"
-
-#: data/usr/share/odio/settingsdialog.glade:184
-msgid "Temporary files will be saved in \"/tmp\"."
-msgstr "临时文件会存储在“/tmp”。"
-
-#: data/usr/share/odio/settingsdialog.glade:202
-msgid "Temporary files location"
-msgstr "存放临时文件的位置"
-
-#: data/usr/share/odio/settingsdialog.glade:214
-msgid "Auto"
-msgstr "自动切换"
-
-#: data/usr/share/odio/settingsdialog.glade:218
-msgid ""
-"All 16-bit 44.1 KHz stereo files will be compressed to AAC, while all HD "
-"audio (files with more than 16 bits per sample, files whose samplerate is "
-"higher than 44100 Hz, as well as multichannel files) will be compressed to "
-"FLAC."
-msgstr ""
-"16 位的 44.1 KHz 的立体声压缩为 AAC 格式，高保真音频（量化位数多于 16 的、采"
-"样率高于 44100 Hz 的，以及多音轨的）压缩为 FLAC 格式。"
-
-#: data/usr/share/odio/settingsdialog.glade:236
-msgid "All selected files will be compressed to AAC."
-msgstr "所有选择的文件压缩为 AAC 格式。"
-
-#: data/usr/share/odio/settingsdialog.glade:254
-msgid "All selected files will be compressed to FLAC."
-msgstr "所有选择的文件压缩为 FLAC 格式。"
-
-#: data/usr/share/odio/settingsdialog.glade:272
-msgid "Compress button default action"
-msgstr "“压缩”按钮的默认功能"
-
-#: data/usr/share/odio/settingsdialog.glade:284
+#: data/usr/share/odio/settingsdialog.glade:150
 msgid "Check fake stereo"
 msgstr "检查立体声是否只是形式上的"
 
-#: data/usr/share/odio/settingsdialog.glade:288
+#: data/usr/share/odio/settingsdialog.glade:154
 msgid "Save 2.0 files as 1.0 if the channels contain identical data"
 msgstr ""
 
-#: data/usr/share/odio/settingsdialog.glade:299
+#: data/usr/share/odio/settingsdialog.glade:165
 msgid "Remove silent channels"
 msgstr "删除无声音轨"
 
-#: data/usr/share/odio/settingsdialog.glade:303
+#: data/usr/share/odio/settingsdialog.glade:169
 msgid "Remove channels that contain no audio data"
 msgstr ""
 
-#: data/usr/share/odio/settingsdialog.glade:319
-msgid "Tag dialog options"
-msgstr ""
-
-#: data/usr/share/odio/settingsdialog.glade:331
-msgid "Automatically title-case track names"
-msgstr ""
-
-#: data/usr/share/odio/settingsdialog.glade:335
-msgid "Reformat the track name field to title case whenever it changes"
-msgstr ""
-
-#: data/usr/share/odio/settingsdialog.glade:357
+#: data/usr/share/odio/settingsdialog.glade:191
 msgid "Add new folder"
 msgstr ""
 
-#: data/usr/share/odio/settingsdialog.glade:372
+#: data/usr/share/odio/settingsdialog.glade:206
 msgid "Remove selected folder"
 msgstr ""
 
-#: data/usr/share/odio/settingsdialog.glade:387
+#: data/usr/share/odio/settingsdialog.glade:221
 msgid "Make selected folder the default"
 msgstr ""
 
-#: data/usr/share/odio/settingsdialog.glade:420
+#: data/usr/share/odio/settingsdialog.glade:254
 msgid "column"
+msgstr ""
+
+#: data/usr/share/odio/settingsdialog.glade:285
+msgid "Temporary files location"
+msgstr "存放临时文件的位置"
+
+#: data/usr/share/odio/settingsdialog.glade:297
+msgid "/tmp"
+msgstr "/tmp"
+
+#: data/usr/share/odio/settingsdialog.glade:301
+msgid "Temporary files will be saved in \"/tmp\"."
+msgstr "临时文件会存储在“/tmp”。"
+
+#: data/usr/share/odio/settingsdialog.glade:315
+msgid "Source folder"
+msgstr "原始文件文件夹"
+
+#: data/usr/share/odio/settingsdialog.glade:319
+msgid "Temporary files will be saved in the source file's directory."
+msgstr "临时文件会存储在原始文件的路径下。"
+
+#: data/usr/share/odio/settingsdialog.glade:337
+msgid "Tag dialog options"
+msgstr ""
+
+#: data/usr/share/odio/settingsdialog.glade:349
+msgid "Automatically title-case track names"
+msgstr ""
+
+#: data/usr/share/odio/settingsdialog.glade:353
+msgid "Reformat the track name field to title case whenever it changes"
 msgstr ""
 
 #: data/usr/share/odio/streamsdialog.glade:31
@@ -504,8 +460,8 @@ msgid ""
 "extracted both."
 msgstr ""
 
-#: odio/sacd.py:86 data/usr/bin/odio:212 data/usr/bin/odio:403
-#: data/usr/bin/odio:1003 data/usr/bin/odio:1106
+#: odio/sacd.py:86 data/usr/bin/odio:210 data/usr/bin/odio:390
+#: data/usr/bin/odio:971 data/usr/bin/odio:1074
 msgid "Ready"
 msgstr "准备好了"
 
@@ -514,7 +470,7 @@ msgstr "准备好了"
 msgid "Failed to decode {filepath}"
 msgstr "没能对 {filepath} 解码"
 
-#: odio/settingsdialog.py:81
+#: odio/settingsdialog.py:72
 msgid "Add a base folder"
 msgstr ""
 
@@ -523,35 +479,35 @@ msgstr ""
 msgid "Disc {path} contains no LPCM audio"
 msgstr ""
 
-#: odio/tagdialog.py:79
+#: odio/tagdialog.py:104
 msgid "No allmusic.com page address found on the clipboard"
 msgstr "没发现您复制了 allmusic.com 下的网址"
 
-#: odio/tagdialog.py:217
+#: odio/tagdialog.py:256
 msgid "Not all tracks got tracknames"
 msgstr ""
 
-#: odio/tagdialog.py:228
+#: odio/tagdialog.py:267
 msgid "Error parsing web page"
 msgstr "解析网页时出错了"
 
-#: odio/tagdialog.py:234
+#: odio/tagdialog.py:273
 msgid "Select an image file"
 msgstr "选择一个图像文件"
 
-#: odio/tagdialog.py:255
+#: odio/tagdialog.py:294
 msgid "This does not appear to be a valid JPEG image"
 msgstr ""
 
-#: odio/tagdialog.py:256
+#: odio/tagdialog.py:295
 msgid "Image format error"
 msgstr ""
 
-#: odio/tagdialog.py:509
+#: odio/tagdialog.py:548
 msgid "Convert to title case"
 msgstr "把大小写转换成英文标题的样子"
 
-#: odio/tagdialog.py:520
+#: odio/tagdialog.py:559
 msgid "Insert filename"
 msgstr "插入文件名"
 
@@ -560,34 +516,30 @@ msgstr "插入文件名"
 msgid "and {rowcount} more"
 msgstr ""
 
-#: data/usr/bin/odio:191
-msgid "Compress selected files using the encoder from the menu"
-msgstr "使用菜单中的编码器压缩选择的文件"
-
-#: data/usr/bin/odio:264
+#: data/usr/bin/odio:251
 msgid "The program is working. Are you sure you want to quit?"
 msgstr "项目正在运行。您确定要退出吗？"
 
-#: data/usr/bin/odio:437
+#: data/usr/bin/odio:424
 msgid "Odio encountered one or more warnings"
 msgstr "Odio 遇到了一个或多个有概率出错之处"
 
-#: data/usr/bin/odio:518
+#: data/usr/bin/odio:505
 #, python-brace-format
 msgid "Analysing {fileName}"
 msgstr "正在解析 {fileName}"
 
-#: data/usr/bin/odio:524 data/usr/bin/odio:530 data/usr/bin/odio:842
+#: data/usr/bin/odio:511 data/usr/bin/odio:517 data/usr/bin/odio:811
 #, python-brace-format
 msgid "Decoding {fileName}"
 msgstr "正在对 {fileName} 解码"
 
-#: data/usr/bin/odio:554
+#: data/usr/bin/odio:531
 #, python-brace-format
 msgid "Compressing {fileName}"
 msgstr "正在压缩 {fileName}"
 
-#: data/usr/bin/odio:667
+#: data/usr/bin/odio:636
 msgid ""
 "Your temporary files directory has only {:.2f} GB of free space left. "
 "Running out of space can cause nasty things.\n"
@@ -595,33 +547,69 @@ msgid ""
 "Continue adding files?"
 msgstr ""
 
-#: data/usr/bin/odio:682
+#: data/usr/bin/odio:651
 msgid "Open audio files"
 msgstr "打开音频文件"
 
-#: data/usr/bin/odio:801
+#: data/usr/bin/odio:770
 #, python-brace-format
 msgid ""
 "The audio file refernced in {fileName} does not exist. You can attempt to "
 "fix it by editing the \"FILE\" line manually."
 msgstr ""
 
-#: data/usr/bin/odio:860
+#: data/usr/bin/odio:829
 msgid "This file does not seem to be an SACD source."
 msgstr ""
 
-#: data/usr/bin/odio:1022
+#: data/usr/bin/odio:990
 #, python-brace-format
 msgid "Playing {fileName}"
 msgstr "正在播放 {fileName}"
 
-#: data/usr/share/applications/odio.desktop:3
+#: data/usr/share/applications/odio.desktop:2
 msgid "Odio"
 msgstr ""
 
-#: data/usr/share/applications/odio.desktop:4
-msgid "Audio compression tool for FLAC and Nero AAC"
+#: data/usr/share/applications/odio.desktop:3
+msgid "Audio compression tool for FLAC"
 msgstr ""
+
+#~ msgid "Compress selected files using the method specified in Settings"
+#~ msgstr "使用“设置”中指定的方法，压缩选择的文件"
+
+#~ msgid "Compress..."
+#~ msgstr "正在压缩……"
+
+#~ msgid "AAC"
+#~ msgstr "AAC"
+
+#~ msgid "FLAC"
+#~ msgstr "FLAC"
+
+#~ msgid "Auto"
+#~ msgstr "自动切换"
+
+#~ msgid ""
+#~ "All 16-bit 44.1 KHz stereo files will be compressed to AAC, while all HD "
+#~ "audio (files with more than 16 bits per sample, files whose samplerate is "
+#~ "higher than 44100 Hz, as well as multichannel files) will be compressed "
+#~ "to FLAC."
+#~ msgstr ""
+#~ "16 位的 44.1 KHz 的立体声压缩为 AAC 格式，高保真音频（量化位数多于 16 的、"
+#~ "采样率高于 44100 Hz 的，以及多音轨的）压缩为 FLAC 格式。"
+
+#~ msgid "All selected files will be compressed to AAC."
+#~ msgstr "所有选择的文件压缩为 AAC 格式。"
+
+#~ msgid "All selected files will be compressed to FLAC."
+#~ msgstr "所有选择的文件压缩为 FLAC 格式。"
+
+#~ msgid "Compress button default action"
+#~ msgstr "“压缩”按钮的默认功能"
+
+#~ msgid "Compress selected files using the encoder from the menu"
+#~ msgstr "使用菜单中的编码器压缩选择的文件"
 
 #, python-brace-format
 #~ msgid "Failed to open {filepath}"

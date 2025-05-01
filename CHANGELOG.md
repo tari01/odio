@@ -1,3 +1,8 @@
+# 25.5.1
+
+ - Translated using Weblate (Russian) (79f6e11)
+ - odio/tagdialog.py: Fix DOM parsing function (3d60d0f)
+
 # 25.4.1
 
  - odio/tagdialog.py: Handle missing DOM elements (fa4fbaa)

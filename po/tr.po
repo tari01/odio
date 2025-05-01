@@ -7,11 +7,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: odio\n"
 "Report-Msgid-Bugs-To: https://github.com/tari01/odio/issues\n"
-"POT-Creation-Date: 2023-11-01 11:54+0100\n"
+"POT-Creation-Date: 2025-03-26 23:09+0100\n"
 "PO-Revision-Date: 2023-11-07 18:36+0000\n"
 "Last-Translator: Oğuz Ersen <oguz@ersen.moe>\n"
-"Language-Team: Turkish <https://hosted.weblate.org/projects/odio/master/tr/>"
-"\n"
+"Language-Team: Turkish <https://hosted.weblate.org/projects/odio/master/tr/"
+">\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -88,12 +88,12 @@ msgid "Edit audio"
 msgstr "Sesi düzenle"
 
 #: data/usr/share/odio/odio.glade:203
-msgid "Compress selected files using the method specified in Settings"
-msgstr "Seçilen dosyaları Ayarlarda belirtilen şekilde sıkıştır"
+msgid "Compress selected files"
+msgstr ""
 
 #: data/usr/share/odio/odio.glade:204
-msgid "Compress..."
-msgstr "Sıkıştır..."
+msgid "Compress"
+msgstr ""
 
 #: data/usr/share/odio/odio.glade:228
 msgid "View the list of compressed titles"
@@ -187,36 +187,18 @@ msgid "Comment"
 msgstr "Yorum"
 
 #: data/usr/share/odio/odio.glade:650
-msgid "Compress selected files using the Nero AAC encoder"
-msgstr "Seçilen dosyaları Nero AAC encoder kullanarak sıkıştır"
-
-#: data/usr/share/odio/odio.glade:651
-#: data/usr/share/odio/settingsdialog.glade:232
-msgid "AAC"
-msgstr "AAC"
-
-#: data/usr/share/odio/odio.glade:661
-msgid "Compress selected files using the FLAC encoder"
-msgstr "Seçilen dosyaları FLAC encoder kullanarak sıkıştır"
-
-#: data/usr/share/odio/odio.glade:662
-#: data/usr/share/odio/settingsdialog.glade:250
-msgid "FLAC"
-msgstr "FLAC"
-
-#: data/usr/share/odio/odio.glade:676
 msgid "Play the first 10 seconds of selected files"
 msgstr "Seçilen dosyaların ilk 10 saniyelerini oynat"
 
-#: data/usr/share/odio/odio.glade:677
+#: data/usr/share/odio/odio.glade:651
 msgid "First 10 seconds"
 msgstr "İlk 10 saniye"
 
-#: data/usr/share/odio/odio.glade:686
+#: data/usr/share/odio/odio.glade:660
 msgid "Play the last 10 seconds of selected files"
 msgstr "Seçilen dosyaların son 10 saniyelerini oynat"
 
-#: data/usr/share/odio/odio.glade:687
+#: data/usr/share/odio/odio.glade:661
 msgid "Last 10 seconds"
 msgstr "Son 10 saniye"
 
@@ -252,98 +234,70 @@ msgstr "Kanal eşleme"
 msgid "Base folders"
 msgstr "Ana klasörler"
 
-#: data/usr/share/odio/settingsdialog.glade:162
-msgid "Source folder"
-msgstr "Kaynak klasör"
-
-#: data/usr/share/odio/settingsdialog.glade:166
-msgid "Temporary files will be saved in the source file's directory."
-msgstr "Geçici dosyalar kaynak dosya dizinine kaydedilecek."
-
-#: data/usr/share/odio/settingsdialog.glade:180
-msgid "/tmp"
-msgstr "/tmp"
-
-#: data/usr/share/odio/settingsdialog.glade:184
-msgid "Temporary files will be saved in \"/tmp\"."
-msgstr "Geçici dosyalar \"/tmp\" konumuna kaydedilecek."
-
-#: data/usr/share/odio/settingsdialog.glade:202
-msgid "Temporary files location"
-msgstr "Geçici dosyaların konumu"
-
-#: data/usr/share/odio/settingsdialog.glade:214
-msgid "Auto"
-msgstr "Otomatik"
-
-#: data/usr/share/odio/settingsdialog.glade:218
-msgid ""
-"All 16-bit 44.1 KHz stereo files will be compressed to AAC, while all HD "
-"audio (files with more than 16 bits per sample, files whose samplerate is "
-"higher than 44100 Hz, as well as multichannel files) will be compressed to "
-"FLAC."
-msgstr ""
-"Bütün 16-bit 44.1 KHz çift kanallı dosyalar AAC biçiminde sıkıştırılacak, "
-"diğer HD ses dosyaları ise (örnek başı 16 bitten fazla olan dosyalar, "
-"örnekleme hızı 44100Hz'den fazla olan dosyalar, çok kanallı dosyalar) FLAC "
-"biçiminde sıkıştırılacak."
-
-#: data/usr/share/odio/settingsdialog.glade:236
-msgid "All selected files will be compressed to AAC."
-msgstr "Bütün seçilen dosyalar AAC biçiminde sıkıştırılacak."
-
-#: data/usr/share/odio/settingsdialog.glade:254
-msgid "All selected files will be compressed to FLAC."
-msgstr "Bütün seçilen dosyalar FLAC biçiminde sıkıştırılacak."
-
-#: data/usr/share/odio/settingsdialog.glade:272
-msgid "Compress button default action"
-msgstr "Sıkıştır düğmesi öntanımlı eylemi"
-
-#: data/usr/share/odio/settingsdialog.glade:284
+#: data/usr/share/odio/settingsdialog.glade:150
 msgid "Check fake stereo"
 msgstr "Sahte çift kanalı denetle"
 
-#: data/usr/share/odio/settingsdialog.glade:288
+#: data/usr/share/odio/settingsdialog.glade:154
 msgid "Save 2.0 files as 1.0 if the channels contain identical data"
 msgstr "Kanallar aynı verileri içeriyorsa 2.0 dosyalarını 1.0 olarak kaydet"
 
-#: data/usr/share/odio/settingsdialog.glade:299
+#: data/usr/share/odio/settingsdialog.glade:165
 msgid "Remove silent channels"
 msgstr "Sessiz kanalları sil"
 
-#: data/usr/share/odio/settingsdialog.glade:303
+#: data/usr/share/odio/settingsdialog.glade:169
 msgid "Remove channels that contain no audio data"
 msgstr "Ses verisi içermeyen kanalları kaldır"
 
-#: data/usr/share/odio/settingsdialog.glade:319
-msgid "Tag dialog options"
-msgstr "Etiket iletişim kutusu seçenekleri"
-
-#: data/usr/share/odio/settingsdialog.glade:331
-msgid "Automatically title-case track names"
-msgstr "Şarkı adlarını otomatik olarak başlık büyüklüğüne dönüştür"
-
-#: data/usr/share/odio/settingsdialog.glade:335
-msgid "Reformat the track name field to title case whenever it changes"
-msgstr ""
-"Şarkı adı alanı her değiştiğinde başlık büyüklüğünde yeniden biçimlendir"
-
-#: data/usr/share/odio/settingsdialog.glade:357
+#: data/usr/share/odio/settingsdialog.glade:191
 msgid "Add new folder"
 msgstr "Yeni klasör ekle"
 
-#: data/usr/share/odio/settingsdialog.glade:372
+#: data/usr/share/odio/settingsdialog.glade:206
 msgid "Remove selected folder"
 msgstr "Seçilen klasörü kaldır"
 
-#: data/usr/share/odio/settingsdialog.glade:387
+#: data/usr/share/odio/settingsdialog.glade:221
 msgid "Make selected folder the default"
 msgstr "Seçilen klasörü öntanımlı yap"
 
-#: data/usr/share/odio/settingsdialog.glade:420
+#: data/usr/share/odio/settingsdialog.glade:254
 msgid "column"
 msgstr "sütun"
+
+#: data/usr/share/odio/settingsdialog.glade:285
+msgid "Temporary files location"
+msgstr "Geçici dosyaların konumu"
+
+#: data/usr/share/odio/settingsdialog.glade:297
+msgid "/tmp"
+msgstr "/tmp"
+
+#: data/usr/share/odio/settingsdialog.glade:301
+msgid "Temporary files will be saved in \"/tmp\"."
+msgstr "Geçici dosyalar \"/tmp\" konumuna kaydedilecek."
+
+#: data/usr/share/odio/settingsdialog.glade:315
+msgid "Source folder"
+msgstr "Kaynak klasör"
+
+#: data/usr/share/odio/settingsdialog.glade:319
+msgid "Temporary files will be saved in the source file's directory."
+msgstr "Geçici dosyalar kaynak dosya dizinine kaydedilecek."
+
+#: data/usr/share/odio/settingsdialog.glade:337
+msgid "Tag dialog options"
+msgstr "Etiket iletişim kutusu seçenekleri"
+
+#: data/usr/share/odio/settingsdialog.glade:349
+msgid "Automatically title-case track names"
+msgstr "Şarkı adlarını otomatik olarak başlık büyüklüğüne dönüştür"
+
+#: data/usr/share/odio/settingsdialog.glade:353
+msgid "Reformat the track name field to title case whenever it changes"
+msgstr ""
+"Şarkı adı alanı her değiştiğinde başlık büyüklüğünde yeniden biçimlendir"
 
 #: data/usr/share/odio/streamsdialog.glade:31
 msgid "Audio streams"
@@ -514,8 +468,8 @@ msgstr ""
 "SACD çok ve çift kanallı alanlarının kayıt sayısı farklıydı: her ikisi de "
 "çıkarıldı."
 
-#: odio/sacd.py:86 data/usr/bin/odio:212 data/usr/bin/odio:403
-#: data/usr/bin/odio:1003 data/usr/bin/odio:1106
+#: odio/sacd.py:86 data/usr/bin/odio:210 data/usr/bin/odio:390
+#: data/usr/bin/odio:971 data/usr/bin/odio:1074
 msgid "Ready"
 msgstr "Hazır"
 
@@ -524,7 +478,7 @@ msgstr "Hazır"
 msgid "Failed to decode {filepath}"
 msgstr "{filepath} çözülemedi"
 
-#: odio/settingsdialog.py:81
+#: odio/settingsdialog.py:72
 msgid "Add a base folder"
 msgstr "Ana klasör ekle"
 
@@ -533,35 +487,35 @@ msgstr "Ana klasör ekle"
 msgid "Disc {path} contains no LPCM audio"
 msgstr "{path} diski LPCM ses içermiyor"
 
-#: odio/tagdialog.py:79
+#: odio/tagdialog.py:104
 msgid "No allmusic.com page address found on the clipboard"
 msgstr "Panoda allmusic.com adresi bulunamadı"
 
-#: odio/tagdialog.py:217
+#: odio/tagdialog.py:256
 msgid "Not all tracks got tracknames"
 msgstr "Tüm şarkıların şarkı adı yok"
 
-#: odio/tagdialog.py:228
+#: odio/tagdialog.py:267
 msgid "Error parsing web page"
 msgstr "İnternet sitesi çözümleme hatası"
 
-#: odio/tagdialog.py:234
+#: odio/tagdialog.py:273
 msgid "Select an image file"
 msgstr "Bir görüntü dosyası seçin"
 
-#: odio/tagdialog.py:255
+#: odio/tagdialog.py:294
 msgid "This does not appear to be a valid JPEG image"
 msgstr "Bu geçerli bir JPEG görüntüsü gibi görünmüyor"
 
-#: odio/tagdialog.py:256
+#: odio/tagdialog.py:295
 msgid "Image format error"
 msgstr "Görüntü biçimi hatası"
 
-#: odio/tagdialog.py:509
+#: odio/tagdialog.py:548
 msgid "Convert to title case"
 msgstr "Başlık büyüklüğüne dönüştür"
 
-#: odio/tagdialog.py:520
+#: odio/tagdialog.py:559
 msgid "Insert filename"
 msgstr "Dosya adı girin"
 
@@ -570,34 +524,30 @@ msgstr "Dosya adı girin"
 msgid "and {rowcount} more"
 msgstr "ve {rowcount} dahası"
 
-#: data/usr/bin/odio:191
-msgid "Compress selected files using the encoder from the menu"
-msgstr "Menüdeki encoderi kullanarak seçimdeki dosyaları sıkıştır"
-
-#: data/usr/bin/odio:264
+#: data/usr/bin/odio:251
 msgid "The program is working. Are you sure you want to quit?"
 msgstr "Program hala çalışıyor. Çıkmak istediğinizden emin misiniz?"
 
-#: data/usr/bin/odio:437
+#: data/usr/bin/odio:424
 msgid "Odio encountered one or more warnings"
 msgstr "Odio bir veya birden fazla uyarı ile karşılaştı"
 
-#: data/usr/bin/odio:518
+#: data/usr/bin/odio:505
 #, python-brace-format
 msgid "Analysing {fileName}"
 msgstr "{fileName} çözümleniyor"
 
-#: data/usr/bin/odio:524 data/usr/bin/odio:530 data/usr/bin/odio:842
+#: data/usr/bin/odio:511 data/usr/bin/odio:517 data/usr/bin/odio:811
 #, python-brace-format
 msgid "Decoding {fileName}"
 msgstr "{fileName} çözülüyor"
 
-#: data/usr/bin/odio:554
+#: data/usr/bin/odio:531
 #, python-brace-format
 msgid "Compressing {fileName}"
 msgstr "{fileName} sıkıştırılıyor"
 
-#: data/usr/bin/odio:667
+#: data/usr/bin/odio:636
 msgid ""
 "Your temporary files directory has only {:.2f} GB of free space left. "
 "Running out of space can cause nasty things.\n"
@@ -609,11 +559,11 @@ msgstr ""
 "\n"
 "Dosya eklemeye devam edilsin mi?"
 
-#: data/usr/bin/odio:682
+#: data/usr/bin/odio:651
 msgid "Open audio files"
 msgstr "Ses dosyası aç"
 
-#: data/usr/bin/odio:801
+#: data/usr/bin/odio:770
 #, python-brace-format
 msgid ""
 "The audio file refernced in {fileName} does not exist. You can attempt to "
@@ -622,22 +572,69 @@ msgstr ""
 "{fileName} adresinde belirtilen ses dosyası yok. \"FILE\" satırını elle "
 "düzenleyerek düzeltmeyi deneyebilirsiniz."
 
-#: data/usr/bin/odio:860
+#: data/usr/bin/odio:829
 msgid "This file does not seem to be an SACD source."
 msgstr "Bu dosya bir SACD kaynağı gibi görünmüyor."
 
-#: data/usr/bin/odio:1022
+#: data/usr/bin/odio:990
 #, python-brace-format
 msgid "Playing {fileName}"
 msgstr "{fileName} oynatılıyor"
 
-#: data/usr/share/applications/odio.desktop:3
+#: data/usr/share/applications/odio.desktop:2
 msgid "Odio"
 msgstr "Odio"
 
-#: data/usr/share/applications/odio.desktop:4
-msgid "Audio compression tool for FLAC and Nero AAC"
-msgstr "FLAC ve Nero AAC için ses sıkıştırma aracı"
+#: data/usr/share/applications/odio.desktop:3
+msgid "Audio compression tool for FLAC"
+msgstr ""
+
+#~ msgid "Compress selected files using the method specified in Settings"
+#~ msgstr "Seçilen dosyaları Ayarlarda belirtilen şekilde sıkıştır"
+
+#~ msgid "Compress..."
+#~ msgstr "Sıkıştır..."
+
+#~ msgid "Compress selected files using the Nero AAC encoder"
+#~ msgstr "Seçilen dosyaları Nero AAC encoder kullanarak sıkıştır"
+
+#~ msgid "AAC"
+#~ msgstr "AAC"
+
+#~ msgid "Compress selected files using the FLAC encoder"
+#~ msgstr "Seçilen dosyaları FLAC encoder kullanarak sıkıştır"
+
+#~ msgid "FLAC"
+#~ msgstr "FLAC"
+
+#~ msgid "Auto"
+#~ msgstr "Otomatik"
+
+#~ msgid ""
+#~ "All 16-bit 44.1 KHz stereo files will be compressed to AAC, while all HD "
+#~ "audio (files with more than 16 bits per sample, files whose samplerate is "
+#~ "higher than 44100 Hz, as well as multichannel files) will be compressed "
+#~ "to FLAC."
+#~ msgstr ""
+#~ "Bütün 16-bit 44.1 KHz çift kanallı dosyalar AAC biçiminde sıkıştırılacak, "
+#~ "diğer HD ses dosyaları ise (örnek başı 16 bitten fazla olan dosyalar, "
+#~ "örnekleme hızı 44100Hz'den fazla olan dosyalar, çok kanallı dosyalar) "
+#~ "FLAC biçiminde sıkıştırılacak."
+
+#~ msgid "All selected files will be compressed to AAC."
+#~ msgstr "Bütün seçilen dosyalar AAC biçiminde sıkıştırılacak."
+
+#~ msgid "All selected files will be compressed to FLAC."
+#~ msgstr "Bütün seçilen dosyalar FLAC biçiminde sıkıştırılacak."
+
+#~ msgid "Compress button default action"
+#~ msgstr "Sıkıştır düğmesi öntanımlı eylemi"
+
+#~ msgid "Compress selected files using the encoder from the menu"
+#~ msgstr "Menüdeki encoderi kullanarak seçimdeki dosyaları sıkıştır"
+
+#~ msgid "Audio compression tool for FLAC and Nero AAC"
+#~ msgstr "FLAC ve Nero AAC için ses sıkıştırma aracı"
 
 #, python-brace-format
 #~ msgid "Failed to open {filepath}"
