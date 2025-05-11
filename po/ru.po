@@ -8,16 +8,16 @@ msgstr ""
 "Project-Id-Version: odio\n"
 "Report-Msgid-Bugs-To: https://github.com/tari01/odio/issues\n"
 "POT-Creation-Date: 2025-03-26 23:09+0100\n"
-"PO-Revision-Date: 2025-04-28 06:01+0000\n"
+"PO-Revision-Date: 2025-05-12 10:01+0000\n"
 "Last-Translator: Sergey Ponomarev <stokito@gmail.com>\n"
-"Language-Team: Russian <https://hosted.weblate.org/projects/odio/master/ru/"
-">\n"
+"Language-Team: Russian <https://hosted.weblate.org/projects/odio/master/ru/>"
+"\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Weblate 5.12-dev\n"
 
 #: data/usr/share/odio/errordialog.glade:13
@@ -90,11 +90,11 @@ msgstr "Редактировать аудио"
 
 #: data/usr/share/odio/odio.glade:203
 msgid "Compress selected files"
-msgstr ""
+msgstr "Сжать выбранные файлы"
 
 #: data/usr/share/odio/odio.glade:204
 msgid "Compress"
-msgstr ""
+msgstr "Сжать"
 
 #: data/usr/share/odio/odio.glade:228
 msgid "View the list of compressed titles"
@@ -159,7 +159,7 @@ msgstr "Треков"
 
 #: data/usr/share/odio/odio.glade:476 data/usr/share/odio/tagdialog.glade:248
 msgid "Album artist"
-msgstr "Альбом"
+msgstr "Исполнитель альбома"
 
 #: data/usr/share/odio/odio.glade:489 data/usr/share/odio/tagdialog.glade:285
 msgid "Artist"
@@ -584,7 +584,7 @@ msgstr "Odio"
 
 #: data/usr/share/applications/odio.desktop:3
 msgid "Audio compression tool for FLAC"
-msgstr ""
+msgstr "Инструмент сжатия аудио для FLAC"
 
 #~ msgid "Compress selected files using the method specified in Settings"
 #~ msgstr ""
