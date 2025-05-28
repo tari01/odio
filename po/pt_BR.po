@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: odio\n"
 "Report-Msgid-Bugs-To: https://github.com/tari01/odio/issues\n"
 "POT-Creation-Date: 2025-03-26 23:09+0100\n"
-"PO-Revision-Date: 2024-04-06 12:01+0000\n"
-"Last-Translator: Paulo Guzmán <white.hat@msn.com>\n"
+"PO-Revision-Date: 2025-05-29 01:01+0000\n"
+"Last-Translator: Luiz Carlos Lucasv <csversut@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/odio/"
 "master/pt_BR/>\n"
 "Language: pt_BR\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 5.5-dev\n"
+"X-Generator: Weblate 5.12-dev\n"
 
 #: data/usr/share/odio/errordialog.glade:13
 msgid "Odio encountered one or more errors"
@@ -89,11 +89,11 @@ msgstr "Editar áudio"
 
 #: data/usr/share/odio/odio.glade:203
 msgid "Compress selected files"
-msgstr ""
+msgstr "Compactar os arquivos selecionados"
 
 #: data/usr/share/odio/odio.glade:204
 msgid "Compress"
-msgstr ""
+msgstr "Comprimir"
 
 #: data/usr/share/odio/odio.glade:228
 msgid "View the list of compressed titles"
@@ -591,7 +591,7 @@ msgstr "Odio"
 
 #: data/usr/share/applications/odio.desktop:3
 msgid "Audio compression tool for FLAC"
-msgstr ""
+msgstr "Ferramenta de compressão de áudio para FLAC"
 
 #~ msgid "Compress selected files using the method specified in Settings"
 #~ msgstr ""
