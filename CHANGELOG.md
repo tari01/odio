@@ -1,3 +1,8 @@
+# 25.6.1
+
+ - Translated using Weblate (Portuguese (Brazil)) (9597d37)
+ - Translated using Weblate (Russian) (e82df65)
+
 # 25.5.1
 
  - Translated using Weblate (Russian) (79f6e11)
