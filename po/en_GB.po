@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: odio 17.3.13\n"
 "Report-Msgid-Bugs-To: https://github.com/tari01/odio/issues\n"
 "POT-Creation-Date: 2025-03-26 23:09+0100\n"
-"PO-Revision-Date: 2024-08-19 14:09+0000\n"
+"PO-Revision-Date: 2025-06-17 14:02+0000\n"
 "Last-Translator: Andi Chandler <andi@gowling.com>\n"
 "Language-Team: English (United Kingdom) <https://hosted.weblate.org/projects/"
 "odio/master/en_GB/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.7\n"
+"X-Generator: Weblate 5.12.1\n"
 
 #: data/usr/share/odio/errordialog.glade:13
 msgid "Odio encountered one or more errors"
@@ -89,11 +89,11 @@ msgstr "Edit audio"
 
 #: data/usr/share/odio/odio.glade:203
 msgid "Compress selected files"
-msgstr ""
+msgstr "Compress selected files"
 
 #: data/usr/share/odio/odio.glade:204
 msgid "Compress"
-msgstr ""
+msgstr "Compress"
 
 #: data/usr/share/odio/odio.glade:228
 msgid "View the list of compressed titles"
@@ -585,7 +585,7 @@ msgstr "Odio"
 
 #: data/usr/share/applications/odio.desktop:3
 msgid "Audio compression tool for FLAC"
-msgstr ""
+msgstr "Audio compression tool for FLAC"
 
 #~ msgid "Compress selected files using the method specified in Settings"
 #~ msgstr "Compress selected files using the method specified in Settings"
