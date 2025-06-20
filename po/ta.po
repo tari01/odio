@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: odio\n"
 "Report-Msgid-Bugs-To: https://github.com/tari01/odio/issues\n"
 "POT-Creation-Date: 2025-03-26 23:09+0100\n"
-"PO-Revision-Date: 2025-01-23 15:05+0000\n"
+"PO-Revision-Date: 2025-06-21 03:04+0000\n"
 "Last-Translator: தமிழ்நேரம் <anishprabu.t@gmail.com>\n"
 "Language-Team: Tamil <https://hosted.weblate.org/projects/odio/master/ta/>\n"
 "Language: ta\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.10-dev\n"
+"X-Generator: Weblate 5.13-dev\n"
 
 #: data/usr/share/odio/errordialog.glade:13
 msgid "Odio encountered one or more errors"
@@ -88,11 +88,11 @@ msgstr "ஆடியோவைத் திருத்து"
 
 #: data/usr/share/odio/odio.glade:203
 msgid "Compress selected files"
-msgstr ""
+msgstr "தேர்ந்தெடுக்கப்பட்ட கோப்புகளை சுருக்கவும்"
 
 #: data/usr/share/odio/odio.glade:204
 msgid "Compress"
-msgstr ""
+msgstr "சுருக்க"
 
 #: data/usr/share/odio/odio.glade:228
 msgid "View the list of compressed titles"
@@ -563,8 +563,8 @@ msgid ""
 "The audio file refernced in {fileName} does not exist. You can attempt to "
 "fix it by editing the \"FILE\" line manually."
 msgstr ""
-"{கோப்பு பெயரில் குறிப்பிடப்பட்டுள்ள ஆடியோ கோப்பு இல்லை. \"கோப்பு\" வரியை கைமுறையாக "
-"திருத்துவதன் மூலம் அதை சரிசெய்ய முயற்சி செய்யலாம்."
+"{fileName}இல் குறிப்பிடப்பட்டுள்ள ஒலி கோப்பு இல்லை. \"கோப்பு\" வரியைக் கைமுறையாகத் "
+"திருத்துவதன் மூலம் அதைச் சரிசெய்ய முயற்சி செய்யலாம்."
 
 #: data/usr/bin/odio:829
 msgid "This file does not seem to be an SACD source."
@@ -581,7 +581,7 @@ msgstr "வெறுப்பு"
 
 #: data/usr/share/applications/odio.desktop:3
 msgid "Audio compression tool for FLAC"
-msgstr ""
+msgstr "FLAC க்கான ஆடியோ சுருக்க கருவி"
 
 #~ msgid "Compress selected files using the method specified in Settings"
 #~ msgstr ""
